@@ -1,5 +1,4 @@
 import './App.css';
-import Agents from './Agents/Agents';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from './Home/Home';
 import React from 'react';
@@ -17,7 +16,7 @@ function App() {
           <Route exact path = "/login">
             <Login></Login>
           </Route>
-          <Route>
+          <Route exact path = "/register">
             <Register></Register>
           </Route>
         </Switch>
