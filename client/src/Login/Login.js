@@ -7,6 +7,9 @@ import {Link, useHistory} from "react-router-dom";
 
 function Login(props) {
     const history = useHistory();
+    const [username, setUsername] = setState("");
+    const [password, setPassword] = setState("");
+    const [errors, setErrors] = setState([]);
 
     function loginHandler(event) {
         event.preventDefault();
@@ -25,8 +28,10 @@ function Login(props) {
         .then( response => {
             if( response.status === 200 ) {
                 return response.json();
+            } else if (response.status === 403){
+                setErrors(["Login failed."])
             } else {
-                console.log(response) //don't know how to handle errors
+                setErrors(["Unknown Error."])
             }
         })
         .then( jwtContainer => {
