@@ -1,15 +1,18 @@
-import React from "react";
+import React, {useState, useContext} from "react";
 import FormInput from "../FormInput/FormInput"
 import jwtDecode from 'jwt-decode';
 import {Link, useHistory} from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 
 
 function Login(props) {
+
+    const auth = useContext(AuthContext);
     const history = useHistory();
-    const [username, setUsername] = setState("");
-    const [password, setPassword] = setState("");
-    const [errors, setErrors] = setState([]);
+    // const [username, setUsername] = setState("");
+    // const [password, setPassword] = setState("");
+    // const [errors, setErrors] = setState([]);
 
     function loginHandler(event) {
         event.preventDefault();
@@ -29,9 +32,9 @@ function Login(props) {
             if( response.status === 200 ) {
                 return response.json();
             } else if (response.status === 403){
-                setErrors(["Login failed."])
+                // setErrors(["Login failed."])
             } else {
-                setErrors(["Unknown Error."])
+                // setErrors(["Unknown Error."])
             }
         })
         .then( jwtContainer => {
@@ -57,7 +60,13 @@ function Login(props) {
         <>
         <h2>Login</h2>
         <div>
-            <form onSubmit={loginHandler}>
+            {auth.user ? (
+                <>
+                <h3>You are already logged in!</h3>
+                <button onClick={() => auth.logout()}>Logout</button>
+                </>
+            ) : (
+                <form onSubmit={loginHandler}>
                 <FormInput
                 InputType = {"text"}
                 indentifier = {"username"}
@@ -77,6 +86,8 @@ function Login(props) {
                 </div>
     
             </form>
+            )}
+            
         </div>
     </>
     )

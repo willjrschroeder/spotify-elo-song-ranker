@@ -1,11 +1,11 @@
 import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Home from './Home/Home';
-import React from 'react';
 import Register from './Register/Register'
 import Login from './Login/Login'
 import AuthContext from './context/AuthContext';
 import jwtDecode from "jwt-decode";
+import React, {useState} from "react";
 
 function App() {
 
@@ -47,7 +47,7 @@ const auth = {
 
   return (
     <div className='App'>
-    <AuthContext.Provider value = {loginInfo}>
+    <AuthContext.Provider value = {auth}>
       <BrowserRouter>
           <Switch>
             <Route exact path = "/">

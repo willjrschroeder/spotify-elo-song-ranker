@@ -29,16 +29,20 @@ body {
     top: 40px;
     left: 90px;
     background-size: 400px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 5ch;
 
 }
 .login {
     color: #B14AED;
-    font-family: 'Courier New', Courier, monospace;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-decoration: none;
     font-size: 3ch;
     font-weight: 600;
     transition-duration: .3s;
+    position:absolute;
+    top: 40px;
+    right: 90px;
 }
 .login:hover {
     color:#E1BBC9 ;
