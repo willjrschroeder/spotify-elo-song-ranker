@@ -7,7 +7,7 @@ app_user_id int primary key auto_increment,
 username varChar(50) unique not null,
 password_hash varChar(200) not null,
 display_name varChar(200) not null,
-disabled bit not null default 1
+disabled bit not null default 0
 );
 
 create table app_role (
@@ -43,7 +43,7 @@ constraint fk_playlist_app_user_id
 create table track (
 track_uri varChar(200) primary key,
 title varChar(100) not null,
-ELO_score int default 1000 not null,
+elo_score int default 1000 not null,
 num_of_matches_played int default 0 not null,
 track_duration int not null,
 popularity_num int default -1,
