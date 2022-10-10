@@ -21,7 +21,7 @@ app_user_id int primary key auto_increment,
 username varChar(50) unique not null,
 password_hash varChar(200) not null,
 display_name varChar(200) not null,
-disabled bit not null default 1
+disabled bit not null default 0
 );
 
 create table app_role (
@@ -57,7 +57,7 @@ constraint fk_playlist_app_user_id
 create table track (
 track_uri varChar(200) primary key,
 title varChar(100) not null,
-ELO_score int default 1000 not null,
+elo_score int default 1000 not null,
 num_of_matches_played int default 0 not null,
 track_duration int not null,
 popularity_num int default -1,
@@ -136,3 +136,51 @@ constraint fk_genre_artist_genre_id
 	foreign key (genre_id)
     references genre(genre_id)
 );
+
+delimiter //
+create procedure set_known_good_state()
+begin
+	
+    -- This order may have to be altered depending on the order of inserts. deletion must satisfy FK restraints
+    delete from genre_artist;
+    delete from track_album;
+    delete from track_artist;
+    delete from genre;
+    alter table genre auto_increment = 1;
+    delete from album;
+    delete from artist;
+    delete from playlist_track;
+    delete from track;
+    delete from playlist;
+    delete from user_roles;
+    delete from app_role;
+    alter table app_role auto_increment = 1;
+    delete from app_user;
+    alter table app_user auto_increment = 1;
+    
+    insert into app_user (app_user_id, username, password_hash, display_name, disabled) values
+		-- all pw_hashes were generated w/ bcrypt using 10 rounds
+        
+        -- original pw was 'password'
+        -- this user has not been assigned a role
+		(1, 'testUsername', '$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy', 'John Smith', 0),
+        -- original pw was 'password2'
+        -- this user has the role of admin
+		(2, 'testUsername2', '$2a$10$AEDyRKVpyyI4XQyzfudtSeCmJN3u2DOG04ueHEI4bRA43rRjO3i1a', 'Jane Admin Smith', 0),
+        -- original pw was 'P@ssw3rd'
+        -- this user has the role of user
+		(3, 'testUsername3', '$2a$10$Y2GsuViVefCtNy1puv4XhOArHAamTPZByEf2XfUsqdjXNu9VJix8q', 'George User Smith', 0);
+        
+	insert into app_role (app_role_id, role_name) values
+		(1, 'user'),
+        (2, 'admin');
+        
+	insert into user_roles (app_user_id, app_role_id) values
+		(2, 2),
+        (3, 1);
+        
+end //
+
+delimiter ;
+
+call set_known_good_state();
