@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/security")
+@RequestMapping("/api/security")
 public class AuthController {
 
     // authentication endpoint. Can be used with no permissions and takes in a username and password as a credentials
