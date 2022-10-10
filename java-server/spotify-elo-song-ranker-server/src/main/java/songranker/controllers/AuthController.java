@@ -46,5 +46,6 @@ public class AuthController {
         } catch (AuthenticationException ex) {
             System.out.println(ex);
         }
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }
