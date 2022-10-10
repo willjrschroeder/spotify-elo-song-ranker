@@ -1,8 +1,14 @@
 package songranker.models;
 
 
-public class AppUser {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class AppUser extends User {
     private int appUserId;
 
     private String username;
@@ -12,6 +18,11 @@ public class AppUser {
     private String displayName;
 
     private boolean disabled;
+
+    // AppUser constructor. Fills out the custom field variables and satisfies the constructor
+    public AppUser( int appUserId, String username, String passwordHash, String displayName, boolean disabled, List<AppRole> roles  ){  // this will work once we add an AppRole class
+        super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList())); // AppRole needs a method for getAuthority
+    }
 
     public int getAppUserId() {
         return appUserId;
