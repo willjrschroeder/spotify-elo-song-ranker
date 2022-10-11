@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter, Route, Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import LandingPage from './LandingPage/LandingPage';
 import Register from './Register/Register'
 import Login from './Login/Login'
