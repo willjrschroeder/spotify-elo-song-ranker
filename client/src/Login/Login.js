@@ -70,13 +70,13 @@ function Login(props) {
                 InputType = {"text"}
                 indentifier = {"username"}
                 labelText = {"Username"}
-                onChangeHandler = {"inputChangeHandler"}/>
+                onChangeHandler = {(event) => setUsername(event.target.value)}/>
     
                 <FormInput
                 InputType = {"text"}
                 indentifier = {"password"}
                 labelText = {"Password"}
-                onChangeHandler = {"inputChangeHandler"}/>
+                onChangeHandler = {(event) => setPassword(event.target.value)}/>
                 
                 <div>
                     <button>Log In</button>
