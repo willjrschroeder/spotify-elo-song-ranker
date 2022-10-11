@@ -31,7 +31,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
     }
 
     @Override
-    public AppUser add(AppUser appUser){
+    public AppUser createUser(AppUser appUser){
 
         final String sql = "insert into app_user (username, password_hash, display_name, disabled) "
                 + "values (?,?,?,?);";

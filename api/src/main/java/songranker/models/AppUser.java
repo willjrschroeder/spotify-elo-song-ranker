@@ -4,6 +4,8 @@ package songranker.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,8 +24,8 @@ public class AppUser extends User {
     private List<AppRole> roles;
 
     // AppUser constructor. Fills out the custom field variables and satisfies the constructor
-    public AppUser( int appUserId, String username, String passwordHash, String displayName, boolean disabled, List<AppRole> roles  ){  // this will work once we add an AppRole class
-        super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList())); // AppRole needs a method for getAuthority
+    public AppUser( int appUserId, String username, String passwordHash, String displayName, boolean disabled, List<AppRole> roles  ){
+        super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList()));
         this.appUserId = appUserId;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -32,9 +34,10 @@ public class AppUser extends User {
         this.disabled = disabled;
     }
 
-    public AppUser( String username, String passwordHash, String displayName, boolean disabled){  // this will work once we add an AppRole class
-        super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList())); // AppRole needs a method for getAuthority
-        this.appUserId = appUserId;
+    // This constructor creates a PH AppUser without an ID. Used for creating a new AppUser in the DB
+    public AppUser( String username, String passwordHash, String displayName, boolean disabled, List<AppRole> roles){
+        super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList()));
+
         this.username = username;
         this.passwordHash = passwordHash;
         this.roles = roles;

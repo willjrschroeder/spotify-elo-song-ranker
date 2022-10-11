@@ -8,9 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import songranker.data.mappers.AppUserJdbcRepo;
 import songranker.data.mappers.AppUserRepo;
+import songranker.models.AppRole;
 import songranker.models.AppUser;
 
 import javax.xml.bind.ValidationException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -39,8 +41,13 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
         password = encoder.encode(password);
 
-        AppUser userToCreate = new AppUser(username, password, displayName, false);
+        AppRole role = new AppRole();
+        role.setRoleName("user");
+        List<AppRole> roles = Arrays.asList(role); // This just creates an empty list of roles to satisfy the super
+                                                  // constructor. Not used by the repository method that writes to the DB
 
+        AppUser userToCreate = new AppUser(username, password, displayName, false, roles);
+        return repo.createUser(userToCreate); // returns a FH user from the repo
     }
 
     private void validateUsername(String username) throws ValidationException { //TODO: Add validation to ensure duplicate usernames are not allowed
