@@ -55,7 +55,7 @@ class AppUserJdbcRepoTest {
                 "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy", "Test Create", false, roles);
 
 
-        AppUser toTest = repo.add(toAdd);
+        AppUser toTest = repo.createUser(toAdd);
 
         assertNotNull(toTest);
 

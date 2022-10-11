@@ -32,6 +32,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
     @Override
     public AppUser createUser(AppUser appUser){
+        //TODO: write to the user_roles bridge table after writing the user to the DB. Give new user role of 'user'. Done with @Transactional in case one of the writings fail
 
         final String sql = "insert into app_user (username, password_hash, display_name, disabled) "
                 + "values (?,?,?,?);";

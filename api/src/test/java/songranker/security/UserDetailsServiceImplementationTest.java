@@ -10,6 +10,7 @@ import songranker.data.mappers.AppUserRepo;
 import songranker.models.AppRole;
 import songranker.models.AppUser;
 
+import javax.xml.bind.ValidationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -59,6 +60,30 @@ class UserDetailsServiceImplementationTest {
         } catch (UsernameNotFoundException ex) {
             assert true;
         }
+    }
+
+    @Test
+    void shouldCreateNewUser() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "password", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        AppUser actual = service.createUser("testUsername", "password", "John Smith");
+
+        assertEquals(1, actual.getAppUserId());
+        assertEquals("testUsername", actual.getUsername());
+        assertEquals("John Smith", actual.getDisplayName());
+        assertEquals("$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy", actual.getPasswordHash());
+        assertEquals("[user]", actual.getAuthorities().toString());
     }
 
 }
