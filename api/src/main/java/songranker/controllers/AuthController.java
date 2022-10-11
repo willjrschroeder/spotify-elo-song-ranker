@@ -1,5 +1,6 @@
 package songranker.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import songranker.models.AppUser;
+import songranker.security.JwtConverter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,9 @@ public class AuthController {
     public AuthController(AuthenticationManager authManager) {
         this.authManager = authManager;
     }
+
+    @Autowired
+    JwtConverter converter; // obj for converting JWT tokens to users and vice a versa
 
     // Post mapping for the authentication endpoint. Can be used with no permissions and takes in a username and
     // password as a credentials request body. Returns HTTP status with a JWT Token
@@ -45,9 +50,11 @@ public class AuthController {
 
             // We need to build a token using our JwtConverter, passing in the user
             // This token can then get returned to the front end
+            String token = converter.buildJwt(user);
 
             if (authentication.isAuthenticated()) {
                 HashMap<String, String> tokenHolder = new HashMap<>(); // this should contain a "jwt_token" => `token` eventually
+                tokenHolder.put("jwt_token", token);
                 return new ResponseEntity<>(tokenHolder, HttpStatus.OK);
             }
 
