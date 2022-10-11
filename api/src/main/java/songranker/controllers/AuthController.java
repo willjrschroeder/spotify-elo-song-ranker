@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,10 +43,10 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(credentials.get("username"), credentials.get("password"));
 
         try {
-            // attempts to authenticate our credentials with the authManager.
-            Authentication authentication = authManager.authenticate(authToken); // uses user credentials to get user details
+            // attempts to authenticate user credentials with the authManager.
+            Authentication authentication = authManager.authenticate(authToken);
 
-            AppUser user = (AppUser)authentication.getPrincipal(); // gets an AppUser from the user details
+            AppUser user = (AppUser)authentication.getPrincipal(); // gets an AppUser from the authentication details
             SecurityContextHolder.getContext().setAuthentication(authentication); // sets authentication for the request
                                                                                   // from the user's roles
 
@@ -62,5 +63,14 @@ public class AuthController {
             System.out.println(ex);
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+    }
+
+    // Post mapping for the token refresh endpoint. A currently valid JWT token needs to be supplied, and a refreshed
+    // JWT token will be returned
+    @PostMapping("/refresh_token")
+    public ResponseEntity<Map<String,String>> refreshToken(UsernamePasswordAuthenticationToken principal) {
+
+        // unsure how to implement this method
+        throw new UnsupportedOperationException();
     }
 }
