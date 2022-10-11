@@ -22,7 +22,8 @@ public class JwtRequestFilter extends BasicAuthenticationFilter {
     @Autowired
     UserDetailsServiceImplementation service;
 
-    private final JwtConverter converter;
+    @Autowired
+    JwtConverter converter;
 
     public JwtRequestFilter (AuthenticationManager authenticationManager, JwtConverter converter) {
         super(authenticationManager); // satisfies super class. auth manager managers the user details and roles
