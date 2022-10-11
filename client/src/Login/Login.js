@@ -9,6 +9,7 @@ import AuthContext from "../context/AuthContext";
 function Login(props) {
 
     const auth = useContext(AuthContext);
+
     const history = useHistory();
     // const [username, setUsername] = setState("");
     // const [password, setPassword] = setState("");
@@ -44,7 +45,7 @@ function Login(props) {
             console.log( jwt );
             console.log( claimsObject );
             
-            props.setLoginInfo({jwt, claims:claimsObject} );
+            props.setUser({jwt, claims:claimsObject} );
             history.push("/")
         })
         .catch (error => {
