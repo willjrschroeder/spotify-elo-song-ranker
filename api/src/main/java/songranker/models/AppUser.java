@@ -32,6 +32,8 @@ public class AppUser extends User {
         this.disabled = disabled;
     }
 
+
+
     public List<AppRole> getRoles() {
         return roles;
     }

@@ -6,7 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import songranker.data.mappers.AppUserJdbcRepo;
+import songranker.models.AppRole;
 import songranker.models.AppUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,4 +39,17 @@ class AppUserJdbcRepoTest {
         assertEquals("John Smith", toTest.getDisplayName());
         assertEquals("user", toTest.getRoles().get(0).getRoleName());
     }
+
+    @Test
+    void shouldAddValidUser(){
+//        List<AppRole> testRoles = new ArrayList<>();
+//
+//        testRoles.add()
+//        AppUser toAdd = new AppUser(0, "newTestUsername",
+//                "fd5cb51bafd60f6fdbedde6e62c473da6f247db271633e15919bab78a02ee9eb", "Test Create", true, );
+//        toAdd.setUsername("newTestUsername");
+//        toAdd.setPasswordHash("fd5cb51bafd60f6fdbedde6e62c473da6f247db271633e15919bab78a02ee9eb");
+//        toAdd.setDisplayName("Test Create");
+//        toAdd.setDisabled(true);
+   }
 }

@@ -29,7 +29,7 @@ class AppRoleJdbcRepoTest {
     }
 
     @Test
-    void getRolesByUsername() {
+    void shouldGetRolesByUsername() {
         List<AppRole> toTest = repo.getRolesByUsername(username1);
         assertNotNull(toTest);
         assertEquals(1, toTest.get(0).getAppRoleId());
