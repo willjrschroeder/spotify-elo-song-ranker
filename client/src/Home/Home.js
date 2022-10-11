@@ -7,18 +7,18 @@ function Home() {
 
     const auth = useContext(AuthContext);
 
+    const canPlay = auth.user !== null;
 
+    const canDelete = auth.user && auth.user.hasRole("ROLE_ADMIN")
 
 
     return (<>
     <div>
-        play
+        {canPlay && (<h2>play</h2>)}
     </div>
+
     <div>
-        add
-    </div>
-    <div>
-        delete
+        {canDelete && (<h2>delete</h2>)}
     </div>
     </>
     )
