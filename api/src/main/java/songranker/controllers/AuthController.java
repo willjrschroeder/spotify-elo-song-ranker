@@ -1,6 +1,7 @@
 package songranker.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,8 +13,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import songranker.models.AppUser;
 import songranker.security.JwtConverter;
+import songranker.security.UserDetailsServiceImplementation;
 
+import javax.xml.bind.ValidationException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,6 +34,9 @@ public class AuthController {
 
     @Autowired
     JwtConverter converter; // obj for converting JWT tokens to users and vice a versa
+
+    @Autowired
+    UserDetailsServiceImplementation service; // AppUser service layer
 
     // Post mapping for the authentication endpoint. Can be accessed with no authentications. Takes in a username and
     // password as a credentials request body. Returns 200 with a JWT Token on success, else 403
@@ -62,6 +69,29 @@ public class AuthController {
         }
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
+
+    // Post mapping for registering a new user. Validates passed in credentials (non-duplicate username, valid password)
+    // Writes passed in user credentials to the database
+    // returns a 201 created on success
+    // returns a 400 bad request on validation failure
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody Map<String, String> credentials){
+        AppUser user = null;
+        try {
+            String username = credentials.get("username");
+            String password = credentials.get("password");
+            user = service.createUser(username, password); // TODO: Not currently returning any information about the created user.
+                                                                //Not sure if necessary or not
+
+        } catch (ValidationException ex) {
+            return new ResponseEntity<>(List.of(ex.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (DuplicateKeyException ex) {
+            return new ResponseEntity<>(List.of("The provided username already exists"), HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(HttpStatus.CREATED); // This is the happy case
+    }
+
 
     // Post mapping for the token refresh endpoint. A currently valid JWT token is supplied,
     // and a refreshed JWT token will be returned

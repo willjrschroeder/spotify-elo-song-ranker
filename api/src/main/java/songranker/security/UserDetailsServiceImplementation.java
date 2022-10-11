@@ -4,15 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import songranker.data.mappers.AppUserJdbcRepo;
 import songranker.data.mappers.AppUserRepo;
 import songranker.models.AppUser;
 
+import javax.xml.bind.ValidationException;
+
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
     @Autowired
     AppUserRepo repo;
+
+    @Autowired
+    PasswordEncoder encoder;
 
     // This method gets a user from the DB and returns details about their roles to the JwtRequestFilter
     @Override
@@ -24,5 +30,48 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public AppUser createUser(String username, String password) throws ValidationException {
+        validateUsername(username); // checks for non-null < length 50 usernames. Throws exception if not valid
+        validatePassword(password); //checks for a < length 8 PW containing digits, numbers, and special chars
+
+        password = encoder.encode(password);
+
+        AppUser userToCreate = new AppUser(0, username, password, )
+
+    }
+
+    private void validateUsername(String username) throws ValidationException { //TODO: Add validation to ensure duplicate usernames are not allowed
+        if (username == null || username.isBlank()) {
+            throw new ValidationException("username is required");
+        }
+
+        if (username.length() > 50) {
+            throw new ValidationException("username must be less than 50 characters");
+        }
+    }
+
+    private void validatePassword(String password) throws ValidationException {
+        if (password == null || password.length() < 8) {
+            throw new ValidationException("password must be at least 8 characters");
+        }
+
+        int digits = 0;
+        int letters = 0;
+        int others = 0;
+        for (char c : password.toCharArray()) {
+            if (Character.isDigit(c)) {
+                digits++;
+            } else if (Character.isLetter(c)) {
+                letters++;
+            } else {
+                others++;
+            }
+        }
+
+        if (digits == 0 || letters == 0 || others == 0) {
+            throw new ValidationException("password must contain a digit, a letter, and a non-digit/non-letter");
+        }
     }
 }

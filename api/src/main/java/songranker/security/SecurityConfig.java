@@ -53,21 +53,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-
-    // Stores in-memory, doesn't write users & information to DB
-/*    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        var userBuilder = User.withUsername("user")
-                .password("user").passwordEncoder(password -> passwordEncoder().encode(password))
-                .roles("USER");
-
-        var adminBuilder = User.withUsername("admin")
-                .password("admin").passwordEncoder(password -> passwordEncoder().encode(password))
-                .roles(("ADMIN"));
-
-        auth.inMemoryAuthentication()
-                .withUser(userBuilder)
-                .withUser(adminBuilder);
-    }*/
-
 }
