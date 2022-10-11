@@ -32,7 +32,15 @@ public class AppUser extends User {
         this.disabled = disabled;
     }
 
-
+    public AppUser( String username, String passwordHash, String displayName, boolean disabled){  // this will work once we add an AppRole class
+        super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList())); // AppRole needs a method for getAuthority
+        this.appUserId = appUserId;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.roles = roles;
+        this.displayName = displayName;
+        this.disabled = disabled;
+    }
 
     public List<AppRole> getRoles() {
         return roles;

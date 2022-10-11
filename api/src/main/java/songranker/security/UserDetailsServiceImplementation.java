@@ -39,7 +39,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
         password = encoder.encode(password);
 
-        AppUser userToCreate = new AppUser(0, username, password, displayName, false, List.of("user"));
+        AppUser userToCreate = new AppUser(username, password, displayName, false);
 
     }
 
