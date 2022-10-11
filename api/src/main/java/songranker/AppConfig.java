@@ -1,3 +1,4 @@
+/*
 package songranker;
 
 import org.springframework.context.annotation.Bean;
@@ -13,3 +14,4 @@ public class AppConfig {
         return new BCryptPasswordEncoder();
     }
 }
+*/
