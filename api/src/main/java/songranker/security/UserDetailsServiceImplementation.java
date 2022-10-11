@@ -13,6 +13,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     @Autowired
     AppUserRepo repo;
 
+    // This method gets a user from the DB and returns details about their roles to the JwtRequestFilter
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser user = repo.getUserByUsername( username );
