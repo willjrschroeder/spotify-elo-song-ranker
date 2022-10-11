@@ -10,6 +10,7 @@ import songranker.models.AppRole;
 import songranker.models.AppUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,14 +43,21 @@ class AppUserJdbcRepoTest {
 
     @Test
     void shouldAddValidUser(){
-//        List<AppRole> testRoles = new ArrayList<>();
-//
-//        testRoles.add()
-//        AppUser toAdd = new AppUser(0, "newTestUsername",
-//                "fd5cb51bafd60f6fdbedde6e62c473da6f247db271633e15919bab78a02ee9eb", "Test Create", true, );
-//        toAdd.setUsername("newTestUsername");
-//        toAdd.setPasswordHash("fd5cb51bafd60f6fdbedde6e62c473da6f247db271633e15919bab78a02ee9eb");
-//        toAdd.setDisplayName("Test Create");
-//        toAdd.setDisabled(true);
+       AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = List.of(role);
+
+
+        AppUser toAdd = new AppUser(0, "newTestUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy", "Test Create", false, roles);
+
+
+        AppUser toTest = repo.add(toAdd);
+
+        assertNotNull(toTest);
+
    }
 }
