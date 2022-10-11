@@ -20,9 +20,9 @@ public class AuthController {
 
     // The `AuthenticationManager` interface defines a single method `authenticate()`
     // that processes an Authentication request.
-    private final AuthenticationManager authMangager;
-    public AuthController(AuthenticationManager authMangager) {
-        this.authMangager = authMangager;
+    private final AuthenticationManager authManager;
+    public AuthController(AuthenticationManager authManager) {
+        this.authManager = authManager;
     }
 
     // Post mapping for the authentication endpoint. Can be used with no permissions and takes in a username and
@@ -36,7 +36,7 @@ public class AuthController {
 
         try {
             // attempts to authenticate our credentials with the authManager.
-            Authentication authentication = authMangager.authenticate(authToken);
+            Authentication authentication = authManager.authenticate(authToken);
 
             if (authentication.isAuthenticated()) {
                 HashMap<String, String> map = new HashMap<>();
