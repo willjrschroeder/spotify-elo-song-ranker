@@ -32,8 +32,8 @@ public class AuthController {
     @Autowired
     JwtConverter converter; // obj for converting JWT tokens to users and vice a versa
 
-    // Post mapping for the authentication endpoint. Can be used with no permissions and takes in a username and
-    // password as a credentials request body. Returns HTTP status with a JWT Token
+    // Post mapping for the authentication endpoint. Can be accessed with no authentications. Takes in a username and
+    // password as a credentials request body. Returns 200 with a JWT Token on success, else 403
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody Map<String, String> credentials) { // <?> means of generic type
         // The `UsernamePasswordAuthenticationToken` class is an `Authentication` implementation
@@ -43,18 +43,18 @@ public class AuthController {
 
         try {
             // attempts to authenticate our credentials with the authManager.
-            Authentication authentication = authManager.authenticate(authToken);
+            Authentication authentication = authManager.authenticate(authToken); // uses user credentials to get user details
 
-            AppUser user = (AppUser)authentication.getPrincipal();
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            AppUser user = (AppUser)authentication.getPrincipal(); // gets an AppUser from the user details
+            SecurityContextHolder.getContext().setAuthentication(authentication); // sets authentication for the request
+                                                                                  // from the user's roles
 
-            // We need to build a token using our JwtConverter, passing in the user
-            // This token can then get returned to the front end
+            // Builds a JWT token from the AppUser, which is to be returned to the front end
             String token = converter.buildJwt(user);
 
-            if (authentication.isAuthenticated()) {
-                HashMap<String, String> tokenHolder = new HashMap<>(); // this should contain a "jwt_token" => `token` eventually
-                tokenHolder.put("jwt_token", token);
+            if (authentication.isAuthenticated()) { // if the user was successfully authenticated, return their JWT
+                HashMap<String, String> tokenHolder = new HashMap<>();
+                tokenHolder.put("jwt_token", token); // returns a token in a map with a 'jwt_token' label for convenience
                 return new ResponseEntity<>(tokenHolder, HttpStatus.OK);
             }
 
