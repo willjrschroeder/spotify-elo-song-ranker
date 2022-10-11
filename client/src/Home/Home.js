@@ -1,34 +1,25 @@
-import './Home.css';
-import React, {useContext} from 'react';
-import {Link} from "react-router-dom";
+import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext";
 
 function Home() {
 
+    const [playlists, setplaylists] = useState([]);
+
     const auth = useContext(AuthContext);
 
-    return <>
-    <div className='flex-container'>
-    <h1 className= "label" >Spotify Elo Home</h1>
+
+
+
+    return (<>
+    <div>
+        play
     </div>
-    {auth.user ? (
-    <>
-    <h2>Your are logged in</h2>
+    <div>
+        add
+    </div>
+    <div>
+        delete
+    </div>
     </>
-    ) : (
-        <>
-            <div className="flex-container">
-                <Link className='login' to = "/login">Login</Link>
-            </div>
-        </>
-    )}
-    {auth.user && (
-            <div className="flex-container">
-            Welcome {auth.user.username}!
-            <button className='login' onClick = {() => auth.logout()}>logout</button>
-        </div>
-    )}
-    <div className='flex-container'>About</div>
-    </>
+    )
 }
-export default Home;
