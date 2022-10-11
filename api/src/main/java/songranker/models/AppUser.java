@@ -19,9 +19,25 @@ public class AppUser extends User {
 
     private boolean disabled;
 
+    private List<AppRole> roles;
+
     // AppUser constructor. Fills out the custom field variables and satisfies the constructor
     public AppUser( int appUserId, String username, String passwordHash, String displayName, boolean disabled, List<AppRole> roles  ){  // this will work once we add an AppRole class
         super( username, passwordHash, roles.stream().map( r -> r.getAuthority()).collect(Collectors.toList())); // AppRole needs a method for getAuthority
+        this.appUserId = appUserId;
+        this.username = username;
+        this.passwordHash = passwordHash;
+        this.roles = roles;
+        this.displayName = displayName;
+        this.disabled = disabled;
+    }
+
+    public List<AppRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<AppRole> roles) {
+        this.roles = roles;
     }
 
     public int getAppUserId() {
