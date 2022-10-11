@@ -1,8 +1,11 @@
 package songranker.data.mappers;
 
-import songranker.models.AppUser;
+import songranker.models.AppRole;
+
+import java.util.List;
+
 
 public interface AppRoleRepo {
 
-    AppUser getUserByUsername(String username);
+    List<AppRole> getRolesByUsername(String username);
 }
