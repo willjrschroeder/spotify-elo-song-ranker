@@ -74,10 +74,10 @@ class UserDetailsServiceImplementationTest {
         AppUser expected = new AppUser(1, "testUsername",
                 "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
                 "John Smith", false, roles);
-        AppUser toCreate = new AppUser("testUsername", "password", "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "Password1!", "John Smith", false, roles);
         when(repository.createUser(toCreate)).thenReturn(expected);
 
-        AppUser actual = service.createUser("testUsername", "password", "John Smith");
+        AppUser actual = service.createUser("testUsername", "Password1!", "John Smith");
 
         assertEquals(1, actual.getAppUserId());
         assertEquals("testUsername", actual.getUsername());

@@ -126,12 +126,12 @@ constraint fk_genre_artist_genre_id
     insert into app_user (app_user_id, username, password_hash, display_name, disabled) values
 		-- all pw_hashes were generated w/ bcrypt using 10 rounds
         
-        -- original pw was 'password'
+        -- original pw was 'Password1!'
         -- this user has not been assigned a role
-		(1, 'testUsername', '$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy', 'John Smith', 0),
-        -- original pw was 'password2'
+		(1, 'testUsername', '$2a$10$HSEwtr8ef.qjHeyHBKHg6ud/r3vjU0Cy8pcv.3eRFzdUrEJKOAxHC', 'John Smith', 0),
+        -- original pw was 'Password2!'
         -- this user has the role of admin and user
-		(2, 'testUsername2', '$2a$10$AEDyRKVpyyI4XQyzfudtSeCmJN3u2DOG04ueHEI4bRA43rRjO3i1a', 'Jane Admin Smith', 0),
+		(2, 'testUsername2', '$2a$10$wTdN34xbg6pLKG.kUSamNu5jClniC/zxaZpSlaYoBpWj3700ekq8u', 'Jane Admin Smith', 0),
         -- original pw was 'P@ssw3rd'
         -- this user has the role of user
 		(3, 'testUsername3', '$2a$10$Y2GsuViVefCtNy1puv4XhOArHAamTPZByEf2XfUsqdjXNu9VJix8q', 'George User Smith', 0);
