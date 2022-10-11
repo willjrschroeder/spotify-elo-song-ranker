@@ -5,13 +5,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import songranker.data.mappers.AppUserJdbcRepo;
 import songranker.data.mappers.AppUserRepo;
 import songranker.models.AppUser;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
     @Autowired
-    AppUserRepo repo;
+    AppUserJdbcRepo repo;
 
     // This method gets a user from the DB and returns details about their roles to the JwtRequestFilter
     @Override
