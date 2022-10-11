@@ -2,6 +2,7 @@ package songranker.data.mappers;
 
 import songranker.models.AppUser;
 
-public interface AppUserRepo {
+public interface AppRoleRepo {
+
     AppUser getUserByUsername(String username);
 }
