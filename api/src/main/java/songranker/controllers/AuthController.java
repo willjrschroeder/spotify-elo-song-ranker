@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import songranker.models.AppUser;
+import songranker.models.RegistrationFields;
 import songranker.security.JwtConverter;
 import songranker.security.UserDetailsServiceImplementation;
 
@@ -75,12 +76,13 @@ public class AuthController {
     // returns a 201 created on success
     // returns a 400 bad request on validation failure
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody Map<String, String> credentials){
+    public ResponseEntity<?> registerUser(@RequestBody RegistrationFields fields){
         AppUser user = null;
         try {
-            String username = credentials.get("username");
-            String password = credentials.get("password");
-            user = service.createUser(username, password); // TODO: Not currently returning any information about the created user.
+            String username = fields.getUsername();
+            String password = fields.getPassword();
+            String displayName = fields.getDisplayName();
+            user = service.createUser(username, password, displayName); // TODO: Not currently returning any information about the created user.
                                                                 //Not sure if necessary or not
 
         } catch (ValidationException ex) {

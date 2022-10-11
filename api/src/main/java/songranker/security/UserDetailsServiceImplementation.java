@@ -11,6 +11,7 @@ import songranker.data.mappers.AppUserRepo;
 import songranker.models.AppUser;
 
 import javax.xml.bind.ValidationException;
+import java.util.List;
 
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
@@ -32,13 +33,13 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         return user;
     }
 
-    public AppUser createUser(String username, String password) throws ValidationException {
+    public AppUser createUser(String username, String password, String displayName) throws ValidationException {
         validateUsername(username); // checks for non-null < length 50 usernames. Throws exception if not valid
         validatePassword(password); //checks for a < length 8 PW containing digits, numbers, and special chars
 
         password = encoder.encode(password);
 
-        AppUser userToCreate = new AppUser(0, username, password, )
+        AppUser userToCreate = new AppUser(0, username, password, displayName, false, List.of("user"));
 
     }
 
