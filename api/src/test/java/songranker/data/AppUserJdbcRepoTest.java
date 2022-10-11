@@ -33,6 +33,6 @@ class AppUserJdbcRepoTest {
         assertEquals(1, toTest.getAppUserId());
         assertEquals("testUsername", toTest.getUsername());
         assertEquals("John Smith", toTest.getDisplayName());
-        assertEquals();
+        assertEquals("user", toTest.getRoles().get(0).getRoleName());
     }
 }

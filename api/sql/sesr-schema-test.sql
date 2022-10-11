@@ -176,6 +176,7 @@ begin
         (2, 'admin');
         
 	insert into user_roles (app_user_id, app_role_id) values
+		(1, 1),
 		(2, 2),
         (3, 1);
         
