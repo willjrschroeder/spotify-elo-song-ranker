@@ -11,7 +11,6 @@ function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
-    const loginRequest = {username, password};
 
     // const loginMap = new Map(Object.entries(loginRequest));
 
@@ -27,7 +26,10 @@ function Login(props) {
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify(loginRequest)
+            body: JSON.stringify({
+                username,
+                password,
+            })
         })
         .then( response => {
             if( response.status === 200 ) {
@@ -47,14 +49,14 @@ function Login(props) {
             
             props.setUser({jwt, claims:claimsObject} );
             history.push("/")
-        })
-        .catch (error => {
-            if (error instanceof TypeError) {
-                console.log("Could not connect to api.");
-            } else {
-                console.log(error);
-            }
-        })
+        });
+        // .catch (error => {
+        //     if (error instanceof TypeError) {
+        //         console.log("Could not connect to api.");
+        //     } else {
+        //         console.log(error);
+        //     }
+        // })
     }
 
     return (
