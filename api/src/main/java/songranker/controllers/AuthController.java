@@ -65,8 +65,8 @@ public class AuthController {
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
-    // Post mapping for the token refresh endpoint. A currently valid JWT token needs to be supplied, and a refreshed
-    // JWT token will be returned
+    // Post mapping for the token refresh endpoint. A currently valid username and password auth token is supplied,
+    // and a refreshed JWT token will be returned
     @PostMapping("/refresh_token")
     public ResponseEntity<Map<String,String>> refreshToken(UsernamePasswordAuthenticationToken principal) {
 
