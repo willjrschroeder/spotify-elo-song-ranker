@@ -8,21 +8,19 @@ import AuthContext from "../context/AuthContext";
 
 function Login(props) {
 
+    const [username, setUsername] = setState("");
+    const [password, setPassword] = setState("");
+    const [errors, setErrors] = setState([]);
+    const loginRequest = {username, password};
+
     const auth = useContext(AuthContext);
 
     const history = useHistory();
-    // const [username, setUsername] = setState("");
-    // const [password, setPassword] = setState("");
-    // const [errors, setErrors] = setState([]);
 
-    function loginHandler(event) {
+    const loginHandler = async (event) => {
         event.preventDefault();
 
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const loginRequest = {username, password};
-
-        fetch("http://localhost:8080/api/security", {
+        await fetch("http://localhost:8080/api/security", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -33,9 +31,9 @@ function Login(props) {
             if( response.status === 200 ) {
                 return response.json();
             } else if (response.status === 403){
-                // setErrors(["Login failed."])
+                setErrors(["Login failed."])
             } else {
-                // setErrors(["Unknown Error."])
+                setErrors(["Unknown Error."])
             }
         })
         .then( jwtContainer => {

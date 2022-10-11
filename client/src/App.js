@@ -1,17 +1,32 @@
 import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Home from './Home/Home';
+import LandingPage from './LandingPage/LandingPage';
 import Register from './Register/Register'
 import Login from './Login/Login'
 import AuthContext from './context/AuthContext';
 import jwtDecode from "jwt-decode";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+
+//confused on this part, how to identify that this is the token
+const LOCAL_STORAGE_TOKEN_KEY = "loginToken";
 
 function App() {
 
   const [user, setUser] = useState();
 
-const login = (token) => {
+  const [restoreLoginAttemptCompleted, setRestoreLoginAttemptCreated] = useState(false);
+
+useEffect(() => {
+  const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+  if (token) {
+    login(token)
+  }
+  setRestoreLoginAttemptCreated(true);
+}, [])
+
+  const login = (token) => {
+
+    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token)
 
   const { sub: username, authorities : authoritiesString } = jwtDecode(token);
 
@@ -36,6 +51,8 @@ const login = (token) => {
 
 const logout = () => {
   setUser(null);
+
+  localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
 };
 
 const auth = {
@@ -44,7 +61,9 @@ const auth = {
   logout
 };
 
-
+if (!restoreLoginAttemptCompleted) {
+  return null;
+}
 
   return (
     <div className='App'>
@@ -52,13 +71,16 @@ const auth = {
       <BrowserRouter>
           <Switch>
             <Route exact path = "/">
-              <Home/>
+              <LandingPage/>
             </Route>
             <Route exact path = "/login">
-              <Login></Login>
+              {!user ? <Login/> : <Redirect to="/"/>}
             </Route>
             <Route exact path = "/register">
               <Register></Register>
+            </Route>
+            <Route exact path= "/home">
+              LandingPage
             </Route>
           </Switch>
       </BrowserRouter>
