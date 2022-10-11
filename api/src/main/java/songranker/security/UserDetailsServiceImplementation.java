@@ -12,7 +12,7 @@ import songranker.models.AppUser;
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
     @Autowired
-    AppUserJdbcRepo repo;
+    AppUserRepo repo;
 
     // This method gets a user from the DB and returns details about their roles to the JwtRequestFilter
     @Override
