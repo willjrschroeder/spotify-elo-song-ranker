@@ -6,6 +6,7 @@ import Login from './Login/Login'
 import AuthContext from './context/AuthContext';
 import jwtDecode from "jwt-decode";
 import React, {useState, useEffect} from "react";
+import Home from "./Home/Home"
 
 //confused on this part, how to identify that this is the token
 const LOCAL_STORAGE_TOKEN_KEY = "loginToken";
@@ -30,7 +31,7 @@ useEffect(() => {
 
   const { sub: username, authorities : authoritiesString } = jwtDecode(token);
 
-  const roles = authoritiesString.split(',');
+  const roles = authoritiesString;
 
   const user = {
     username,
@@ -80,7 +81,7 @@ if (!restoreLoginAttemptCompleted) {
               <Register></Register>
             </Route>
             <Route exact path= "/home">
-              LandingPage
+              <Home></Home>
             </Route>
           </Switch>
       </BrowserRouter>

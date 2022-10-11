@@ -9,7 +9,7 @@ function Home() {
 
     const canPlay = auth.user !== null;
 
-    const canDelete = auth.user && auth.user.hasRole("ROLE_ADMIN")
+    const canDelete = auth.user && auth.user.hasRole("admin")
 
 
     return (<>
@@ -23,3 +23,4 @@ function Home() {
     </>
     )
 }
+export default Home;
