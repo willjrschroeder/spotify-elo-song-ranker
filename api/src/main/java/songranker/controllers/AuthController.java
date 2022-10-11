@@ -6,10 +6,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import songranker.models.AppUser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,9 +40,15 @@ public class AuthController {
             // attempts to authenticate our credentials with the authManager.
             Authentication authentication = authManager.authenticate(authToken);
 
+            AppUser user = (AppUser)authentication.getPrincipal();
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // We need to build a token using our JwtConverter, passing in the user
+            // This token can then get returned to the front end
+
             if (authentication.isAuthenticated()) {
-                HashMap<String, String> map = new HashMap<>();
-                return new ResponseEntity<>(map, HttpStatus.OK);
+                HashMap<String, String> tokenHolder = new HashMap<>(); // this should contain a "jwt_token" => `token` eventually
+                return new ResponseEntity<>(tokenHolder, HttpStatus.OK);
             }
 
         } catch (AuthenticationException ex) {

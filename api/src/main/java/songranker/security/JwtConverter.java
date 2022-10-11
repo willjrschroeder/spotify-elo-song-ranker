@@ -17,5 +17,5 @@ public class JwtConverter {
 
     private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-
+    
 }

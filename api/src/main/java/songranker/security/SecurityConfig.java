@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     // the configure method configures what roles can access specific API endpoints
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     // Stores in-memory, doesn't write users & information to DB
-    @Override
+/*    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         var userBuilder = User.withUsername("user")
                 .password("user").passwordEncoder(password -> passwordEncoder().encode(password))
@@ -63,6 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser(userBuilder)
                 .withUser(adminBuilder);
-    }
+    }*/
 
 }
