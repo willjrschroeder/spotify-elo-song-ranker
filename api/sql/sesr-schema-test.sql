@@ -165,7 +165,7 @@ begin
         -- this user has not been assigned a role
 		(1, 'testUsername', '$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy', 'John Smith', 0),
         -- original pw was 'password2'
-        -- this user has the role of admin
+        -- this user has the role of admin and user
 		(2, 'testUsername2', '$2a$10$AEDyRKVpyyI4XQyzfudtSeCmJN3u2DOG04ueHEI4bRA43rRjO3i1a', 'Jane Admin Smith', 0),
         -- original pw was 'P@ssw3rd'
         -- this user has the role of user
@@ -178,6 +178,7 @@ begin
 	insert into user_roles (app_user_id, app_role_id) values
 		(1, 1),
 		(2, 2),
+        (2, 1),
         (3, 1);
         
 end //
