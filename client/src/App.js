@@ -9,9 +9,10 @@ import React, {useState} from "react";
 
 function App() {
 
-const [user, setUser] = useState( null );
+  const [user, setUser] = useState();
 
 const login = (token) => {
+
   const { sub: username, authorities : authoritiesString } = jwtDecode(token);
 
   const roles = authoritiesString.split(',');
@@ -21,7 +22,7 @@ const login = (token) => {
     roles,
     token,
     hasRole(role) {
-      return this.roles.unclues(role);
+      return this.roles.includes(role);
     }
   };
 
