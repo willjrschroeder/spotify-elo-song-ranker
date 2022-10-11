@@ -71,12 +71,12 @@ function Login(props) {
         <>
         <h2>Login</h2>
         <div>
-            {/* {auth.user ? (
+            {auth.user ? (
                 <>
                 <h3>You are already logged in!</h3>
                 <button onClick={() => auth.logout()}>Logout</button>
                 </>
-            ) : ( */}
+            ) : (
                 <form onSubmit={loginHandler}>
                 <FormInput
                 InputType = {"text"}
@@ -97,7 +97,7 @@ function Login(props) {
                 </div>
     
             </form>
-            {/* )} */}
+            )} 
             
         </div>
     </>

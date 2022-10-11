@@ -19,6 +19,7 @@ function App() {
 
 useEffect(() => {
   const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+  console.log(token);
   if (token) {
     login(token)
   }
@@ -29,16 +30,14 @@ useEffect(() => {
 
     localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token)
 
-  const { sub: username, authorities : authoritiesString } = jwtDecode(token);
-
-  const roles = authoritiesString;
+  const { sub, roles, display_name } = jwtDecode(token);
 
   const user = {
-    username,
+    username: sub,
     roles,
     token,
     hasRole(role) {
-      return this.roles.includes(role);
+      return this.roles.some((r) => r.roleName === role);
     }
   };
 
