@@ -1,4 +1,7 @@
 import FormInput from "../FormInput/FormInput";
+import {setState, useContext} from "react";
+import AuthContext from "../context/AuthContext";
+import {useHistory} from "react-router-dom";
 
 function Register() {
 
@@ -18,24 +21,22 @@ function addUser( event ) {
 
     fetch( "http://localhost:8080/api/agent", {
         method:"POST",
-        body: JSON.stringify(agent),
+        body: JSON.stringify(loginRequest),
         headers: {
             "Content-Type": "application/json"
         }
     }).then( async response => {
         if( response.status === 201 ) {
-            clearErrors();
-            history.push("/agent");
+            history.push("/");
             return response.json();
         } 
             return Promise.reject( await response.json() );
     })
     .catch( errorList => {
         if( errorList instanceof TypeError ){
-            showErrors( [ "Could not connect to api."] );
             console.log( "Could not connect to api.");
         } else {
-            showErrors( errorList );
+            console.log(errorList);
         }
     });
 }
@@ -57,3 +58,4 @@ function addUser( event ) {
     </>
     )
 }
+export default Register;

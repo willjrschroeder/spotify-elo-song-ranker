@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, setState} from "react";
 import FormInput from "../FormInput/FormInput"
 import jwtDecode from 'jwt-decode';
 import {Link, useHistory} from "react-router-dom";
@@ -13,6 +13,8 @@ function Login(props) {
     const [errors, setErrors] = setState([]);
     const loginRequest = {username, password};
 
+    // const loginMap = new Map(Object.entries(loginRequest));
+
     const auth = useContext(AuthContext);
 
     const history = useHistory();
@@ -20,7 +22,7 @@ function Login(props) {
     const loginHandler = async (event) => {
         event.preventDefault();
 
-        await fetch("http://localhost:8080/api/security", {
+        await fetch("http://localhost:8080/api/security/authenticate", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -59,12 +61,12 @@ function Login(props) {
         <>
         <h2>Login</h2>
         <div>
-            {auth.user ? (
+            {/* {auth.user ? (
                 <>
                 <h3>You are already logged in!</h3>
                 <button onClick={() => auth.logout()}>Logout</button>
                 </>
-            ) : (
+            ) : ( */}
                 <form onSubmit={loginHandler}>
                 <FormInput
                 InputType = {"text"}
@@ -85,7 +87,7 @@ function Login(props) {
                 </div>
     
             </form>
-            )}
+            {/* )} */}
             
         </div>
     </>
