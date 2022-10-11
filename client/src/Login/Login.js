@@ -1,4 +1,4 @@
-import React, {useState, useContext, setState} from "react";
+import React, {useState, useContext} from "react";
 import FormInput from "../FormInput/FormInput"
 import jwtDecode from 'jwt-decode';
 import {Link, useHistory} from "react-router-dom";
@@ -8,9 +8,9 @@ import AuthContext from "../context/AuthContext";
 
 function Login(props) {
 
-    const [username, setUsername] = setState("");
-    const [password, setPassword] = setState("");
-    const [errors, setErrors] = setState([]);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState([]);
     const loginRequest = {username, password};
 
     // const loginMap = new Map(Object.entries(loginRequest));
@@ -75,7 +75,7 @@ function Login(props) {
                 onChangeHandler = {(event) => setUsername(event.target.value)}/>
     
                 <FormInput
-                InputType = {"text"}
+                InputType = {"password"}
                 indentifier = {"password"}
                 labelText = {"Password"}
                 onChangeHandler = {(event) => setPassword(event.target.value)}/>

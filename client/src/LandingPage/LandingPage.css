@@ -29,13 +29,13 @@ body {
     top: 40px;
     left: 90px;
     background-size: 400px;
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:monospace;
     font-size: 5ch;
 
 }
 .login {
     color: #B14AED;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family:monospace;
     text-decoration: none;
     font-size: 3ch;
     font-weight: 600;

@@ -1,13 +1,13 @@
 import FormInput from "../FormInput/FormInput";
-import {setState, useContext} from "react";
+import {useState, useContext} from "react";
 import AuthContext from "../context/AuthContext";
 import {useHistory} from "react-router-dom";
 
 function Register() {
 
-    const [username, setUsername] = setState("");
-    const [password, setPassword] = setState("");
-    const [errors, setErrors] = setState([]);
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [errors, setErrors] = useState([]);
     const loginRequest = {username, password};
 
     const auth = useContext(AuthContext);
@@ -50,9 +50,9 @@ function addUser( event ) {
                 labelText = {"Username"}
                 onChangeHandler = {(event) => setUsername(event.target.value)}/>
             <FormInput
-                InputType = {"text"}
-                indentifier = {"username"}
-                labelText = {"Username"}
+                InputType = {"password"}
+                indentifier = {"password"}
+                labelText = {"Password"}
                 onChangeHandler = {(event) => setPassword(event.target.value)}/>
         </form>
     </>
