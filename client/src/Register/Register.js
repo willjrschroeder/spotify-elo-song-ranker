@@ -1,7 +1,8 @@
 import FormInput from "../FormInput/FormInput";
 import { useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import "./Register.css";
 
 function Register() {
 
@@ -27,7 +28,7 @@ function Register() {
             //TODO: display this error
         }
 
-        fetch("http://localhost:8080", {
+        fetch("http://localhost:8080/api/security/register", {
             method: "POST",
             body: JSON.stringify(loginRequest),
             headers: {
@@ -35,7 +36,7 @@ function Register() {
             }
         }).then(async response => {
             if (response.status === 201) {
-                history.push("/");
+                history.push("/home");
                 return response.json();
             }
             return Promise.reject(await response.json());
@@ -51,6 +52,8 @@ function Register() {
 
 
     return (<>
+    <div className="flex-register">
+        <h2>Register</h2>
         <form onSubmit={addUser}>
             <FormInput
                 InputType={"text"}
@@ -73,6 +76,12 @@ function Register() {
                 labelText={"Display Name"}
                 onChangeHandler={(event) => setDisplayName(event.target.value)} />
         </form>
+    </div>
+    <div className="flex-buttons">
+        <button>Submit</button>
+        <Link to = "/">Cancel</Link>
+    </div>
+
     </>
     )
 }

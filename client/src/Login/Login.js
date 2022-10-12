@@ -2,6 +2,7 @@ import React, {useState, useContext} from "react";
 import FormInput from "../FormInput/FormInput";
 import {Link, useHistory} from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import "./Login.css"
 
 
 
@@ -69,16 +70,17 @@ function Login(props) {
 
     return (
         <>
-        <h2>Login</h2>
-        <div>
+        
+        <div className="flex-login">
+            <h2>Login</h2>
             {auth.user ? (
                 <>
                 <h3>You are already logged in!</h3>
                 <button onClick={() => auth.logout()}>Logout</button>
                 </>
             ) : (
-                <form onSubmit={loginHandler}>
-                <FormInput
+                <form  onSubmit={loginHandler}>
+                <FormInput 
                 InputType = {"text"}
                 indentifier = {"username"}
                 labelText = {"Username"}
@@ -90,16 +92,17 @@ function Login(props) {
                 labelText = {"Password"}
                 onChangeHandler = {(event) => setPassword(event.target.value)}/>
                 
-                <div>
-                    <button>Log In</button>
-                    <Link to = "/register">Register</Link>
-                    <Link to = "/">Cancel</Link>
-                </div>
+
     
             </form>
             )} 
             
         </div>
+        <div className="loginButton">
+                    <button>Log In</button>
+                    <Link to = "/register">Register</Link>
+                    <Link to = "/">Cancel</Link>
+                </div>
     </>
     )
 }

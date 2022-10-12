@@ -1,5 +1,13 @@
-body {
-    background-color:#454ADE;
+
+html, body {
+    background-image: linear-gradient(to bottom right, #454ADE, #B14AED);
+    margin:0;
+    padding:0;
+    width: 100%;
+    position: absolute;
+}
+h1 {
+    margin:0;
 }
 .flex-container {
     height: 400px;
@@ -8,10 +16,8 @@ body {
     flex: 1;
     color: #1B1F3B;
     flex-direction: row;
-    background-color:#454ADE;
     justify-content: space-between;
     justify-content: center;
-    background: #454ADE;
     font-size: 3ch;
     font-weight: bolder;
 }

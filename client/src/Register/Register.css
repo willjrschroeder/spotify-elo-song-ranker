@@ -1,13 +1,9 @@
-
-html, body {
-    background-image: linear-gradient(to bottom right, #454ADE, #B14AED);
-    margin:0;
-    padding:0;
-    height: 100%;
+.body {
+    background-image: -moz-linear-gradient(to bottom right, #454ADE, #B14AED);
 }
-
-.flex-login {
-    height: 300px;
+.flex-register {
+    
+    height: 400px;
     width: 640px;
     font-size: 2ch;
     align-items: center;
@@ -26,7 +22,7 @@ html, body {
     border-radius: .5%;
     
 }
-.loginButton { 
+.flex-buttons {
     height: 50px;
     width: 640px;
     font-size: 2ch;
@@ -45,4 +41,5 @@ html, body {
     margin-bottom: auto;
     padding: 40px;
     border-radius: .5%;
+    
 }
