@@ -5,11 +5,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import songranker.models.AppRole;
 import songranker.models.AppUser;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -45,6 +47,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
     }
 
     @Override
+    @Transactional
     public AppUser createUser(AppUser appUser){
         //TODO: write to the user_roles bridge table after writing the user to the DB. Give new user role of 'user'. Done with @Transactional in case one of the writings fail
 
@@ -66,16 +69,35 @@ public class AppUserJdbcRepo implements AppUserRepo {
         }
 
         appUser.setAppUserId(keyHolder.getKey().intValue());
+
+        addUserRoles(appUser);
+
         return appUser;
     }
 
     private void addUserRoles(AppUser appUser){
         final String sql = "insert into user_roles (app_user_id, app_role_id) values (?,?);";
 
-        
+
+        List<Integer> roleIds = getRoleIds(appUser.getRoles());
+
+        for(Integer roleId : roleIds){
+            template.update(sql, appUser.getAppUserId(), roleId);
+        }
+
+
     }
 
+    private List<Integer> getRoleIds(List<AppRole> roles) {
 
+        //Todo: ask DB for Ids
+
+        List<Integer> roleId = new ArrayList<>();
+        roleId.add(1);
+
+        return roleId;
+
+    }
 
 
 }

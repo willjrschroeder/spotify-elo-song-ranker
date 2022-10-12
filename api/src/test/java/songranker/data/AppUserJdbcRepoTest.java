@@ -71,6 +71,9 @@ class AppUserJdbcRepoTest {
         AppUser toTest = repo.createUser(toAdd);
 
         assertNotNull(toTest);
+        assertEquals("user", toTest.getRoles().get(0).getRoleName());
+        AppUser validation = repo.getUserByUsername("newTestUsername");
+        assertEquals("user", validation.getRoles().get(0).getRoleName());
 
    }
 }
