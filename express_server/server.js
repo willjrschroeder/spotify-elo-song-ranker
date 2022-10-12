@@ -2,18 +2,23 @@ const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node'); // This is a library for accessing the Spotify API. Simplifies all requests
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 
+
+dotenv.config(); // allows access to .env variable from our local machine
 const app = express(); // express server instance
 app.use(cors()); // gets rid of cors error for accessing from localhost:3000
 app.use(bodyParser.json()); // allows request body to be parsed
 
 // this creates an API endpoint for getting a spotify access token from an authorization code
 app.post('/api/spotify/login', (request, response) => {
+    console.log(process.env);
+
     const code = request.body.code;
     const spotifyApi = new SpotifyWebApi({
         redirectUri: 'http://localhost:3000/callback',
         clientId: 'b055b73f53474f3e931fd58a080ca3cf',
-        clientSecret: '7b90f4b463e84c6186e70402c1d29159'
+        clientSecret: process.env.CLIENT_SECRET
     })
 
     spotifyApi.authorizationCodeGrant(code)
@@ -37,7 +42,7 @@ app.post('/api/spotify/refresh_token', (request, response) => {
     const spotifyApi = new SpotifyWebApi({
         redirectUri: 'http://localhost:3000/callback',
         clientId: 'b055b73f53474f3e931fd58a080ca3cf',
-        clientSecret: '7b90f4b463e84c6186e70402c1d29159',
+        clientSecret: process.env.CLIENT_SECRET,
         refreshToken
     });
 
