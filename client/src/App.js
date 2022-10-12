@@ -32,7 +32,7 @@ function App() {
     setRestoreLoginAttemptCreated(true);
 
     //this attempts to restore the Spotify access token
-    setSpotifyToken( localStorage.getItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY) );
+    setSpotifyToken(localStorage.getItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY));
     setRestoreSpotifyTokenAttemptCompleted(true);
   }, [])
 
@@ -90,13 +90,13 @@ function App() {
           <BrowserRouter>
             <Switch>
               <Route exact path="/">
-                <LandingPage />
+                {!user ? <LandingPage /> : <Redirect to="/home" />}
               </Route>
               <Route exact path="/login">
-                {!user ? <Login /> : <Redirect to="/" />}
+                {!user ? <Login /> : <Redirect to="/home" />}
               </Route>
               <Route exact path="/register">
-                <Register></Register>
+                <Register />
               </Route>
               <Route exact path="/spotify">
                 <SpotifyAuthorization />
@@ -105,7 +105,7 @@ function App() {
                 <CallbackPage />
               </Route>
               <Route exact path="/home">
-                <Home></Home>
+                {user ? <Home /> : <Redirect to="/" />}
               </Route>
             </Switch>
           </BrowserRouter>
