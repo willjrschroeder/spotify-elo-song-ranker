@@ -1,4 +1,7 @@
-
+html, body {
+    padding-top: 10px;
+    height: 100%;
+}
 .flex-login {
     height: 440px;
     width: 440px;
