@@ -32,18 +32,21 @@ function useAuth(code) {
     // it makes a post request to the express server and is returned a new access token with a new expiration time
     useEffect(() => {
         if (!refreshToken || !expiresIn) return; // This makes sure a refresh request is not being made before these fields are defined
+        const interval = setInterval(() => {
+            axios.post('http://localhost:3001/api/spotify/refresh_token', { // makes a post request to our express server, passing in the refreshToken
+                refreshToken
+            }).then(response => { // this response contains our access_token and our refresh_token
+                console.log(response.data);
+                setAccessToken(response.data.accessToken);
+                setExpiresIn(response.data.expiresIn);
+            }).catch(() => { // if there is an error during code authentication, the user is pushed back to the spotify OAuth page.
+                // TODO: Not sure if we want to handle this error in another way
+                // **THIS currently happens every time. This is due to React making two requests on every page load
+                history.push("/spotify_login");
+            })
+        }, (expiresIn - 60) * 1000); // this sets the token to refresh one minute before it will expire
 
-        axios.post('http://localhost:3001/api/spotify/refresh_token', { // makes a post request to our express server, passing in the refreshToken
-            refreshToken
-        }).then(response => { // this response contains our access_token and our refresh_token
-            console.log(response.data);
-            setAccessToken(response.data.accessToken);
-            setExpiresIn(response.data.expiresIn);
-        }).catch(() => { // if there is an error during code authentication, the user is pushed back to the spotify OAuth page.
-            // TODO: Not sure if we want to handle this error in another way
-            // **THIS currently happens every time. This is due to React making two requests on every page load
-            history.push("/spotify_login");
-        })
+        return () => clearInterval(interval);
     }, [refreshToken, expiresIn])
 
     return accessToken; // returns access token to the callback page
