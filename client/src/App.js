@@ -7,6 +7,8 @@ import AuthContext from './context/AuthContext';
 import jwtDecode from "jwt-decode";
 import React, {useState, useEffect} from "react";
 import Home from "./Home/Home"
+import SpotifyAuthorization from './SpotifyAuthorization/SpotifyAuthorization';
+import CallbackPage from './SpotifyAuthorization/CallbackPage';
 
 //confused on this part, how to identify that this is the token
 const LOCAL_STORAGE_TOKEN_KEY = "loginToken";
@@ -78,6 +80,12 @@ if (!restoreLoginAttemptCompleted) {
             </Route>
             <Route exact path = "/register">
               <Register></Register>
+            </Route>
+            <Route exact path= "/spotify">
+              <SpotifyAuthorization/>
+            </Route>
+            <Route exact path= "/callback">
+              <CallbackPage/>
             </Route>
             <Route exact path= "/home">
               <Home></Home>
