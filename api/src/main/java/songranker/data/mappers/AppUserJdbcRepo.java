@@ -88,10 +88,6 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
     private List<Integer> getRoleIds(List<AppRole> roles) {
 
-        //Todo: ask DB for Ids
-
-
-
         final String sql = "select app_role_id from app_role where role_name = ?;";
 
         List<Integer> roleIds = new ArrayList<>();
@@ -103,8 +99,6 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
             roleIds.addAll(matchingRoleId);
         }
-
-
 
 
         return roleIds;
