@@ -99,13 +99,13 @@ function App() {
                 <Register />
               </Route>
               <Route exact path="/spotify">
-                <SpotifyAuthorization />
+                {user ? <SpotifyAuthorization /> : <Redirect to="/" />}
               </Route>
               <Route exact path="/callback">
-                <CallbackPage />
+                {user ? <CallbackPage /> : <Redirect to="/spotify" />}
               </Route>
               <Route exact path="/home">
-                {user ? <Home /> : <Redirect to="/" />}
+                {(user && spotifyToken) ? <Home /> : <Redirect to="/" />}
               </Route>
             </Switch>
           </BrowserRouter>
