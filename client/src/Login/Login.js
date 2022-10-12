@@ -10,9 +10,8 @@ function Login(props) {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    // const [errors, setErrors] = useState([]);
 
-    // const loginMap = new Map(Object.entries(loginRequest));
+
 
     const auth = useContext(AuthContext);
 
@@ -40,32 +39,26 @@ function Login(props) {
             history.push("/home")
         } else if (response.status === 403) {
             console.log("login failed")
-            // setErrors(["Login failed."])
+            showErrors(["Login failed."])
         } else {
             console.log("unknown error.")
-            // setErrors(["Unknown Error."])
+            showErrors(["Unknown Error."])
 
         }
     };
-    // then( jwtContainer => {
-    //     const { jwt_token } = await jwtContainer.jwt_token;
-    //     console.log(jwt_token);
-    //         // NEW: login!
-    //     auth.login(jwt_token);
-    //     history.push("/");
 
-    //     console.log( jwt_token );
+    function showErrors( listOfErrorMessages ){
 
-    //     // props.setUser({jwt, claims:claimsObject} );
-    //     history.push("/")
-    // });
-    // .catch (error => {
-    //     if (error instanceof TypeError) {
-    //         console.log("Could not connect to api.");
-    //     } else {
-    //         console.log(error);
-    //     }
-    // })
+        const messageContainer = document.getElementById("messages");
+    
+        messageContainer.innerHTML = listOfErrorMessages.map( m => "<p>" + m + "</p>" ).reduce( (prev, curr) => prev + curr );
+    
+    }
+    function clearErrors(){
+        document.getElementById("messages").innerHTML = "";
+    }
+    
+
 
 
     return (
@@ -73,6 +66,7 @@ function Login(props) {
 
             <div className="flex-login">
                 <h2>Login</h2>
+                <div className="messages"></div>
                 {auth.user ? (
                     <>
                         <h3>You are already logged in!</h3>
