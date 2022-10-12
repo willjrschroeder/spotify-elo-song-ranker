@@ -89,12 +89,13 @@ function Register() {
                 indentifier={"displayName"}
                 labelText={"Display Name"}
                 onChangeHandler={(event) => setDisplayName(event.target.value)} />
+            <div className="flex-buttons">
+                <button>Submit</button>
+                <Link to = "/">Cancel</Link>
+            </div>
         </form>
     </div>
-    <div className="flex-buttons">
-        <button>Submit</button>
-        <Link to = "/">Cancel</Link>
-    </div>
+
 
     </>
     )
