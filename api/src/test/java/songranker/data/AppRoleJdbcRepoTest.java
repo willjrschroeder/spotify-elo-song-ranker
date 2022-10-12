@@ -38,7 +38,7 @@ class AppRoleJdbcRepoTest {
         assertNotNull(toTest);
         assertEquals(1, toTest.get(0).getAppRoleId());
         assertEquals("user", toTest.get(0).getRoleName());
-        assertEquals(2, toTest.get(0).getRoleUsers());
+        assertEquals("testUsername", toTest.get(0).getRoleUsers().get(0).getUsername());
     }
 
     @Test
