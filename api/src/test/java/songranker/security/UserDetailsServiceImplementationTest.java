@@ -86,4 +86,143 @@ class UserDetailsServiceImplementationTest {
         assertEquals("[user]", actual.getAuthorities().toString());
     }
 
+    @Test
+    void shouldNotCreateNewUserWithShortPassword() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "Pas1!", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        try {
+            AppUser actual = service.createUser("testUsername", "Pas1!", "John Smith");
+        } catch (ValidationException ex) {
+            assert true;
+        }
+
+    }
+
+    @Test
+    void shouldNotCreateNewUserWithNoCapitalLetters() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "password1!", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        try {
+            AppUser actual = service.createUser("testUsername", "password1!", "John Smith");
+        } catch (ValidationException ex) {
+            assert true;
+        }
+
+    }
+
+    @Test
+    void shouldNotCreateNewUserWithNoNumbers() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "Password!", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        try {
+            AppUser actual = service.createUser("testUsername", "Password!", "John Smith");
+        } catch (ValidationException ex) {
+            assert true;
+        }
+
+    }
+
+    @Test
+    void shouldNotCreateNewUserWithNoSpecialCharacters() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "Password1", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        try {
+            AppUser actual = service.createUser("testUsername", "Password1", "John Smith");
+        } catch (ValidationException ex) {
+            assert true;
+        }
+
+    }
+
+    @Test
+    void shouldNotCreateNewUserWithBlankPassword() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("testUsername", "", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        try {
+            AppUser actual = service.createUser("testUsername", "", "John Smith");
+        } catch (ValidationException ex) {
+            assert true;
+        }
+
+    }
+
+    @Test
+    void shouldNotCreateNewUserWithLongUsername() throws ValidationException {
+        AppRole role = new AppRole();
+        role.setAppRoleId(1);
+        role.setRoleName("user");
+        role.setRoleUsers(new ArrayList<>());
+
+        List<AppRole> roles = Arrays.asList(role);
+
+        AppUser expected = new AppUser(1, "testUsername",
+                "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy",
+                "John Smith", false, roles);
+        AppUser toCreate = new AppUser("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "Password1!", "John Smith", false, roles);
+        when(repository.createUser(toCreate)).thenReturn(expected);
+
+        try {
+            AppUser actual = service.createUser(null, "Password1!", "John Smith");
+        } catch (ValidationException ex) {
+            assert true;
+        }
+
+    }
+
 }
