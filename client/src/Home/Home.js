@@ -6,8 +6,6 @@ function Home() {
 
     const spotifyAuth = useContext(SpotifyAuthContext);
 
-    console.log("Hello from the homepage! Spotify auth token: " + spotifyAuth.spotifyAuthToken);
-
     const [playlists, setplaylists] = useState([]);
 
     const auth = useContext(AuthContext);
@@ -17,15 +15,19 @@ function Home() {
     const canDelete = auth.user && auth.user.hasRole("admin")
 
 
-    return (<>
-        <div>
-            {canPlay && (<h2>play</h2>)}
-        </div>
+    return (
+        <>
+            <div>
+                <button className='login' onClick={() => auth.logout()}>logout</button>
+            </div>
+            <div>
+                {canPlay && (<h2>play</h2>)}
+            </div>
 
-        <div>
-            {canDelete && (<h2>delete</h2>)}
-        </div>
-    </>
+            <div>
+                {canDelete && (<h2>delete</h2>)}
+            </div>
+        </>
     )
 }
 export default Home;
