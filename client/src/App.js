@@ -25,7 +25,6 @@ function App() {
   useEffect(() => {
     //this attempts to restore the JWT access token 
     const token = localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
-    console.log(token);
     if (token) {
       login(token)
     }
@@ -51,9 +50,6 @@ function App() {
         return this.roles.some((r) => r.roleName === role);
       }
     };
-
-    //for debugging
-    console.log(user);
 
     setUser(user);
 
