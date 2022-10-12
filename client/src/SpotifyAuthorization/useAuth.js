@@ -19,11 +19,11 @@ function useAuth(code) {
             setRefreshToken(response.data.refreshToken);
             setExpiresIn(response.data.expiresIn);
 
-            window.history.pushState({}, null, "/"); // This removes the auth code from the URL. Doesn't do anything functionally, just makes things look a little cleaner
+            window.history.pushState({}, null, "/callback"); // This removes the auth code from the URL. Doesn't do anything functionally, just makes things look a little cleaner
         }).catch(() => { // if there is an error during code authentication, the user is pushed back to the spotify OAuth page.
             // TODO: Not sure if we want to handle this error in another way
             // **THIS currently happens every time. This is due to React making two requests on every page load
-            history.push("/spotify_login");
+            history.push("/spotify");
         })
     }, [code]); // performs every time a new authentication code is accquired
 
@@ -39,10 +39,9 @@ function useAuth(code) {
                 console.log(response.data);
                 setAccessToken(response.data.accessToken);
                 setExpiresIn(response.data.expiresIn);
-            }).catch(() => { // if there is an error during code authentication, the user is pushed back to the spotify OAuth page.
+            }).catch(() => { // if there is an error during token refreshing, the user is pushed back to the spotify OAuth page.
                 // TODO: Not sure if we want to handle this error in another way
-                // **THIS currently happens every time. This is due to React making two requests on every page load
-                history.push("/spotify_login");
+                history.push("/spotify");
             })
         }, (expiresIn - 60) * 1000); // this sets the token to refresh one minute before it will expire
 

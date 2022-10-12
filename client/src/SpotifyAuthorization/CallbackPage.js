@@ -4,10 +4,10 @@ import useAuth from './useAuth';
 const code = new URLSearchParams(window.location.search).get('code');
 
 function CallbackPage() {
-    const accessToken = useAuth(code);
+    const spotifyAccessToken = useAuth(code);
     return (
         <div>
-            {code}
+            {spotifyAccessToken}
         </div>
     );
 }
