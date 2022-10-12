@@ -63,7 +63,11 @@ public class AppUserJdbcRepo implements AppUserRepo {
         return appUser;
     }
 
-
+//    private void addUserRoles(AppUser appUser){
+//        final String sql = "select ur.app_user_id, ur.app_role_id\n"+
+//                "from user_role as ur\n"+
+//                ""
+//    }
 
 
 
