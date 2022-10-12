@@ -11,8 +11,7 @@ import SpotifyAuthorization from './SpotifyAuthorization/SpotifyAuthorization';
 import CallbackPage from './SpotifyAuthorization/CallbackPage';
 import SpotifyAuthContext from './context/SpotifyAuthContext';
 
-//confused on this part, how to identify that this is the token
-const LOCAL_STORAGE_TOKEN_KEY = "loginToken";
+const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
 
 function App() {
@@ -25,7 +24,7 @@ function App() {
 
   useEffect(() => {
     //this attempts to restore the JWT access token 
-    const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+    const token = localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
     console.log(token);
     if (token) {
       login(token)
@@ -39,7 +38,7 @@ function App() {
 
   const login = (token) => {
 
-    localStorage.setItem(LOCAL_STORAGE_TOKEN_KEY, token)
+    localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_KEY, token)
 
     const { sub, roles, display_name } = jwtDecode(token);
 
@@ -64,7 +63,7 @@ function App() {
   const logout = () => {
     setUser(null);
 
-    localStorage.removeItem(LOCAL_STORAGE_TOKEN_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
   };
 
   const auth = {
