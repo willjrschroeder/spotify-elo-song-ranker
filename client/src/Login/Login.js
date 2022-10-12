@@ -73,7 +73,7 @@ function Login(props) {
                         <button onClick={() => auth.logout()}>Logout</button>
                     </>
                 ) : (
-                    <form onSubmit={loginHandler}>
+                    <form>
                         <FormInput
                             InputType={"text"}
                             indentifier={"username"}
@@ -93,7 +93,7 @@ function Login(props) {
 
             </div>
             <div className="loginButton">
-                <button>Log In</button>
+                <button onClick={loginHandler}>Log In</button>
                 <Link to="/register">Register</Link>
                 <Link to="/">Cancel</Link>
             </div>
