@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
+import songranker.data.mappers.AppRoleJdbcRepo;
 import songranker.data.mappers.AppUserJdbcRepo;
 import songranker.models.AppRole;
 import songranker.models.AppUser;
@@ -20,6 +21,9 @@ class AppUserJdbcRepoTest {
 
     @Autowired
     AppUserJdbcRepo repo;
+
+    @Autowired
+    AppRoleJdbcRepo roleRepo;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -43,12 +47,8 @@ class AppUserJdbcRepoTest {
 
     @Test
     void shouldAddValidUser(){
-       AppRole role = new AppRole();
-        role.setAppRoleId(1);
-        role.setRoleName("user");
-        role.setRoleUsers(new ArrayList<>());
 
-        List<AppRole> roles = List.of(role);
+        List<AppRole> roles = roleRepo.getRoleByRoleName("user");
 
 
         AppUser toAdd = new AppUser(0, "newTestUsername",

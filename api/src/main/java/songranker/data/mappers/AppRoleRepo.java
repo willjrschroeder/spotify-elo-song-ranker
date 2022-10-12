@@ -8,4 +8,6 @@ import java.util.List;
 public interface AppRoleRepo {
 
     List<AppRole> getRolesByUsername(String username);
+
+    List<AppRole> getRoleByRoleName(String roleName);
 }

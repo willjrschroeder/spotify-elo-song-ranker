@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import songranker.models.AppRole;
-import songranker.models.AppUser;
 
 import java.util.List;
 
@@ -24,6 +23,15 @@ public class AppRoleJdbcRepo implements AppRoleRepo{
                 "where au.username = ?;";
 
         return template.query(sql, new AppRoleMapper(), username);
+    }
+
+    @Override
+    public List<AppRole> getRoleByRoleName(String roleName){
+        String sql = "select r.app_role_id, r.role_name\n"+
+                "from app_role as r\n"+
+                "where r.role_name = ?;";
+
+        return template.query(sql, new AppRoleMapper(), roleName);
     }
 
 

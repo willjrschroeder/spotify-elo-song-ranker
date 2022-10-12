@@ -23,6 +23,8 @@ class AppRoleJdbcRepoTest {
 
     private final String username1 = "testUsername";
 
+    private final String roleNameUser = "user";
+
     @BeforeEach
     void setup(){
         knownGoodState.set();
@@ -35,5 +37,14 @@ class AppRoleJdbcRepoTest {
         assertEquals(1, toTest.get(0).getAppRoleId());
         assertEquals("user", toTest.get(0).getRoleName());
         assertEquals(2, toTest.get(0).getRoleUsers());
+    }
+
+    @Test
+    void shouldGetRoleByRoleName(){
+        List<AppRole> toTest = repo.getRoleByRoleName(roleNameUser);
+        assertNotNull(toTest);
+        assertEquals(1, toTest.get(0).getAppRoleId());
+        assertEquals(roleNameUser, toTest.get(0).getRoleName());
+
     }
 }
