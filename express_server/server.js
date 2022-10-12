@@ -1,7 +1,11 @@
 const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express(); // express server instance
+app.use(cors()); // gets rid of cors error for accessing from localhost:3000
+app.use(bodyParser.json()); // allows request body to be parsed
 
 // this creates an API endpoint for getting a spotify access token from an authorization code
 app.post('/spotify_login', (request, response) => {
@@ -23,3 +27,5 @@ app.post('/spotify_login', (request, response) => {
         response.sendStatus(400); // error that is sent when code cannot get access token
     })
 })
+
+app.listen(3001); // This servers is listening on port 3001
