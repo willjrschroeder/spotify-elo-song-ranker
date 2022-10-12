@@ -14,7 +14,6 @@ function useAuth(code) {
         axios.post('http://localhost:3001/api/spotify/login', { // makes a post request to our express server, passing in the authorization code
             code
         }).then(response => { // this response contains our access_token and our refresh_token
-            console.log(response.data);
             setAccessToken(response.data.accessToken);
             setRefreshToken(response.data.refreshToken);
             setExpiresIn(response.data.expiresIn);
@@ -36,7 +35,6 @@ function useAuth(code) {
             axios.post('http://localhost:3001/api/spotify/refresh_token', { // makes a post request to our express server, passing in the refreshToken
                 refreshToken
             }).then(response => { // this response contains our access_token and our refresh_token
-                console.log(response.data);
                 setAccessToken(response.data.accessToken);
                 setExpiresIn(response.data.expiresIn);
             }).catch(() => { // if there is an error during token refreshing, the user is pushed back to the spotify OAuth page.
