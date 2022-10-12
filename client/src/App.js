@@ -80,6 +80,10 @@ function App() {
     return null;
   }
 
+  if (!restoreSpotifyTokenAttemptCompleted) {
+    return null;
+  }
+
   return (
     <div className='App'>
       <AuthContext.Provider value={auth}>

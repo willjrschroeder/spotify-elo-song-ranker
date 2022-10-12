@@ -1,6 +1,5 @@
 import FormInput from "../FormInput/FormInput";
-import { useState, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import "./Register.css";
 
@@ -12,11 +11,7 @@ function Register() {
     const [displayName, setDisplayName] = useState("");
     const loginRequest = { username, password, displayName };
 
-    const auth = useContext(AuthContext);
-
     const history = useHistory();
-
-
 
     function addUser(event) {
         event.preventDefault();
@@ -60,7 +55,7 @@ function Register() {
 
         const messageContainer = document.getElementById("messages");
     
-        //TODO: this should not use a map, we'll be working with strings instead of arrays
+        //TODO: this should not use a map, we'll working with strings instead of arrays
         messageContainer.innerHTML = listOfErrorMessages.map( m => "<p>" + m + "</p>" ).reduce( (prev, curr) => prev + curr );
     
     }
