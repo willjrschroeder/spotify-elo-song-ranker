@@ -2,6 +2,7 @@ package songranker.data.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
@@ -89,10 +90,24 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
         //Todo: ask DB for Ids
 
-        List<Integer> roleId = new ArrayList<>();
-        roleId.add(1);
 
-        return roleId;
+
+        final String sql = "select app_role_id from app_role where role_name = ?;";
+
+        List<Integer> roleIds = new ArrayList<>();
+
+        for(AppRole eachRole : roles){
+            List<Integer> matchingRoleId = template.query(sql, (resultSet, rowNum) -> {
+                return resultSet.getInt("app_role_id");
+            } , eachRole.getRoleName());
+
+            roleIds.addAll(matchingRoleId);
+        }
+
+
+
+
+        return roleIds;
 
     }
 

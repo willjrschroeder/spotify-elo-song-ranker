@@ -33,8 +33,6 @@ class AppRoleJdbcRepoTest {
     }
 
 
-
-
     @Test
     void shouldGetAllRoles(){
         List<AppRole> toTest = repo.getAllRoles();
