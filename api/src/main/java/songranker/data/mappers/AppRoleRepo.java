@@ -9,7 +9,5 @@ public interface AppRoleRepo {
 
     List<AppRole> getAllRoles();
 
-    List<AppRole> getRolesByUsername(String username);
 
-    List<AppRole> getRoleByRoleName(String roleName);
 }

@@ -30,6 +30,10 @@ class AppUserJdbcRepoTest {
 
     private final String username1 = "testUsername";
 
+    private final String roleNameUser = "user";
+
+    private final String roleNameAdmin = "admin";
+
     @BeforeEach
     void setup(){
         knownGoodState.set();
@@ -61,7 +65,7 @@ class AppUserJdbcRepoTest {
     @Test
     void shouldAddValidUser(){
 
-        List<AppRole> roles = roleRepo.getRoleByRoleName("user");
+        List<AppRole> roles = repo.getRoleByRoleName("user");
 
 
         AppUser toAdd = new AppUser(0, "newTestUsername",
@@ -76,4 +80,23 @@ class AppUserJdbcRepoTest {
         assertEquals("user", validation.getRoles().get(0).getRoleName());
 
    }
+
+    @Test
+    void shouldGetRolesByUsername() {
+        List<AppRole> toTest = repo.getRolesByUsername(username1);
+        assertNotNull(toTest);
+        assertEquals(1, toTest.get(0).getAppRoleId());
+        assertEquals("user", toTest.get(0).getRoleName());
+        assertEquals("testUsername", toTest.get(0).getRoleUsers().get(0).getUsername());
+    }
+
+    @Test
+    void shouldGetRoleByRoleName(){
+        List<AppRole> toTest = repo.getRoleByRoleName(roleNameUser);
+        assertNotNull(toTest);
+        assertEquals(1, toTest.get(0).getAppRoleId());
+        assertEquals(roleNameUser, toTest.get(0).getRoleName());
+
+    }
+
 }

@@ -20,13 +20,10 @@ public class AppUserJdbcRepo implements AppUserRepo {
     @Autowired
     JdbcTemplate template;
 
-    @Autowired
-    AppRoleJdbcRepo appRoleJdbcRepo;
-
 
     @Override
     public List<AppUser> getAllUsers(){
-        List<AppRole> roles = appRoleJdbcRepo.getRoleByRoleName("user");
+        List<AppRole> roles = getRoleByRoleName("user");
         final String sql = "select au.app_user_id, au.username, au.password_hash, au.display_name, au.disabled\n"+
                 "from app_user as au\n"+
                 "inner join user_roles as ur\n"+
@@ -40,7 +37,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
     @Override
     public AppUser getUserByUsername(String username){
-        List<AppRole> userRoles = appRoleJdbcRepo.getRolesByUsername(username);
+        List<AppRole> userRoles = getRolesByUsername(username);
 
         return template.query("select app_user_id, username, password_hash, display_name, disabled from app_user where username = ?",
                 new AppUserMapper(userRoles), username).stream().findFirst().orElse(null);
@@ -49,7 +46,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
     @Override
     @Transactional
     public AppUser createUser(AppUser appUser){
-        //TODO: write to the user_roles bridge table after writing the user to the DB. Give new user role of 'user'. Done with @Transactional in case one of the writings fail
+
 
         final String sql = "insert into app_user (username, password_hash, display_name, disabled) "
                 + "values (?,?,?,?);";
@@ -97,6 +94,26 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
         return roleId;
 
+    }
+
+    public List<AppRole> getRolesByUsername(String username){
+        String sql = "select r.app_role_id, r.role_name\n" +
+                "from app_role as r\n"+
+                "inner join user_roles as ur\n"+
+                "\ton r.app_role_id = ur.app_role_id\n"+
+                "inner join app_user as au\n"+
+                "\ton au.app_user_id = ur.app_user_id\n"+
+                "where au.username = ?;";
+
+        return template.query(sql, new AppRoleMapper(), username);
+    }
+
+    public List<AppRole> getRoleByRoleName(String roleName){
+        String sql = "select r.app_role_id, r.role_name\n"+
+                "from app_role as r\n"+
+                "where r.role_name = ?;";
+
+        return template.query(sql, new AppRoleMapper(), roleName);
     }
 
 

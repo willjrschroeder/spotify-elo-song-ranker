@@ -32,23 +32,8 @@ class AppRoleJdbcRepoTest {
         knownGoodState.set();
     }
 
-    @Test
-    void shouldGetRolesByUsername() {
-        List<AppRole> toTest = repo.getRolesByUsername(username1);
-        assertNotNull(toTest);
-        assertEquals(1, toTest.get(0).getAppRoleId());
-        assertEquals("user", toTest.get(0).getRoleName());
-        assertEquals("testUsername", toTest.get(0).getRoleUsers().get(0).getUsername());
-    }
 
-    @Test
-    void shouldGetRoleByRoleName(){
-        List<AppRole> toTest = repo.getRoleByRoleName(roleNameUser);
-        assertNotNull(toTest);
-        assertEquals(1, toTest.get(0).getAppRoleId());
-        assertEquals(roleNameUser, toTest.get(0).getRoleName());
 
-    }
 
     @Test
     void shouldGetAllRoles(){
