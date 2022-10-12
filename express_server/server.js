@@ -12,8 +12,6 @@ app.use(bodyParser.json()); // allows request body to be parsed
 
 // this creates an API endpoint for getting a spotify access token from an authorization code
 app.post('/api/spotify/login', (request, response) => {
-    console.log(process.env);
-
     const code = request.body.code;
     const spotifyApi = new SpotifyWebApi({
         redirectUri: 'http://localhost:3000/callback',
