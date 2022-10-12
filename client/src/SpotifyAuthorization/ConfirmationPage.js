@@ -1,4 +1,5 @@
 import { React, useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 
@@ -34,7 +35,7 @@ function ConfirmationPage() {
                         <h2>Welcome, {userData.display_name}</h2>
                         <img src={userData.images[0].url}></img>
                         <h3>Your Spotify Account was successfully linked</h3>
-                        
+                        <Link to="/home"><button className='btn'>Home</button></Link>
                     </div>
                     :
                     null
