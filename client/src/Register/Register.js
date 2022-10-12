@@ -35,7 +35,7 @@ function Register() {
             }
         }).then(async response => {
             if (response.status === 201) {
-                history.push("/home");
+                history.push("/login");
                 return response.json();
             }
             return Promise.reject(await response.json());
