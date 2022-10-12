@@ -18,13 +18,13 @@ function Home() {
 
 
     return (<>
-    <div>
-        {canPlay && (<h2>play</h2>)}
-    </div>
+        <div>
+            {canPlay && (<h2>play</h2>)}
+        </div>
 
-    <div>
-        {canDelete && (<h2>delete</h2>)}
-    </div>
+        <div>
+            {canDelete && (<h2>delete</h2>)}
+        </div>
     </>
     )
 }

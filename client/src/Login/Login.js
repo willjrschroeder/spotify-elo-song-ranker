@@ -1,6 +1,6 @@
-import React, {useState, useContext} from "react";
+import React, { useState, useContext } from "react";
 import FormInput from "../FormInput/FormInput";
-import {Link, useHistory} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "./Login.css"
 
@@ -31,79 +31,79 @@ function Login(props) {
                 password,
             })
         })
-        
-        if( response.status === 200 ) {
-            const {jwt_token} = await response.json();
+
+        if (response.status === 200) {
+            const { jwt_token } = await response.json();
             console.log(jwt_token);
             // NEW:LOGIN
             auth.login(jwt_token);
             history.push("/home")
-        } else if (response.status === 403){
+        } else if (response.status === 403) {
             console.log("login failed")
             // setErrors(["Login failed."])
         } else {
             console.log("unknown error.")
             // setErrors(["Unknown Error."])
-        
+
         }
     };
-        // then( jwtContainer => {
-        //     const { jwt_token } = await jwtContainer.jwt_token;
-        //     console.log(jwt_token);
-        //         // NEW: login!
-        //     auth.login(jwt_token);
-        //     history.push("/");
+    // then( jwtContainer => {
+    //     const { jwt_token } = await jwtContainer.jwt_token;
+    //     console.log(jwt_token);
+    //         // NEW: login!
+    //     auth.login(jwt_token);
+    //     history.push("/");
 
-        //     console.log( jwt_token );
-            
-        //     // props.setUser({jwt, claims:claimsObject} );
-        //     history.push("/")
-        // });
-        // .catch (error => {
-        //     if (error instanceof TypeError) {
-        //         console.log("Could not connect to api.");
-        //     } else {
-        //         console.log(error);
-        //     }
-        // })
-    
+    //     console.log( jwt_token );
+
+    //     // props.setUser({jwt, claims:claimsObject} );
+    //     history.push("/")
+    // });
+    // .catch (error => {
+    //     if (error instanceof TypeError) {
+    //         console.log("Could not connect to api.");
+    //     } else {
+    //         console.log(error);
+    //     }
+    // })
+
 
     return (
         <>
-        
-        <div className="flex-login">
-            <h2>Login</h2>
-            {auth.user ? (
-                <>
-                <h3>You are already logged in!</h3>
-                <button onClick={() => auth.logout()}>Logout</button>
-                </>
-            ) : (
-                <form  onSubmit={loginHandler}>
-                <FormInput 
-                InputType = {"text"}
-                indentifier = {"username"}
-                labelText = {"Username"}
-                onChangeHandler = {(event) => setUsername(event.target.value)}/>
-    
-                <FormInput
-                InputType = {"password"}
-                indentifier = {"password"}
-                labelText = {"Password"}
-                onChangeHandler = {(event) => setPassword(event.target.value)}/>
-                
 
-    
-            </form>
-            )} 
-            
-        </div>
-        <div className="loginButton">
-                    <button>Log In</button>
-                    <Link to = "/register">Register</Link>
-                    <Link to = "/">Cancel</Link>
-                </div>
-    </>
+            <div className="flex-login">
+                <h2>Login</h2>
+                {auth.user ? (
+                    <>
+                        <h3>You are already logged in!</h3>
+                        <button onClick={() => auth.logout()}>Logout</button>
+                    </>
+                ) : (
+                    <form onSubmit={loginHandler}>
+                        <FormInput
+                            InputType={"text"}
+                            indentifier={"username"}
+                            labelText={"Username"}
+                            onChangeHandler={(event) => setUsername(event.target.value)} />
+
+                        <FormInput
+                            InputType={"password"}
+                            indentifier={"password"}
+                            labelText={"Password"}
+                            onChangeHandler={(event) => setPassword(event.target.value)} />
+
+
+
+                    </form>
+                )}
+
+            </div>
+            <div className="loginButton">
+                <button>Log In</button>
+                <Link to="/register">Register</Link>
+                <Link to="/">Cancel</Link>
+            </div>
+        </>
     )
 }
 
