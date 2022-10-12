@@ -36,7 +36,7 @@ function Login(props) {
             console.log(jwt_token);
             // NEW:LOGIN
             auth.login(jwt_token);
-            history.push("/home")
+            history.push("/spotify")
         } else if (response.status === 403) {
             console.log("login failed")
             showErrors(["Login failed."])

@@ -64,6 +64,7 @@ function App() {
     setUser(null);
 
     localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY);
   };
 
   const auth = {
