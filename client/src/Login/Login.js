@@ -33,7 +33,6 @@ function Login(props) {
 
         if (response.status === 200) {
             const { jwt_token } = await response.json();
-            console.log(jwt_token);
             // NEW:LOGIN
             auth.login(jwt_token);
             history.push("/spotify")
