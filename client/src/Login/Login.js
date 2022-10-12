@@ -73,7 +73,7 @@ function Login(props) {
                         <button onClick={() => auth.logout()}>Logout</button>
                     </>
                 ) : (
-                    <form>
+                    <form onSubmit={loginHandler}>
                         <FormInput
                             InputType={"text"}
                             indentifier={"username"}
@@ -86,16 +86,15 @@ function Login(props) {
                             labelText={"Password"}
                             onChangeHandler={(event) => setPassword(event.target.value)} />
 
-
+                        <div className="loginButton">
+                            <button>Log In</button>
+                            <Link to="/register">Register</Link>
+                            <Link to="/">Cancel</Link>
+                        </div>
 
                     </form>
                 )}
 
-            </div>
-            <div className="loginButton">
-                <button onClick={loginHandler}>Log In</button>
-                <Link to="/register">Register</Link>
-                <Link to="/">Cancel</Link>
             </div>
         </>
     )
