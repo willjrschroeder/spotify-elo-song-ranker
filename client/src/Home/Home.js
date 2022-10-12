@@ -1,7 +1,12 @@
 import { useContext, useState } from "react"
 import AuthContext from "../context/AuthContext";
+import SpotifyAuthContext from "../context/SpotifyAuthContext";
 
 function Home() {
+
+    const spotifyAuth = useContext(SpotifyAuthContext);
+
+    console.log("Hello from the homepage! Spotify auth token: " + spotifyAuth.spotifyAuthToken);
 
     const [playlists, setplaylists] = useState([]);
 
