@@ -72,7 +72,7 @@ function App() {
   // this is the value that the SpotifyAuthContext is set to. 
   // contains a spotify token (null if not yet set)
   const spotifyAuth = {
-    spotifyAuthToken: spotifyToken ? spotifyToken : null,
+    spotifyAccessToken: spotifyToken ? spotifyToken : null,
   }
 
   if (!restoreLoginAttemptCompleted) {
