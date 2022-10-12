@@ -44,17 +44,23 @@ function Register() {
                 if (errorList instanceof TypeError) {
                     showErrors(["Could not connect to api."])
                     console.log("Could not connect to api.");
-                } else {
-                    showErrors(errorList)
+                } else { //TODO: This else clause is always triggered on error
+                    showErrors(errorList) // TODO: the caught response 'errorList' is not an array or a list. It is a listOfErrorMessages object
                     console.log(errorList);
                 }
             });
     }
 
-    function showErrors( listOfErrorMessages ){
+    function showErrors( listOfErrorMessages ){ //TODO: update this function to handle listOfErrorMessages object.
+                                                // the object has a 'message' property
+                                                // listOfErrorMessages.message yields a string of the error message
+                                                // we'll can probably just pass in the string to the function?
+                                                // and then custom error messages can be plain strings too
+                                                // // not arrays of strings ex. ["Could not connect to api"] vs "Could not connect to api"
 
         const messageContainer = document.getElementById("messages");
     
+        //TODO: this should not use a map, we'll be working with strings instead of arrays
         messageContainer.innerHTML = listOfErrorMessages.map( m => "<p>" + m + "</p>" ).reduce( (prev, curr) => prev + curr );
     
     }
