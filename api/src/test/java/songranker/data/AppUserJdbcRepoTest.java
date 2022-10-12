@@ -36,6 +36,19 @@ class AppUserJdbcRepoTest {
     }
 
     @Test
+    void shouldFindAllUsers(){
+        List<AppUser> toTest = repo.getAllUsers();
+        assertNotNull(toTest);
+        assertEquals(3, toTest.size());
+        assertEquals(1, toTest.get(0).getAppUserId());
+        assertEquals("testUsername", toTest.get(0).getUsername());
+        assertEquals(2, toTest.get(1).getAppUserId());
+        assertEquals("testUsername2", toTest.get(1).getUsername());
+        assertEquals(3, toTest.get(2).getAppUserId());
+        assertEquals("testUsername3", toTest.get(2).getUsername());
+    }
+
+    @Test
     void shouldFindUserByUsername() {
         AppUser toTest = repo.getUserByUsername(username1);
         assertNotNull(toTest);

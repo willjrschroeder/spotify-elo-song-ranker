@@ -23,6 +23,14 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
 
     @Override
+    public List<AppUser> getAllUsers(){
+        List<AppRole> roles = appRoleJdbcRepo.getAllRoles();
+        final String sql = "select app_user_id, username, password_hash, display_name, disabled\n"+
+                "from app_user;";
+        return template.query(sql, new AppUserMapper(roles));
+    }
+
+    @Override
     public AppUser getUserByUsername(String username){
         List<AppRole> userRoles = appRoleJdbcRepo.getRolesByUsername(username);
 
@@ -54,6 +62,8 @@ public class AppUserJdbcRepo implements AppUserRepo {
         appUser.setAppUserId(keyHolder.getKey().intValue());
         return appUser;
     }
+
+
 
 
 

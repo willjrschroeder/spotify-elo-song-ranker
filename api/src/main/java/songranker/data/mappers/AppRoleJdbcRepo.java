@@ -12,6 +12,13 @@ public class AppRoleJdbcRepo implements AppRoleRepo{
 
     @Autowired
     JdbcTemplate template;
+
+    @Override
+    public List<AppRole> getAllRoles(){
+        final String sql = "select app_role_id, role_name from app_role;";
+
+        return template.query(sql, new AppRoleMapper());
+    }
     @Override
     public List<AppRole> getRolesByUsername(String username){
         String sql = "select r.app_role_id, r.role_name\n" +
@@ -33,6 +40,7 @@ public class AppRoleJdbcRepo implements AppRoleRepo{
 
         return template.query(sql, new AppRoleMapper(), roleName);
     }
+
 
 
 
