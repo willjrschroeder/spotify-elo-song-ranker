@@ -10,7 +10,6 @@ function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [displayName, setDisplayName] = useState("");
-    const [errors, setErrors] = useState([]);
     const loginRequest = { username, password, displayName };
 
     const auth = useContext(AuthContext);
@@ -23,7 +22,7 @@ function Register() {
         event.preventDefault();
 
         if(password !== confirmPassword) {
-            setErrors(...errors, ["Password and confirm password do not match"]);
+            showErrors(["Password and confirm password do not match"]);
             return;
             //TODO: display this error
         }
@@ -43,17 +42,32 @@ function Register() {
         })
             .catch(errorList => {
                 if (errorList instanceof TypeError) {
+                    showErrors(["Could not connect to api."])
                     console.log("Could not connect to api.");
                 } else {
+                    showErrors(errorList)
                     console.log(errorList);
                 }
             });
     }
 
+    function showErrors( listOfErrorMessages ){
+
+        const messageContainer = document.getElementById("messages");
+    
+        messageContainer.innerHTML = listOfErrorMessages.map( m => "<p>" + m + "</p>" ).reduce( (prev, curr) => prev + curr );
+    
+    }
+    function clearErrors(){
+        document.getElementById("messages").innerHTML = "";
+    }
+    
+
 
     return (<>
     <div className="flex-register">
         <h2>Register</h2>
+        <div className="messages"></div>
         <form onSubmit={addUser}>
             <FormInput
                 InputType={"text"}
