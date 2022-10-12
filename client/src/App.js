@@ -24,12 +24,17 @@ function App() {
   const [restoreSpotifyTokenAttemptCompleted, setRestoreSpotifyTokenAttemptCompleted] = useState(false);
 
   useEffect(() => {
+    //this attempts to restore the JWT access token 
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
     console.log(token);
     if (token) {
       login(token)
     }
     setRestoreLoginAttemptCreated(true);
+
+    //this attempts to restore the Spotify access token
+    setSpotifyToken( localStorage.getItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY) );
+    setRestoreSpotifyTokenAttemptCompleted(true);
   }, [])
 
   const login = (token) => {
@@ -68,24 +73,10 @@ function App() {
     logout
   };
 
-  // this method is passed down to the callback page, and it is used to return the Spotify auth token to the main app page
-  // the Spotify auth token is needed here to put it in a React context
-  const getSpotifyAuthToken = (token) => {
-    setSpotifyToken(token);
-  }
-
-  // this method is part of the SpotifyAuthContext, and it can be called to see if there is currently a Spotify auth token
-  const hasValidToken = () => {
-    if (spotifyToken) return true;
-
-    return false;
-  }
-
   // this is the value that the SpotifyAuthContext is set to. 
-  // contains a spotify token (nullable) and a method to determine if the token is currently valid
+  // contains a spotify token (null if not yet set)
   const spotifyAuth = {
     spotifyAuthToken: spotifyToken ? spotifyToken : null,
-    hasValidToken
   }
 
   if (!restoreLoginAttemptCompleted) {
@@ -111,7 +102,7 @@ function App() {
                 <SpotifyAuthorization />
               </Route>
               <Route exact path="/callback">
-                <CallbackPage passSpotifyAuthToken={getSpotifyAuthToken} />
+                <CallbackPage />
               </Route>
               <Route exact path="/home">
                 <Home></Home>
