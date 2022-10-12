@@ -10,6 +10,7 @@ import Home from "./Home/Home"
 import SpotifyAuthorization from './SpotifyAuthorization/SpotifyAuthorization';
 import CallbackPage from './SpotifyAuthorization/CallbackPage';
 import SpotifyAuthContext from './context/SpotifyAuthContext';
+import ConfirmationPage from './SpotifyAuthorization/ConfirmationPage';
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
@@ -99,6 +100,9 @@ function App() {
               </Route>
               <Route exact path="/callback">
                 {user ? <CallbackPage /> : <Redirect to="/spotify" />}
+              </Route>
+              <Route exact path="/spotify/confirmation">
+                {spotifyToken ? <ConfirmationPage /> : <Redirect to="/spotify" />}
               </Route>
               <Route exact path="/home">
                 {(user && spotifyToken) ? <Home /> : <Redirect to="/" />}
