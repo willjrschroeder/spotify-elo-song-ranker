@@ -13,6 +13,7 @@ import SpotifyAuthContext from './context/SpotifyAuthContext';
 
 //confused on this part, how to identify that this is the token
 const LOCAL_STORAGE_TOKEN_KEY = "loginToken";
+const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
   const [spotifyToken, setSpotifyToken] = useState();
 
   const [restoreLoginAttemptCompleted, setRestoreLoginAttemptCreated] = useState(false);
+  const [restoreSpotifyTokenAttemptCompleted, setRestoreSpotifyTokenAttemptCompleted] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
