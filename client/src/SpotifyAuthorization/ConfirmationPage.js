@@ -25,6 +25,13 @@ function ConfirmationPage() {
                 console.log('Something went wrong!', err);
             });
 
+        spotifyApi.getUserPlaylists('31rrun55wnuo6elyf62p2g7mmc3m')
+            .then(function (data) {
+                console.log('Retrieved playlists', data.body);
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            });
+
     }, [spotifyAuth.spotifyAccessToken])
 
     return (

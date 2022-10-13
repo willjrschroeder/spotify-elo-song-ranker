@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AUTH_URL = 'https://accounts.spotify.com/authorize?client_id=b055b73f53474f3e931fd58a080ca3cf&response_type=code&redirect_uri=http://localhost:3000/callback&scope=playlist-read-private%20playlist-read-collaborative';
+const AUTH_URL = 'https://accounts.spotify.com/authorize?client_id=b055b73f53474f3e931fd58a080ca3cf&response_type=code&redirect_uri=http://localhost:3000/callback&scope=user-read-private%20playlist-read-private%20playlist-read-collaborative';
 
 function SpotifyAuthorization() {
     return (
