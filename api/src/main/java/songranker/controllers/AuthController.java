@@ -86,9 +86,10 @@ public class AuthController {
                                                                 //Not sure if necessary or not
 
         } catch (ValidationException ex) {
-            return new ResponseEntity<>(List.of(ex.getMessage()), HttpStatus.BAD_REQUEST);
+            String test = ex.getMessage();
+            return new ResponseEntity<>(test, HttpStatus.BAD_REQUEST);
         } catch (DuplicateKeyException ex) {
-            return new ResponseEntity<>(List.of("The provided username already exists"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("The provided username already exists", HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED); // This is the happy case

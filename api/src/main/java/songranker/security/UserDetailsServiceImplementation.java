@@ -37,6 +37,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     public AppUser createUser(String username, String password, String displayName) throws ValidationException {
         validateUsername(username); // checks for non-null < length 50 usernames. Throws exception if not valid
+        validateDisplayName(displayName); // checks for non-null < length 50 usernames. Throws exception if not valid
         validatePassword(password); //checks for a < length 8 PW containing digits, numbers, and special chars
 
         password = encoder.encode(password);
@@ -52,17 +53,27 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     private void validateUsername(String username) throws ValidationException {
         if (username == null || username.isBlank()) {
-            throw new ValidationException("username is required");
+            throw new ValidationException("Username is required");
         }
 
         if (username.length() > 50) {
-            throw new ValidationException("username must be less than 50 characters");
+            throw new ValidationException("Username must be less than 50 characters");
+        }
+    }
+
+    private void validateDisplayName(String displayName) throws ValidationException {
+        if (displayName == null || displayName.isBlank()) {
+            throw new ValidationException("Display name is required");
+        }
+
+        if (displayName.length() > 50) {
+            throw new ValidationException("Display name must be less than 50 characters");
         }
     }
 
     private void validatePassword(String password) throws ValidationException {
         if (password == null || password.length() < 8) {
-            throw new ValidationException("password must be at least 8 characters");
+            throw new ValidationException("Password must be at least 8 characters");
         }
 
         int digits = 0;
@@ -79,7 +90,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         }
 
         if (digits == 0 || letters == 0 || others == 0) {
-            throw new ValidationException("password must contain a digit, a letter, and a non-digit/non-letter");
+            throw new ValidationException("Password must contain characters, a digit, and a special character");
         }
     }
 }

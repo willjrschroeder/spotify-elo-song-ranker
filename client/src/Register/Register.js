@@ -32,17 +32,17 @@ function Register() {
             if (response.status === 201) {
                 clearErrors();
                 history.push("/login");
-                return response.json();
+                return response.text();
             }
-            return Promise.reject(await response.json());
+            return Promise.reject(await response.text());
         })
-            .catch(listOfErrorMessages => {
-                if (listOfErrorMessages instanceof TypeError) {
+            .catch(errorMessageString => {
+                if (errorMessageString instanceof TypeError) {
                     showErrors("Could not connect to api.")
                     console.log("Could not connect to api.");
                 } else { //TODO: This else clause is always triggered on error
-                    showErrors(listOfErrorMessages.messages) // TODO: the caught response 'errorList' is not an array or a list. It is a listOfErrorMessages object
-                    console.log(listOfErrorMessages.messages);
+                    showErrors(errorMessageString) // TODO: the caught response 'errorList' is not an array or a list. It is a listOfErrorMessages object
+                    console.log(errorMessageString);
                 }
             });
     }
@@ -57,7 +57,7 @@ function Register() {
         const messageContainer = document.getElementById("messages");
     
         //TODO: this should not use a map, we'll working with strings instead of arrays
-        messageContainer.innerText = messageContainer.innerText + (<p>errorMessage</p>);
+        messageContainer.innerHTML = messageContainer.innerHTML + `<p>${errorMessage}</p>`;
     
     }
     function clearErrors(){
@@ -69,7 +69,7 @@ function Register() {
     return (<>
     <div className="flex-register">
         <h2>Register</h2>
-        <div className="messages"></div>
+        <div className="messages" id="messages"></div>
         <form onSubmit={addUser}>
             <FormInput
                 InputType={"text"}
