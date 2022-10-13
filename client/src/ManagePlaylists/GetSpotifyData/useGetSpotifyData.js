@@ -9,7 +9,7 @@ const spotifyApi = new SpotifyWebApi({
 function useGetSpotifyData(playlistId){
     const spotifyAuth = useContext(SpotifyAuthContext); // get access to the spotify token stored in Context
 
-    const [userPlaylists, setUserPlaylists] = useState();
+    const [playlist, setPlaylist] = useState();
     const [databasePlaylistObject, setDatabasePlaylistObject] = useState();
 
     useEffect(() => { // make this request once on page load and whenever our token updates
@@ -17,22 +17,30 @@ function useGetSpotifyData(playlistId){
 
         spotifyApi.setAccessToken(spotifyAuth.spotifyAccessToken); // allow the api helper to use the current token
 
-        spotifyApi.getUserPlaylists(playlistId)
+        spotifyApi.getPlaylist("38cfqZXcGK4KPtDrGUNMkI")
             .then(function (data) {
-                setUserPlaylists(data.body.items);
-                createDatabasePlaylistObject(userPlaylists);
-                console.log('Retrieved playlists', data.body.items);
+                setPlaylist(data.body);
+                createDatabasePlaylistObject(playlist);
             }, function (err) {
                 console.log('Something went wrong!', err);
             })
 
     }, [spotifyAuth.spotifyAccessToken]);
 
-    function createDatabasePlaylistObject(userPlaylists) {
-           
+    function createDatabasePlaylistObject(playlist) {
+        if (!playlist) return;
+
+        setDatabasePlaylistObject( {
+            playlistUri: playlist.uri,
+            playlistName: playlist.name,
+            description: playlist.description,
+            playlistUrl: playlist.external_urls.spotify,
+            playlistImageLink: playlist.images[0].url,
+            appUserId: false
+        } );
     }
 
-    return userPlaylists;
+    return databasePlaylistObject;
 }
 
 export default useGetSpotifyData;
