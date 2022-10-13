@@ -1,6 +1,6 @@
 import FormInput from "../FormInput/FormInput";
 import { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Register.css";
 
 function Register() {
@@ -11,7 +11,6 @@ function Register() {
     const [displayName, setDisplayName] = useState("");
     const loginRequest = { username, password, displayName };
 
-    const history = useHistory();
 
     function addUser(event) {
         event.preventDefault();

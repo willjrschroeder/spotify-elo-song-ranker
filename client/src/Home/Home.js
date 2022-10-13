@@ -1,12 +1,9 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import AuthContext from "../context/AuthContext";
-import SpotifyAuthContext from "../context/SpotifyAuthContext";
+import {Link} from "react-router-dom";
 
 function Home() {
 
-    const spotifyAuth = useContext(SpotifyAuthContext);
-
-    const [playlists, setplaylists] = useState([]);
 
     const auth = useContext(AuthContext);
 
@@ -26,6 +23,9 @@ function Home() {
 
             <div>
                 {canDelete && (<h2>delete</h2>)}
+            </div>
+            <div>
+                <Link to="/playlistManager">Playlists</Link>
             </div>
         </>
     )
