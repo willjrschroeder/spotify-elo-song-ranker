@@ -1,6 +1,7 @@
 package songranker.models;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Album {
     private String albumUri;
@@ -8,6 +9,9 @@ public class Album {
     private LocalDate releaseDate;
     private String albumImageLink;
     private String spotifyUrl;
+
+    public Album(String album_uri, String album_name, Date release_date, String album_image_link, String spotify_url) {
+    }
 
     public String getAlbumUri() {
         return albumUri;

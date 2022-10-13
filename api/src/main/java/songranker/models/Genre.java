@@ -4,6 +4,9 @@ public class Genre {
     private int genreId;
     private String genreName;
 
+    public Genre(int genre_id, String genre_name) {
+    }
+
     public int getGenreId() {
         return genreId;
     }
