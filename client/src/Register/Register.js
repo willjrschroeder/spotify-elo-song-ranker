@@ -30,6 +30,7 @@ function Register() {
             }
         }).then(async response => {
             if (response.status === 201) {
+                clearErrors();
                 history.push("/login");
                 return response.json();
             }
