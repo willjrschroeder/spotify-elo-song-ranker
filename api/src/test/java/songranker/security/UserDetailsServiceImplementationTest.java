@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import songranker.data.mappers.AppUserRepo;
+import songranker.data.AppUserRepo;
 import songranker.models.AppRole;
 import songranker.models.AppUser;
 

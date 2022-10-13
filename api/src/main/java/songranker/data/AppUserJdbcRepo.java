@@ -1,12 +1,13 @@
-package songranker.data.mappers;
+package songranker.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import songranker.data.mappers.AppRoleMapper;
+import songranker.data.mappers.AppUserMapper;
 import songranker.models.AppRole;
 import songranker.models.AppUser;
 

@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import songranker.data.mappers.AppRoleJdbcRepo;
-import songranker.data.mappers.AppUserJdbcRepo;
 import songranker.models.AppRole;
 
 import java.util.List;

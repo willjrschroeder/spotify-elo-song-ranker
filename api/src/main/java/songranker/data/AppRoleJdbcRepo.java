@@ -1,8 +1,9 @@
-package songranker.data.mappers;
+package songranker.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import songranker.data.mappers.AppRoleMapper;
 import songranker.models.AppRole;
 
 import java.util.List;

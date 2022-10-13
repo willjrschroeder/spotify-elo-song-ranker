@@ -6,8 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import songranker.data.mappers.AppUserJdbcRepo;
-import songranker.data.mappers.AppUserRepo;
+import songranker.data.AppUserRepo;
 import songranker.models.AppRole;
 import songranker.models.AppUser;
 

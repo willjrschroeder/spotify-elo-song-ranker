@@ -1,4 +1,4 @@
-package songranker.data.mappers;
+package songranker.data;
 
 import songranker.models.AppUser;
 
