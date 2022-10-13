@@ -19,9 +19,10 @@ function ManagePlaylists() {
 
         spotifyApi.getMe()
         .then(function (data) {
-
-                setPlaylists(spotifyApi.getUserPlaylists(data.body.items))
-            
+            return spotifyApi.getUserPlaylists(data.body.id);
+        })
+        .then(function (data) {
+            setPlaylists(data.body.items);
         });
         }
         useEffect(
