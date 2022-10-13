@@ -32,9 +32,10 @@ function ManagePlaylists() {
             []
         )
 
+    const [playlistPackage, setPlaylistPackage] = useState(null);
+
     function addPlaylistToDatabase(event) {
 
-        const [playlistPackage, setPlaylistPackage] = useState(null);
 
         event.preventDefault();
 
