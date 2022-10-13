@@ -58,32 +58,24 @@ function Login(props) {
             <div className="flex-login">
                 <h2>Login</h2>
                 <div className="messages" id="messages"></div>
-                {auth.user ? (
-                    <>
-                        <h3>You are already logged in!</h3>
-                        <button onClick={() => auth.logout()}>Logout</button>
-                    </>
-                ) : (
-                    <form onSubmit={loginHandler}>
-                        <FormInput
-                            InputType={"text"}
-                            indentifier={"username"}
-                            labelText={"Username"}
-                            onChangeHandler={(event) => setUsername(event.target.value)} />
+                <form onSubmit={loginHandler}>
+                    <FormInput
+                        InputType={"text"}
+                        indentifier={"username"}
+                        labelText={"Username"}
+                        onChangeHandler={(event) => setUsername(event.target.value)} />
 
-                        <FormInput
-                            InputType={"password"}
-                            indentifier={"password"}
-                            labelText={"Password"}
-                            onChangeHandler={(event) => setPassword(event.target.value)} />
+                    <FormInput
+                        InputType={"password"}
+                        indentifier={"password"}
+                        labelText={"Password"}
+                        onChangeHandler={(event) => setPassword(event.target.value)} />
 
-                        <div className="loginButton">
-                            <button>Log In</button>
-                            <Link to="/"><button>Cancel</button></Link>
-                        </div>
-                    </form>
-                )}
-
+                    <div className="loginButton">
+                        <button>Log In</button>
+                        <Link to="/"><button>Cancel</button></Link>
+                    </div>
+                </form>
             </div>
         </>
     )
