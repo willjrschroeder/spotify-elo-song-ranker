@@ -14,7 +14,7 @@ function CallbackPage() {
     useEffect( () => {
         if(!spotifyAccessToken) return;
 
-        history.push("/spotify/confirmation");
+        history.push("/spotify/confirmation"); //TODO: We only get pushed to the confirmation page after pressing the authorization button twice
     }, [spotifyAccessToken]);
 
     return (

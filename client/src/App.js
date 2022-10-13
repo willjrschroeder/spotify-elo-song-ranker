@@ -62,6 +62,7 @@ function App() {
 
     localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
     localStorage.removeItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY);
+    setSpotifyToken(null);
   };
 
   const auth = {
