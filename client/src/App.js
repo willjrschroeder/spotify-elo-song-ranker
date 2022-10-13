@@ -11,6 +11,7 @@ import SpotifyAuthorization from './SpotifyAuthorization/SpotifyAuthorization';
 import CallbackPage from './SpotifyAuthorization/CallbackPage';
 import SpotifyAuthContext from './context/SpotifyAuthContext';
 import ConfirmationPage from './SpotifyAuthorization/ConfirmationPage';
+import ManagePlaylists from './ManagePlaylists/ManagePlaylists';
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
@@ -111,6 +112,9 @@ function App() {
               </Route>
               <Route exact path="/home">
                 {(user && spotifyToken) ? <Home /> : <Redirect to="/spotify" />}
+              </Route>
+              <Route exact path="/playlistManager">
+                <ManagePlaylists></ManagePlaylists>
               </Route>
             </Switch>
           </BrowserRouter>

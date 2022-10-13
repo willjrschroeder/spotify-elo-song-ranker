@@ -1,21 +1,14 @@
 
-function Playlist(props, { playlist, handleDelete, canDelete }) {
+function Playlist(props) {
 
-
-    
     return(<>
         <div className="card">
-            <div className="card-header">
-            </div>
-            <div className="card-body">
-                <h5 className="card-title">Id: {props.playlistData.id}</h5>
-                <p className="card-img">
-                    <img src={props.playlistData.images[0].url}></img>
-                </p>
-            </div>
+            <img src={props.playlistData.images[0].url} alt="Playlist"></img>
+            <h5>{props.playlistData.name}</h5>
+            <button onClick={props.addPlaylistToDatabase}>Add all tracks from this playlist to rank</button>
         </div>
     </>
-        
     )
 
 }
+export default Playlist;
