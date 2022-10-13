@@ -4,8 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "./Login.css"
 
-
-
 function Login(props) {
 
     const [username, setUsername] = useState("");
