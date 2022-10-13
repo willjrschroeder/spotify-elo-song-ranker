@@ -31,10 +31,37 @@ function ManagePlaylists() {
             },
             []
         )
+
+    function addPlaylistToDatabase(event) {
+
+        const [playlistPackage, setPlaylistPackage] = useState(null);
+
+        event.preventDefault();
+
+        fetch( "http://localhost:8080/api/playlists", {
+            method:"POST",
+            body: JSON.stringify(playlistPackage),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then( async response => {
+            if( response.status === 201 ) {
+                return response.json();
+            } 
+                return Promise.reject( await response.json() );
+        })
+        .catch( errorList => {
+            if( errorList instanceof TypeError ){
+                console.log( "Could not connect to api.");
+            } else {
+            }
+        });
+
+    }
     
         return(
         <>
-            {playlists.map( p => <Playlist key={p.id} playlistData={p} />) }
+            {playlists.map( p => <Playlist key={p.id} playlistData={p} onPlaylistAdd={addPlaylistToDatabase}  />) }
         </>
         )
     
