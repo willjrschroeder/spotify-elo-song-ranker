@@ -10,6 +10,7 @@ function FormInput(props){
                 id={props.identifier} 
                 name={props.identifier} 
                 defaultValue={props.currVal}
+                value={props.currVal}
                 onChange={props.onChangeHandler}
                 />
         </div>

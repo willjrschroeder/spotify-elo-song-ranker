@@ -19,7 +19,6 @@ function Register() {
         if(password !== confirmPassword) {
             showErrors("Password and confirm password do not match");
             return;
-            //TODO: display this error
         }
 
         fetch("http://localhost:8080/api/security/register", {
@@ -30,8 +29,10 @@ function Register() {
             }
         }).then(async response => {
             if (response.status === 201) {
+                resetForm();
                 clearErrors();
-                history.push("/login");
+                showSuccess("Registration successful.");
+                showSuccess("Please log in with your new account.");
                 return response.text();
             }
             return Promise.reject(await response.text());
@@ -39,33 +40,37 @@ function Register() {
             .catch(errorMessageString => {
                 if (errorMessageString instanceof TypeError) {
                     showErrors("Could not connect to api.")
-                    console.log("Could not connect to api.");
-                } else { //TODO: This else clause is always triggered on error
-                    showErrors(errorMessageString) // TODO: the caught response 'errorList' is not an array or a list. It is a listOfErrorMessages object
-                    console.log(errorMessageString);
+                } else {
+                    showErrors(errorMessageString)
                 }
             });
     }
 
-    function showErrors( errorMessage ){ //TODO: update this function to handle listOfErrorMessages object.
-                                                // the object has a 'message' property
-                                                // listOfErrorMessages.message yields a string of the error message
-                                                // we'll can probably just pass in the string to the function?
-                                                // and then custom error messages can be plain strings too
-                                                // // not arrays of strings ex. ["Could not connect to api"] vs "Could not connect to api"
+    function showErrors( errorMessage ){ 
+        clearErrors();
 
         const messageContainer = document.getElementById("messages");
-    
-        //TODO: this should not use a map, we'll working with strings instead of arrays
+
         messageContainer.innerHTML = messageContainer.innerHTML + `<p>${errorMessage}</p>`;
-    
     }
+
+    function showSuccess( successMessage ){ 
+        const messageContainer = document.getElementById("messages");
+
+        messageContainer.innerHTML = messageContainer.innerHTML + `<p>${successMessage}</p>`;
+    }
+
     function clearErrors(){
         document.getElementById("messages").innerHTML = "";
     }
+
+    function resetForm(){
+        setUsername("");
+        setPassword("");
+        setConfirmPassword("");
+        setDisplayName("");
+    }
     
-
-
     return (<>
     <div className="flex-register">
         <h2>Register</h2>
@@ -75,25 +80,29 @@ function Register() {
                 InputType={"text"}
                 indentifier={"username"}
                 labelText={"Username"}
+                currVal={username}
                 onChangeHandler={(event) => setUsername(event.target.value)} />
             <FormInput
                 InputType={"password"}
                 indentifier={"password"}
                 labelText={"Password"}
+                currVal={password}
                 onChangeHandler={(event) => setPassword(event.target.value)} />
             <FormInput
                 InputType={"password"}
                 indentifier={"confirmPassword"}
                 labelText={"Confirm Password"}
+                currVal={confirmPassword}
                 onChangeHandler={(event) => setConfirmPassword(event.target.value)} />
             <FormInput
                 InputType={"text"}
                 indentifier={"displayName"}
                 labelText={"Display Name"}
+                currVal={displayName}
                 onChangeHandler={(event) => setDisplayName(event.target.value)} />
             <div className="flex-buttons">
                 <button>Submit</button>
-                <Link to = "/">Cancel</Link>
+                <Link to = "/login"><button>Return to Login</button></Link>
             </div>
         </form>
     </div>
