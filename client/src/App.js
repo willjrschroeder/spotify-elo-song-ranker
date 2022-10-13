@@ -109,7 +109,7 @@ function App() {
                 {spotifyToken ? <ConfirmationPage /> : <Redirect to="/spotify" />}
               </Route>
               <Route exact path="/home">
-                {(user && spotifyToken) ? <Home /> : <Redirect to="/" />}
+                {(user && spotifyToken) ? <Home /> : <Redirect to="/spotify" />}
               </Route>
             </Switch>
           </BrowserRouter>

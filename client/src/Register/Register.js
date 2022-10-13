@@ -17,7 +17,7 @@ function Register() {
         event.preventDefault();
 
         if(password !== confirmPassword) {
-            showErrors(["Password and confirm password do not match"]);
+            showErrors("Password and confirm password do not match");
             return;
             //TODO: display this error
         }
@@ -35,18 +35,18 @@ function Register() {
             }
             return Promise.reject(await response.json());
         })
-            .catch(errorList => {
-                if (errorList instanceof TypeError) {
-                    showErrors(["Could not connect to api."])
+            .catch(listOfErrorMessages => {
+                if (listOfErrorMessages instanceof TypeError) {
+                    showErrors("Could not connect to api.")
                     console.log("Could not connect to api.");
                 } else { //TODO: This else clause is always triggered on error
-                    showErrors(errorList) // TODO: the caught response 'errorList' is not an array or a list. It is a listOfErrorMessages object
-                    console.log(errorList);
+                    showErrors(listOfErrorMessages.messages) // TODO: the caught response 'errorList' is not an array or a list. It is a listOfErrorMessages object
+                    console.log(listOfErrorMessages.messages);
                 }
             });
     }
 
-    function showErrors( listOfErrorMessages ){ //TODO: update this function to handle listOfErrorMessages object.
+    function showErrors( errorMessage ){ //TODO: update this function to handle listOfErrorMessages object.
                                                 // the object has a 'message' property
                                                 // listOfErrorMessages.message yields a string of the error message
                                                 // we'll can probably just pass in the string to the function?
@@ -56,7 +56,7 @@ function Register() {
         const messageContainer = document.getElementById("messages");
     
         //TODO: this should not use a map, we'll working with strings instead of arrays
-        messageContainer.innerHTML = listOfErrorMessages.map( m => "<p>" + m + "</p>" ).reduce( (prev, curr) => prev + curr );
+        messageContainer.innerText = messageContainer.innerText + (<p>errorMessage</p>);
     
     }
     function clearErrors(){
