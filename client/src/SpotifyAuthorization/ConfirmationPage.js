@@ -34,7 +34,8 @@ function ConfirmationPage() {
     }, [spotifyAuth.spotifyAccessToken])
 
 
-    const returnedData = useGetSpotifyData('31rrun55wnuo6elyf62p2g7mmc3m'); //TODO: delete this once dont testing GetSpotifyData
+    const returnedData = useGetSpotifyData('38cfqZXcGK4KPtDrGUNMkI'); //TODO: delete this once done testing GetSpotifyData
+    console.log(returnedData);
     function testGetSpotifyData(){ //TODO: delete this once dont testing GetSpotifyData
         console.log(returnedData);
     }
