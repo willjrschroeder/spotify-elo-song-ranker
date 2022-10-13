@@ -11,8 +11,6 @@ function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-
-
     const auth = useContext(AuthContext);
 
     const history = useHistory();
@@ -20,7 +18,7 @@ function Login(props) {
     const loginHandler = async (event) => {
         event.preventDefault();
 
-        const response = await fetch("http://localhost:8080/api/security/authenticate", {
+        fetch("http://localhost:8080/api/security/authenticate", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
@@ -29,44 +27,37 @@ function Login(props) {
                 username,
                 password,
             })
-        })
-
-        if (response.status === 200) {
-            const { jwt_token } = await response.json();
-            // NEW:LOGIN
-            auth.login(jwt_token);
-            clearErrors();
-            history.push("/spotify")
-        } else if (response.status === 403) {
-            console.log("login failed")
-            showErrors(["Login failed."])
-        } else {
-            console.log("unknown error.")
-            showErrors(["Unknown Error."])
-
-        }
+        }).then(async response => {
+            if (response.status === 200) {
+                const { jwt_token } = await response.json();
+                auth.login(jwt_token);
+                history.push("/spotify")
+            } else if (response.status === 403) {
+                showErrors("Invalid login credentials.")
+            }
+        }).catch(error => {
+            showErrors("Internal issue. Try again later.")
+        });
     };
 
-    function showErrors( listOfErrorMessages ){
+    function showErrors(errorMessage) {
+        clearErrors();
 
         const messageContainer = document.getElementById("messages");
-    
-        messageContainer.innerHTML = listOfErrorMessages.map( m => "<p>" + m + "</p>" ).reduce( (prev, curr) => prev + curr );
-    
+
+        messageContainer.innerHTML = messageContainer.innerHTML + `<p>${errorMessage}</p>`;
     }
-    function clearErrors(){
+
+    function clearErrors() {
         document.getElementById("messages").innerHTML = "";
     }
-    
-
 
 
     return (
         <>
-
             <div className="flex-login">
                 <h2>Login</h2>
-                <div className="messages"></div>
+                <div className="messages" id="messages"></div>
                 {auth.user ? (
                     <>
                         <h3>You are already logged in!</h3>
@@ -88,10 +79,8 @@ function Login(props) {
 
                         <div className="loginButton">
                             <button>Log In</button>
-                            <Link to="/register">Register</Link>
-                            <Link to="/">Cancel</Link>
+                            <Link to="/"><button>Cancel</button></Link>
                         </div>
-
                     </form>
                 )}
 
