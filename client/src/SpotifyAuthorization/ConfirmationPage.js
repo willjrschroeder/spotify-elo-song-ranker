@@ -2,6 +2,7 @@ import { React, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
+import useGetSpotifyData from '../ManagePlaylists/GetSpotifyData/useGetSpotifyData'; //TODO: delete this once dont testing GetSpotifyData
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
@@ -19,7 +20,6 @@ function ConfirmationPage() {
 
         spotifyApi.getMe()
             .then(function (data) {
-                console.log(data.body);
                 setUserData(data.body);
             }, function (err) {
                 console.log('Something went wrong!', err);
@@ -27,12 +27,17 @@ function ConfirmationPage() {
 
         spotifyApi.getUserPlaylists('31rrun55wnuo6elyf62p2g7mmc3m')
             .then(function (data) {
-                console.log('Retrieved playlists', data.body);
             }, function (err) {
                 console.log('Something went wrong!', err);
-            });
+            })
 
     }, [spotifyAuth.spotifyAccessToken])
+
+
+    const returnedData = useGetSpotifyData('31rrun55wnuo6elyf62p2g7mmc3m'); //TODO: delete this once dont testing GetSpotifyData
+    function testGetSpotifyData(){ //TODO: delete this once dont testing GetSpotifyData
+        console.log(returnedData);
+    }
 
     return (
         <>
@@ -43,6 +48,7 @@ function ConfirmationPage() {
                         <img src={userData.images[0].url} alt="User profile pulled down from the linked Spotify account"></img>
                         <h3>Your Spotify Account was successfully linked</h3>
                         <Link to="/home"><button className='btn'>Home</button></Link>
+                        <button onClick={testGetSpotifyData}>Test GetSpotifyData</button> {/* TODO: delete this once dont testing GetSpotifyData */}
                     </div>
                     :
                     null
