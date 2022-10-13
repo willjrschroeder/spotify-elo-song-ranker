@@ -9,7 +9,7 @@ function Home() {
 
     return <>
     <div className='flex-container'>
-    <h1 className= "balloon" ></h1>
+    <div className= "balloon" ></div>
     </div>
     <div className='bottom'></div>
     <div className='basket'></div>
