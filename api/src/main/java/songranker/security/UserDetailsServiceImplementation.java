@@ -50,7 +50,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         return repo.createUser(userToCreate); // returns a FH user from the repo
     }
 
-    private void validateUsername(String username) throws ValidationException { //TODO: Add validation to ensure duplicate usernames are not allowed
+    private void validateUsername(String username) throws ValidationException {
         if (username == null || username.isBlank()) {
             throw new ValidationException("username is required");
         }
