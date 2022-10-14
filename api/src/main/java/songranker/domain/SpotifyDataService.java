@@ -11,7 +11,7 @@ public class SpotifyDataService {
     @Autowired
     SpotifyDataJdbcRepo repository;
 
-    public boolean addSpotiftyData(SpotifyData spotifyData) {
+    public boolean addSpotifyData(SpotifyData spotifyData) {
         throw new UnsupportedOperationException();
     }
 }
