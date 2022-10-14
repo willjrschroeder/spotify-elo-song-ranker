@@ -4,6 +4,14 @@ public class Genre {
     private int genreId;
     private String genreName;
 
+
+    public Genre(String genreName) {
+        this.genreName = genreName;
+    }
+
+    public Genre() {
+    }
+
     public Genre(int genre_id, String genre_name) {
     }
 

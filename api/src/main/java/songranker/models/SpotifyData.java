@@ -8,6 +8,10 @@ public class SpotifyData {
 
     private List<Track> tracks;
 
+    public SpotifyData(Playlist playlist, List<Track> tracks) {
+        this.playlist = playlist;
+        this.tracks = tracks;
+    }
 
     public Playlist getPlaylist() {
         return playlist;
