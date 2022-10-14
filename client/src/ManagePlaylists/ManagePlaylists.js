@@ -1,7 +1,10 @@
 import Playlist from "../Playlist/Playlist"
+import PlaylistNames from "../Playlist/PlaylistNames/PlaylistNames"
+import "./ManagePlaylists.css"
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
@@ -60,9 +63,27 @@ function ManagePlaylists() {
 
     }
     
-        return(
-        <>
-            {playlists.map( p => <Playlist key={p.id} playlistData={p} onPlaylistAdd={addPlaylistToDatabase}  />) }
+        return(<>
+        <Link to="/home">Home</Link>
+        <div className="cards">
+            {playlists.map( (p, index) => <Playlist key={p.id} playlistData={p} index={index}  />) }
+        </div>
+        <div class="player">
+            <div class="upper-part">
+                <div class="play-icon">
+                    <svg width="20" height="20" fill="#2992dc" stroke="#2992dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-play" viewBox="0 0 24 24">
+                    <defs/>
+                    <path d="M5 3l14 9-14 9V3z"/>
+                    </svg>
+                </div>
+                <div class="info-area" id="test">
+                    {playlists.map( (pl, index) => <PlaylistNames key={pl.id} playlistData={pl} onPlaylistAdd={addPlaylistToDatabase} index={index}  />)}
+                </div>
+            </div>
+            <div class="progress-bar">
+                <span class="progress"></span>
+            </div>
+        </div>
         </>
         )
     

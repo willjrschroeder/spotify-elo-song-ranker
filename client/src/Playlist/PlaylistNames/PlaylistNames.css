@@ -1,0 +1,30 @@
+.song-info {
+    width: calc(100% - 32px);
+    display: block;
+  }
+  
+  .song-info .title {
+    color: #403d40;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  
+  .sub-line {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .subtitle, .time {
+    font-size: 12px;
+    line-height: 16px;
+    color: #c6c5c6;
+  }
+  
+  .time {
+    font-size: 12px;
+    line-height: 16px;
+    color: #a5a5a5;
+    font-weight: 500;
+    margin-left: auto;
+  }
