@@ -4,6 +4,7 @@ import "./ManagePlaylists.css"
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
@@ -63,6 +64,7 @@ function ManagePlaylists() {
     }
     
         return(<>
+        <Link to="/home">Home</Link>
         <div className="cards">
             {playlists.map( (p, index) => <Playlist key={p.id} playlistData={p} index={index}  />) }
         </div>

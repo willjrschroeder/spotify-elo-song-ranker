@@ -1,5 +1,5 @@
 import "./PlaylistNames.css"
-function PlaylistNames() {
+function PlaylistNames(props) {
 return(<>
     <label class="song-info" id="song-info-1">
         <div class="title">Bunker</div>
@@ -13,3 +13,4 @@ return(<>
 )
 
 }
+export default PlaylistNames;
