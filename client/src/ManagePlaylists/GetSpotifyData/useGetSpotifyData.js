@@ -6,7 +6,7 @@ const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
 });
 
-const useGetSpotifyData = ((playlistId) => {
+const useGetSpotifyData = ((playlistId, userId) => {
     const spotifyAuth = useContext(SpotifyAuthContext); // get access to the spotify token stored in Context
     spotifyApi.setAccessToken(spotifyAuth.spotifyAccessToken); // allow the api helper to use the current token
 
@@ -71,7 +71,7 @@ const useGetSpotifyData = ((playlistId) => {
             description: playlistSpotifyData.description, //TODO: This is going to need to be recoded or something? Passed from the spotify API with ['] evaluating to [&#x27]"
             playlistUrl: playlistSpotifyData.external_urls.spotify,
             playlistImageLink: playlistSpotifyData.images[0].url,
-            appUserId: -1 //TODO: we need to get this somehow. Can update the JWT to contain the user ID as a claim. Update in back end where JWT is created AND in front end where user is created(App.js)
+            appUserId: userId //TODO: we need to get this somehow. Can update the JWT to contain the user ID as a claim. Update in back end where JWT is created AND in front end where user is created(App.js)
         }
 
         return playlistObject;
