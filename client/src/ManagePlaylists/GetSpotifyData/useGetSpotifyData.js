@@ -28,30 +28,30 @@ const useGetSpotifyData = ((playlistId) => {
                 console.log('Something went wrong!', err);
             });
 
-            //TODO: Need to wait to do this until the above API call is complete. async await?
-            // request full artist data for each artist on a track
-            for (const track of tracksArraySpotifyData.track) { // loop through each track in the array
-                const artistsOnCurrentTrack = []; // array to store all of the artists who have credits on the current track
+        //TODO: Need to wait to do this until the above API call is complete. async await?
+        // request full artist data for each artist on a track
+        for (const track of tracksArraySpotifyData.track) { // loop through each track in the array
+            const artistsOnCurrentTrack = []; // array to store all of the artists who have credits on the current track
 
-                for (const artist of track.artists) { // loop through each artist on the track
-                    spotifyApi.getArtist(artist.id) // get the artist data from the Spotify API
-                       .then(function (data) {
-                            const packagedArtistData = buildArtistObject(data.body); // gets a packaged artist object, removing extraneous Spotify data
-                            artistsOnCurrentTrack.push(packagedArtistData) // adds each artist to an array of artists on the track
-                        }, function (err) {
-                            console.log('Something went wrong!', err);
-                        })
-                }
-
-                // add the array of artists on the current track to the array of artists tied to all of the tracks on the playlist
-                setFullyHydratedArtistArray(...fullyHydratedArtistArray, artistsOnCurrentTrack); // a 2D array of artists. Order corresponds to tracks in the playlist
+            for (const artist of track.artists) { // loop through each artist on the track
+                spotifyApi.getArtist(artist.id) // get the artist data from the Spotify API
+                    .then(function (data) {
+                        const packagedArtistData = buildArtistObject(data.body); // gets a packaged artist object, removing extraneous Spotify data
+                        artistsOnCurrentTrack.push(packagedArtistData) // adds each artist to an array of artists on the track
+                    }, function (err) {
+                        console.log('Something went wrong!', err);
+                    })
             }
 
-            //TODO: Need to wait to do this until both API calls above are complete. Promise.all()?
+            // add the array of artists on the current track to the array of artists tied to all of the tracks on the playlist
+            setFullyHydratedArtistArray(...fullyHydratedArtistArray, artistsOnCurrentTrack); // a 2D array of artists. Order corresponds to tracks in the playlist
+        }
 
-            // call helper method to create the spotifyData object
-            const playlistSummaryData = buildSpotifyDataObject(playlistSpotifyData, tracksArraySpotifyData, fullyHydratedArtistArray);
-            setSpotifyData(playlistSummaryData);
+        //TODO: Need to wait to do this until both API calls above are complete. Promise.all()?
+
+        // call helper method to create the spotifyData object
+        const playlistSummaryData = buildSpotifyDataObject(playlistSpotifyData, tracksArraySpotifyData, fullyHydratedArtistArray);
+        setSpotifyData(playlistSummaryData);
 
     }, [playlistId]);
 
