@@ -21,7 +21,7 @@ const useGetSpotifyData = ((playlistId) => {
         spotifyApi.getPlaylist(playlistId)
             .then(function (data) {
                 setPlaylist(data.body);
-                createDatabasePlaylistObject(playlist);
+                //createDatabasePlaylistObject(playlist);
                 return (data.body) // pass the playlist along to the next API call
             }, function (err) {
                 console.log('Something went wrong!', err);
@@ -30,7 +30,7 @@ const useGetSpotifyData = ((playlistId) => {
         spotifyApi.getPlaylistTracks(playlistId)
             .then(function (data) {
                 setPlaylistTracks(data.body.items);
-                createDatabasePlaylistTracksObject(playlistTracks);
+                //createDatabasePlaylistTracksObject(playlistTracks);
                 return (data.body) // pass the playlist along to the next API call
             }, function (err) {
                 console.log('Something went wrong!', err);
@@ -90,7 +90,7 @@ const useGetSpotifyData = ((playlistId) => {
         return artistObject;
     }
 
-    return spotifyDataObject; //TODO: we want to returnt the complete summaryObject
+    //return spotifyDataObject; //TODO: we want to returnt the complete summaryObject
 });
 
 export default useGetSpotifyData;
