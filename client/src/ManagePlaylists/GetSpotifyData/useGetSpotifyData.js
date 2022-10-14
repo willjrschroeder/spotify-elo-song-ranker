@@ -38,26 +38,59 @@ const useGetSpotifyData = ((playlistId) => {
 
     }, [spotifyAuth.spotifyAccessToken]);
 
-    function createDatabasePlaylistObject(playlist) {
-        if (!playlist) return;
+    function buildPlaylistObject(playlistSpotifyData) {
 
-        setDatabasePlaylistObject({
-            playlistUri: playlist.uri,
-            playlistName: playlist.name,
-            description: playlist.description, //TODO: This is going to need to be recoded or something? Passed from the spotify API with ['] evaluating to [&#x27]"
-            playlistUrl: playlist.external_urls.spotify,
-            playlistImageLink: playlist.images[0].url,
+        const playlistObject = {
+            playlistUri: playlistSpotifyData.uri,
+            playlistName: playlistSpotifyData.name,
+            description: playlistSpotifyData.description, //TODO: This is going to need to be recoded or something? Passed from the spotify API with ['] evaluating to [&#x27]"
+            playlistUrl: playlistSpotifyData.external_urls.spotify,
+            playlistImageLink: playlistSpotifyData.images[0].url,
             appUserId: false //TODO: we need to get this somehow. Can update the JWT to contain the user ID as a claim. Update in back end where JWT is created AND in front end where user is created(App.js)
-        });
+        }
     }
 
-    function createDatabasePlaylistTracksObject(playlistTracks) {
-        if (!playlistTracks) return;
-        
-        console.log(playlistTracks); // TODO: this is an array containing tracks. Build [{track data}] and [{album data}]. need to get genre data elsewhere
+    function buildTracksArray(tracksArraySpotifyData){ // takes in Spotify data of the array of tracks tied to a playlist
+        const tracksArray = tracksArraySpotifyData
     }
 
-    return databasePlaylistObject; //TODO: we want to returnt the complete summaryObject
+    function buildTrackObject(trackSpotifyData, fullArtistArray) { // takes in Spotify data of a track object and an array of fully hydrated artists on the track
+        const track = trackSpotifyData.track // track data, ignoring the headers
+
+        const trackObject = {
+            trackUri: track.uri,
+            title: track.name,
+            trackDuration: track.duration_ms,
+            popularityNumber: track.popularity,
+            spotifyUrl: trackSpotifyData.external_urls.spotify,
+            thirtySecondPreviewUrl: track.preview_url,
+            album: {
+                albumUri: track.album.uri,
+                albumName: track.album.name,
+                releaseDate: track.album.release_date,
+                albumImageLink: track.album.images[0].url,
+                spotifyUrl: track.album.external_urls.spotify
+            },
+            artists: fullArtistArray.map(artist => {
+                buildArtistObject(artist);
+            })
+        }
+        return trackObject;
+    }
+
+    function buildArtistObject(artistSpotifyData) {
+        const artistObject = {
+            artistUri: artistSpotifyData.uri,
+            artistName: artistSpotifyData.name,
+            spotifyUrl: artistSpotifyData.external_urls.spotify,
+            artistImageLink: artistSpotifyData.images[0].url,
+            genres: artistSpotifyData.genres // string array of genres
+        }
+
+        return artistObject;
+    }
+
+    return spotifyDataObject; //TODO: we want to returnt the complete summaryObject
 });
 
 export default useGetSpotifyData;

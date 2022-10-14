@@ -25,8 +25,26 @@ function ConfirmationPage() {
                 console.log('Something went wrong!', err);
             });
 
-        spotifyApi.getUserPlaylists('31rrun55wnuo6elyf62p2g7mmc3m')
+
+
+
+        spotifyApi.getPlaylist('38cfqZXcGK4KPtDrGUNMkI')
             .then(function (data) {
+                console.log(`playlist:`, data.body)
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            })
+
+        spotifyApi.getPlaylistTracks('38cfqZXcGK4KPtDrGUNMkI')
+            .then(function (data) {
+                console.log(`playlist tracks:`, data.body.items)
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            })
+
+        spotifyApi.getArtist("5K4W6rqBFWDnAN6FQUkS6x")
+            .then(function (data) {
+                console.log(`track artist:`, data.body)
             }, function (err) {
                 console.log('Something went wrong!', err);
             })
@@ -34,9 +52,10 @@ function ConfirmationPage() {
     }, [spotifyAuth.spotifyAccessToken])
 
 
+
     const returnedData = useGetSpotifyData('38cfqZXcGK4KPtDrGUNMkI'); //TODO: delete this once done testing GetSpotifyData
     console.log(returnedData);
-    function testGetSpotifyData(){ //TODO: delete this once dont testing GetSpotifyData
+    function testGetSpotifyData() { //TODO: delete this once dont testing GetSpotifyData
         console.log(returnedData);
     }
 
