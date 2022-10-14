@@ -18,9 +18,6 @@ class AppUserJdbcRepoTest {
     AppUserJdbcRepo repo;
 
     @Autowired
-    AppRoleJdbcRepo roleRepo;
-
-    @Autowired
     KnownGoodState knownGoodState;
 
     private final String username1 = "testUsername";
