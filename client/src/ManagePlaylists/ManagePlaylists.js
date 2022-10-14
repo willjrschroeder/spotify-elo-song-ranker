@@ -4,7 +4,6 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
-import "./GetSpotifyData/useGetSpotifyData";
 import AuthContext from "../context/AuthContext";
 
 
@@ -14,8 +13,11 @@ const spotifyApi = new SpotifyWebApi({
 });
 function ManagePlaylists() {
 
+
     const spotifyAuth = useContext(SpotifyAuthContext); 
     const serverAuth = useContext(AuthContext);
+    
+    const userId = serverAuth.user.id;
 
     const [playlists, setPlaylists] = useState([]);
 
@@ -40,10 +42,9 @@ function ManagePlaylists() {
             []
         )
 
-    const [playlistPackage, setPlaylistPackage] = useState(null);
+    
 
-    function addPlaylistToDatabase(event) {
-
+    function addPlaylistToDatabase(event, playlistPackage) {
 
         event.preventDefault();
 
@@ -72,10 +73,7 @@ function ManagePlaylists() {
         <Link to="/home" className="login">Home</Link>
         <div className="container">
             {playlists.map( (p, index)=> (
-                <div key={index}>
-                    <img className="images" src={p.images[0].url}></img>
-                    <button onClick={addPlaylistToDatabase}>Add Tracks</button>
-                </div>
+                <Playlist addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
                 )
             )}
         </div>
