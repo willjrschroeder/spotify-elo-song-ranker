@@ -3,8 +3,12 @@ package songranker.data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
+import songranker.data.mappers.AlbumMapper;
 import songranker.data.mappers.ArtistMapper;
+import songranker.data.mappers.GenreMapper;
 import songranker.models.*;
 
 import java.sql.Date;
@@ -193,29 +197,87 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         for(Track eachTrack : spotifyData.getTracks()){
             for(Album eachAlbum : eachTrack.getAlbums()){
-                int rowsAffected = template.update(connection -> {
-                    PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
-                    ps.setString(0, eachAlbum.getAlbumUri());
-                    ps.setString(1, eachAlbum.getAlbumName());
-                    ps.setDate(2, (Date) eachAlbum.getReleaseDate());
-                    ps.setString(3, eachAlbum.getAlbumImageLink());
-                    ps.setString(4, eachAlbum.getSpotifyUrl());
-                    return ps;
-                });
-                    if(rowsAffected <=0){
-                        return null;
+                for(Album existingAlbum : existingAlbums(spotifyData)){
+                    if(!eachAlbum.getAlbumUri().equals(existingAlbum.getAlbumUri())){
+                        int rowsAffected = template.update(connection -> {
+                            PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
+                            ps.setString(0, eachAlbum.getAlbumUri());
+                            ps.setString(1, eachAlbum.getAlbumName());
+                            ps.setDate(2, (Date) eachAlbum.getReleaseDate());
+                            ps.setString(3, eachAlbum.getAlbumImageLink());
+                            ps.setString(4, eachAlbum.getSpotifyUrl());
+                            return ps;
+                        });
+                        if(rowsAffected <=0){
+                            return null;
+                        }
                     }
 
-                    albums.add(eachAlbum);
+                }
+
+                albums.add(eachAlbum);
             }
         }
         return albums;
     }
 
+
+    private List<Album> existingAlbums(SpotifyData spotifyData) {
+        final String sql = "select * from album;";
+
+
+        return template.query(sql, new AlbumMapper(), spotifyData);
+    }
+
     @Override
     @Transactional
     public List<Genre> createGenre(SpotifyData spotifyData){
-        return null;
+        List<Genre> genres = new ArrayList<>();
+
+        final String sql = "insert into genre (genre_id, genre_name) "+
+                "values (?,?);";
+
+        for(Track eachTrack : spotifyData.getTracks()){
+            for(Artist eachArtist : eachTrack.getArtists()){
+                for(Artist existingArtist : existingArtists(spotifyData)){
+                    if(!eachArtist.getArtistUri().equals(existingArtist.getArtistUri())){
+                        for(Genre eachGenre : eachArtist.getGenres()){
+                            for(Genre existingGenre : existingGenres(spotifyData)){
+                                if(!eachGenre.getGenreName().equals(existingGenre.getGenreName())){
+                                    KeyHolder keyHolder = new GeneratedKeyHolder();
+                                    int rowsAffected = template.update(connection -> {
+                                        PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                                        ps.setString(1, eachGenre.getGenreName());
+                                        return ps;
+                                    }, keyHolder);
+
+                                    if(rowsAffected <=0){
+                                        return null;
+                                    }
+
+                                    eachGenre.setGenreId(keyHolder.getKey().intValue());
+                                }
+
+                                genres.add(eachGenre);
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+        return genres;
+
+    }
+
+    private List<Genre> existingGenres(SpotifyData spotifyData) {
+        final String sql = "select * from genre;";
+
+
+        return template.query(sql, new GenreMapper(), spotifyData);
+
     }
 
 }
