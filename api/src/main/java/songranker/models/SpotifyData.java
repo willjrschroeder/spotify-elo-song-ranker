@@ -8,11 +8,6 @@ public class SpotifyData {
 
     private List<Track> tracks;
 
-    private List<Artist> artists;
-
-    private List<Album> albums;
-
-    private List<Genre> genres;
 
     public Playlist getPlaylist() {
         return playlist;
@@ -30,27 +25,5 @@ public class SpotifyData {
         this.tracks = tracks;
     }
 
-    public List<Artist> getArtists() {
-        return artists;
-    }
 
-    public void setArtists(List<Artist> artists) {
-        this.artists = artists;
-    }
-
-    public List<Album> getAlbums() {
-        return albums;
-    }
-
-    public void setAlbums(List<Album> albums) {
-        this.albums = albums;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
 }

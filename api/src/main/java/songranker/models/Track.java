@@ -15,6 +15,19 @@ public class Track {
     private List<Artist> artists; // list of all Artist models who are credited on the track.
     private List<Album> albums; // list of all Album models the track appears on
 
+    public Track(String track_uri, String title, int eloScore, int numOfMatchesPlayed, int trackDuration, int popularityNum, String spotifyUrl, String previewUrl, List<Artist> artists, List<Album> albums) {
+        this.track_uri = track_uri;
+        this.title = title;
+        this.eloScore = eloScore;
+        this.numOfMatchesPlayed = numOfMatchesPlayed;
+        this.trackDuration = trackDuration;
+        this.popularityNum = popularityNum;
+        this.spotifyUrl = spotifyUrl;
+        this.previewUrl = previewUrl;
+        this.artists = artists;
+        this.albums = albums;
+    }
+
     public String getTrack_uri() {
         return track_uri;
     }

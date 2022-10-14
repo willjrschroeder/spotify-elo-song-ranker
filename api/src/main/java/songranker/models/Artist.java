@@ -10,6 +10,14 @@ public class Artist {
 
     private List<Genre> genres; // List of Genre models associated with the Artist
 
+    public Artist(String artist_uri, String artist_name, String spotify_url, String artist_image_link, List<Genre> genres) {
+        this.artistUri = artist_uri;
+        this.artistName = artist_name;
+        this.spotifyUrl = spotify_url;
+        this.artistImageLink = artist_image_link;
+        this.genres = genres;
+    }
+
     public List<Genre> getGenres() {
         return genres;
     }

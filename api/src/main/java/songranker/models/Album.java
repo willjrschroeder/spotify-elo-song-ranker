@@ -6,7 +6,7 @@ import java.util.Date;
 public class Album {
     private String albumUri;
     private String albumName;
-    private LocalDate releaseDate;
+    private Date releaseDate;
     private String albumImageLink;
     private String spotifyUrl;
 
@@ -29,11 +29,11 @@ public class Album {
         this.albumName = albumName;
     }
 
-    public LocalDate getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDate releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
