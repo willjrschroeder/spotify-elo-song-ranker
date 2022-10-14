@@ -22,7 +22,11 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     @Autowired
     JdbcTemplate template;
 
-
+    @Override
+    @Transactional
+    public boolean addSpotifyData(SpotifyData spotifyData) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     @Transactional
