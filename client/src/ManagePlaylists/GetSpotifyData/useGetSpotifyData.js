@@ -38,6 +38,8 @@ const useGetSpotifyData = ((playlistId) => {
 
     }, [spotifyAuth.spotifyAccessToken]);
 
+
+    //helper method to build the 'playlist' property of the spotifyDataObject
     function buildPlaylistObject(playlistSpotifyData) {
 
         const playlistObject = {
@@ -50,19 +52,34 @@ const useGetSpotifyData = ((playlistId) => {
         }
     }
 
-    function buildTracksArray(tracksArraySpotifyData){ // takes in Spotify data of the array of tracks tied to a playlist
-        const tracksArray = tracksArraySpotifyData
+    //helper method to build the 'tracks' property of the spotifyDataObject
+    function buildTracksArray(tracksArraySpotifyData, fullyHydratedArtistArray){ // takes in Spotify data of the array of tracks tied to a playlist. Also takes in and a 2D array of fully hydrated artists for each track (both arrays in same order)
+
+        const fullyHydratedTracksArray = [];
+
+        for (let i = 0; i < tracksArraySpotifyData.length; i++) {
+            let track = tracksArraySpotifyData[i].track; // gets the track from the spotify data array, ignoring the headers
+
+            track.artists = fullyHydratedArtistArray[i]; //replace the partial artist data with the full artist data
+
+            fullyHydratedTracksArray.push( track ); // add the fully hydrated track to a new array
+        }
+
+        const tracksArray = fullyHydratedTracksArray.map(track => {
+            buildTrackObject(track);
+        })
     }
 
-    function buildTrackObject(trackSpotifyData, fullArtistArray) { // takes in Spotify data of a track object and an array of fully hydrated artists on the track
-        const track = trackSpotifyData.track // track data, ignoring the headers
+    // helper method to build the individual track objects that go in the 'tracks' property of the spotifyDataObject
+    function buildTrackObject(fullyHydratedTrackData) { // takes in Spotify data of a track object, but the artist property has been replaced with a fully hydrated artist
+        const track = fullyHydratedTrackData // easier naming for obj construction, while keeping a descriptive name for the input parameter
 
         const trackObject = {
             trackUri: track.uri,
             title: track.name,
             trackDuration: track.duration_ms,
             popularityNumber: track.popularity,
-            spotifyUrl: trackSpotifyData.external_urls.spotify,
+            spotifyUrl: track.external_urls.spotify,
             thirtySecondPreviewUrl: track.preview_url,
             album: {
                 albumUri: track.album.uri,
@@ -71,13 +88,12 @@ const useGetSpotifyData = ((playlistId) => {
                 albumImageLink: track.album.images[0].url,
                 spotifyUrl: track.album.external_urls.spotify
             },
-            artists: fullArtistArray.map(artist => {
-                buildArtistObject(artist);
-            })
+            artists: track.artists
         }
         return trackObject;
     }
 
+    // helper method to build the array of fully hydrated artists
     function buildArtistObject(artistSpotifyData) {
         const artistObject = {
             artistUri: artistSpotifyData.uri,
@@ -90,7 +106,7 @@ const useGetSpotifyData = ((playlistId) => {
         return artistObject;
     }
 
-    //return spotifyDataObject; //TODO: we want to returnt the complete summaryObject
+    //return spotifyDataObject; //TODO: we want to return the complete summaryObject
 });
 
 export default useGetSpotifyData;
