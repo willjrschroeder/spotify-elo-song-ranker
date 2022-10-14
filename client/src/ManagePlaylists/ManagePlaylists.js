@@ -66,25 +66,25 @@ function ManagePlaylists() {
     
         return(<>
         <Link to="/home">Home</Link>
-        <div className="cards">
+        <div className="">
             {playlists.map( (p, index) => <Playlist key={p.id} playlistData={p} index={index}  />) }
         </div>
-        <div className="player">
+        {/* <div className="player">
             <div class="upper-part">
-                {/* <div class="play-icon">
+                <div class="play-icon">
                     <svg width="20" height="20" fill="#2992dc" stroke="#2992dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-play" viewBox="0 0 24 24">
                     <defs/>
                     <path d="M5 3l14 9-14 9V3z"/>
                     </svg>
-                </div> */}
+                </div>
                 <div className="info-area" id="test">
                     {playlists.map( (pl, index) => <PlaylistNames key={pl.id} playlistData={pl} onPlaylistAdd={addPlaylistToDatabase} index={index}  />)}
                 </div>
             </div>
-            {/* <div class="progress-bar">
+            <div class="progress-bar">
                 <span class="progress"></span>
-            </div> */}
-        </div>
+            </div>
+        </div> */}
         </>
         )
     

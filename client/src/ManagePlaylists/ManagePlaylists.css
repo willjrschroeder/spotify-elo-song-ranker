@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -23,9 +23,6 @@ body.blue {
   background-color: #428aa6;
 }
 
-/* input[type=radio] {
-  display: none;
-} */
 
 .card {
   position: absolute;
@@ -38,7 +35,7 @@ body.blue {
   cursor: pointer;
 }
 
-/* .container {
+.container {
   width: 100%;
   max-width: 800px;
   max-height: 600px;
@@ -48,7 +45,7 @@ body.blue {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-} */
+}
 
 .cards {
   position: relative;
@@ -103,4 +100,4 @@ body.blue {
   top: 0;
   left: 30px;
   transition: transform 0.4s ease-in;
-}
+} */

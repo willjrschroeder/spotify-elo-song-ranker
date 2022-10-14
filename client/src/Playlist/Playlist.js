@@ -10,10 +10,9 @@ function Playlist(props) {
         </div>
         <label className="song-info" id="song-info-1">
             <div className="title">{props.playlistData.name}</div>
-            <div className="sub-line">
             <div className="subtitle"></div>
             <button onClick={props.addPlaylistToDatabase}>Add all tracks from this playlist to rank</button>
-            </div>
+            
         </label>
     </div>
     </>
