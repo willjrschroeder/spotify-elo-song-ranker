@@ -44,9 +44,8 @@ function ManagePlaylists() {
 
     
 
-    function addPlaylistToDatabase(event, playlistPackage) {
-
-        event.preventDefault();
+    function addPlaylistToDatabase(playlistPackage) {
+        console.log(playlistPackage);
 
         fetch( "http://localhost:8080/api/playlists", {
             method:"POST",
@@ -73,7 +72,7 @@ function ManagePlaylists() {
         <Link to="/home" className="login">Home</Link>
         <div className="container">
             {playlists.map( (p, index)=> (
-                <Playlist addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
+                <Playlist key={index} addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
                 )
             )}
         </div>

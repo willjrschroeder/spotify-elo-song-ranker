@@ -15,7 +15,7 @@ function Playlist(props) {
 
 
     return(<>
-                <div key={props.index}>
+                <div >
                     <img className="images" src={props.p.images[0].url}></img>
                     <button onClick={() => props.addPlaylist(spotifyData)}>Add Tracks</button>
                 </div>
