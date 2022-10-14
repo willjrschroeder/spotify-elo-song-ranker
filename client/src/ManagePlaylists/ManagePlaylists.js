@@ -4,6 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
+import "./GetSpotifyData/useGetSpotifyData";
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -72,7 +73,6 @@ function ManagePlaylists() {
                     <img className="images" src={p.images[0].url}></img>
                     <button onClick={addPlaylistToDatabase}>Add Tracks</button>
                 </div>
-                
                 )
             )}
         </div>
