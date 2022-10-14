@@ -24,6 +24,7 @@ public class JwtConverter {
                 .setId(user.getAppUserId() + "")
                 .claim("display_name", user.getDisplayName())
                 .claim("roles", user.getRoles())
+                .claim("id", user.getAppUserId())
                 .setIssuer("spotify elo ranker")
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
