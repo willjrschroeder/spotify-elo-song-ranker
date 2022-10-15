@@ -27,7 +27,7 @@ function ManagePlaylists() {
 
 
     function getAllPlaylists() {
-        fetch( "http://localhost:8080/api/playlists" )
+        fetch( "http://localhost:8080/api/playlist" )
         .then( response => {
             if( response.status === 200 ) {
                 return response.json();
