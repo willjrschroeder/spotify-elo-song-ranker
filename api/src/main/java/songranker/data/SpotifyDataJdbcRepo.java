@@ -58,13 +58,13 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
             return null;
         }
 
-        //addPlaylistTrack(spotifyData);
+
 
         return spotifyData.getPlaylist();
     }
 
     private void addPlaylistTrack(SpotifyData spotifyData) {
-        final String sql = "insert into playlist_track (track_uri, playlist_uri) values (?,?);";
+        final String sql = "insert into playlist_track (app_user_id, track_uri, playlist_uri) values (?,?,?);";
 
         String playlistUri = getPlaylistUri(spotifyData);
 
@@ -77,10 +77,10 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         final String sql = "select playlist_uri from playlist where playlist_uri = ?;";
 
-        Playlist playlist = template.query(sql,new PlaylistMapper(), spotifyData.getPlaylist().getPlaylistUri()).stream().findFirst().orElse(spotifyData.getPlaylist());
+        Playlist playlist = template.query(sql,new PlaylistMapper(), spotifyData.getPlaylist().getPlaylistUri()).stream().findFirst().orElse(null);
 
 
-        return playlist.getPlaylistUri();
+        return playlist != null ? playlist.getPlaylistUri() : null;
 
 
     }
@@ -90,22 +90,24 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     public List<Track> createTrack(SpotifyData spotifyData) {
 
 
-        final String sql = "insert into track (track_uri, title, elo_score, num_of_matches_played, track_duration, popularity_num, spotify_url, preview_url) "
-                + "values (?,?,?,?,?,?,?,?);";
+        final String sql = "insert into track (track_uri, app_user_id, title, elo_score, num_of_matches_played, track_duration, popularity_num, spotify_url, preview_url) "
+                + "values (?,?,?,?,?,?,?,?,?);";
 
         for (Track eachTrack : spotifyData.getTracks()) {
+
             int rowsAffected = template.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
                 ps.setString(1, eachTrack.getTrack_uri());
-                ps.setString(2, eachTrack.getTitle());
+                ps.setInt(2, eachTrack.getApp_user_id());
+                ps.setString(3, eachTrack.getTitle());
                 eachTrack.setEloScore(1000);
-                ps.setInt(3, eachTrack.getEloScore());
+                ps.setInt(4, eachTrack.getEloScore());
                 eachTrack.setNumOfMatchesPlayed(0);
-                ps.setInt(4, eachTrack.getNumOfMatchesPlayed());
-                ps.setInt(5, eachTrack.getTrackDuration());
-                ps.setInt(6, eachTrack.getPopularityNum());
-                ps.setString(7, eachTrack.getSpotifyUrl());
-                ps.setString(8, eachTrack.getPreviewUrl());
+                ps.setInt(5, eachTrack.getNumOfMatchesPlayed());
+                ps.setInt(6, eachTrack.getTrackDuration());
+                ps.setInt(7, eachTrack.getPopularityNum());
+                ps.setString(8, eachTrack.getSpotifyUrl());
+                ps.setString(9, eachTrack.getPreviewUrl());
                 return ps;
             });
 
@@ -197,6 +199,16 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         }
 
         return template.query(sql, new ArtistMapper(existingGenres), spotifyData);
+    }
+
+    private List<Track> existingTracks(SpotifyData spotifyData){
+        final String sql = "select * from track where ";
+
+
+
+
+
+
     }
 
     private void addGenreArtist(SpotifyData spotifyData) {
@@ -308,7 +320,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     public Playlist getPlaylistByPlaylistUri(String playlistUri, int app_user_id){
 
         final String sql = "select playlist_uri, playlist_name, description, playlist_url, playlist_image_link, app_user_id "
-                + "from playlist where playlist_uri and app_user_id = (?, ?)";
+                + "from playlist where (playlist_uri, app_user_id) = (?, ?)";
 
         return template.query(sql, new PlaylistMapper(), playlistUri, app_user_id).stream().findFirst().orElse(null);
     }

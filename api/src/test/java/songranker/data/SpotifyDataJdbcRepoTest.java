@@ -132,6 +132,10 @@ class SpotifyDataJdbcRepoTest {
 
     @Test
     void createArtist() {
+
+        List<Artist> toAdd = repo.createArtist(testSpotifyData);
+
+        assertNotNull(toAdd);
     }
 
     @Test
