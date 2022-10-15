@@ -47,7 +47,7 @@ function ManagePlaylists() {
     function addPlaylistToDatabase(playlistPackage) {
         console.log(playlistPackage);
 
-        fetch( "http://localhost:8080/api/playlists", {
+        fetch( "http://localhost:8080/api/spotify_data", {
             method:"POST",
             body: JSON.stringify(playlistPackage),
             headers: {
