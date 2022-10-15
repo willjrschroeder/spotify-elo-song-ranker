@@ -131,7 +131,7 @@ class UserDetailsServiceImplementationTest {
     }
 
     @Test
-    void shouldNotAddNullOrEmptyTracks(){
+    void shouldNotAddNullOrEmptyTracksArray(){
 
         SpotifyData data = testSpotifyData;
         data.setTracks(null);
@@ -149,6 +149,21 @@ class UserDetailsServiceImplementationTest {
 
         assertFalse(result.isSuccess());
         assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddDuplicatePlaylistUriAndUserIdCombination(){
+        SpotifyData data = testSpotifyData;
+
+        // when(repository.getPlaylistByPlaylistUriAndUserId(data.getPlaylist().getPlaylistUri(),
+                // data.getPlaylist().getAppUserId()))
+                // .thenReturn(testPlaylist1);
+
+        Result result = service.addSpotifyData(data);
+
+        assertEquals("[Playlist is already added to the database]", result.getMessages().toString());
+
+        assertFalse(result.isSuccess());
     }
 
     @Test
@@ -256,7 +271,7 @@ class UserDetailsServiceImplementationTest {
         data.getPlaylist().setAppUserId(0);
         AppUser disabledAppUser = testDisabledAppUser1;
 
-        when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(null);
+        // when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
 
@@ -266,7 +281,7 @@ class UserDetailsServiceImplementationTest {
         Result result2 = service.addSpotifyData(data);
 
         data.getPlaylist().setAppUserId(1);
-        when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(disabledAppUser);
+        // when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(disabledAppUser);
         Result result3 = service.addSpotifyData(data);
 
         assertEquals("[Playlist must contained an existing appUserId]", result.getMessages().toString());
@@ -276,27 +291,6 @@ class UserDetailsServiceImplementationTest {
         assertFalse(result.isSuccess());
         assertFalse(result2.isSuccess());
         assertFalse(result3.isSuccess());
-    }
-
-    @Test
-    void shouldNotAddNullOrBlankTrackUri(){
-
-        SpotifyData data = testSpotifyData;
-        data.getTracks().get(0).setTrack_uri(null);
-
-        when(repository.addSpotifyData(data)).thenReturn(true);
-
-        Result result = service.addSpotifyData(data);
-
-        data.getTracks().get(0).setTrack_uri("");
-
-        Result result2 = service.addSpotifyData(data);
-
-        assertEquals("[Track URI is required]", result.getMessages().toString());
-        assertEquals("[Track URI is required]", result2.getMessages().toString());
-
-        assertFalse(result.isSuccess());
-        assertFalse(result2.isSuccess());
     }
 
     @Test
@@ -522,6 +516,84 @@ class UserDetailsServiceImplementationTest {
 
         assertFalse(result.isSuccess());
         assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddAlbumWithNullOrBlankUri(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getAlbums().get(0).setAlbumUri(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getAlbums().get(0).setAlbumUri("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All albums must have a Spotify URI]", result.getMessages().toString());
+        assertEquals("[All albums must have a Spotify URI]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddAlbumWithNullOrBlankName(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getAlbums().get(0).setAlbumName(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getAlbums().get(0).setAlbumName("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All albums must have a name]", result.getMessages().toString());
+        assertEquals("[All albums must have a name]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddAlbumWithNullOrBlankUrl(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getAlbums().get(0).setSpotifyUrl(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getAlbums().get(0).setSpotifyUrl("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All albums must have a Spotify url]", result.getMessages().toString());
+        assertEquals("[All albums must have a Spotify url]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddAlbumWithInvalidDate(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getAlbums().get(0).setReleaseDate(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        assertEquals("[All albums must have a release date]", result.getMessages().toString());
+
+        assertFalse(result.isSuccess());
     }
 
 }

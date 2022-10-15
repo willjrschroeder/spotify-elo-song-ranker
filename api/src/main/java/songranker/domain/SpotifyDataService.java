@@ -145,12 +145,30 @@ public class SpotifyDataService {
     }
 
     private Result validateGenre(Genre genre, Result result){
-        
+        if (genre.getGenreName() == null || genre.getGenreName().isBlank()) {
+            result.addMessage("All genres must have a name", ResultType.INVALID);
+        }
+        return result;
     }
 
     private Result validateAlbum(Album album, Result result) {
-        return result; //TODO:
-        // throw new UnsupportedOperationException();
+        if(album.getAlbumUri() == null || album.getAlbumUri().isBlank()){
+            result.addMessage("All albums must have a Spotify Uri", ResultType.INVALID);
+        }
+
+        if(album.getAlbumName() == null || album.getAlbumName().isBlank()){
+            result.addMessage("All albums must have a name", ResultType.INVALID);
+        }
+
+        if(album.getSpotifyUrl() == null || album.getSpotifyUrl().isBlank()){
+            result.addMessage("All albums must have a Spotify url", ResultType.INVALID);
+        }
+
+        if(album.getReleaseDate() == null){
+            result.addMessage("All albums must have a release date", ResultType.INVALID);
+        }
+
+        return result;
     }
 
 
