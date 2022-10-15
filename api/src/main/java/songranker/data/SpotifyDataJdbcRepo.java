@@ -56,31 +56,64 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
     }
 
+    private List<Playlist> getUserPlaylistsById(SpotifyData spotifyData){
+        final String sql = "select * from playlist where app_user_id = ?";
+
+        return template.query(sql, new PlaylistMapper(), spotifyData.getPlaylist().getAppUserId());
+    }
+
     @Override
     @Transactional
     public Playlist createPlaylist(SpotifyData spotifyData) {
+        Playlist playlist = new Playlist();
 
+        List<Playlist> existingPlaylists = getUserPlaylistsById(spotifyData);
 
         final String sql = "insert into playlist (playlist_uri, playlist_name, description, playlist_url, playlist_image_link, app_user_id) "
                 + "values (?,?,?,?,?,?);";
+        if(existingPlaylists.size() > 0){
+            for(Playlist each : existingPlaylists){
+                if(each.getAppUserId() != spotifyData.getPlaylist().getAppUserId()){
+                    int rowsAffected = template.update(connection -> {
+                        PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
+                        ps.setString(1, spotifyData.getPlaylist().getPlaylistUri());
+                        ps.setString(2, spotifyData.getPlaylist().getPlaylistName());
+                        ps.setString(3, spotifyData.getPlaylist().getDescription());
+                        ps.setString(4, spotifyData.getPlaylist().getPlaylistUrl());
+                        ps.setString(5, spotifyData.getPlaylist().getPlaylistImageLink());
+                        ps.setInt(6, spotifyData.getPlaylist().getAppUserId());
+                        return ps;
+                    });
 
-        int rowsAffected = template.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
-            ps.setString(1, spotifyData.getPlaylist().getPlaylistUri());
-            ps.setString(2, spotifyData.getPlaylist().getPlaylistName());
-            ps.setString(3, spotifyData.getPlaylist().getDescription());
-            ps.setString(4, spotifyData.getPlaylist().getPlaylistUrl());
-            ps.setString(5, spotifyData.getPlaylist().getPlaylistImageLink());
-            ps.setInt(6, spotifyData.getPlaylist().getAppUserId());
-            return ps;
-        });
+                    if (rowsAffected <= 0) {
+                        return null;
+                    }
 
-        if (rowsAffected <= 0) {
-            return null;
+                    playlist = getPlaylistByPlaylistUri(spotifyData.getPlaylist().getPlaylistUri(), spotifyData.getPlaylist().getAppUserId());
+                }
+            }
+        } else {
+            int rowsAffected = template.update(connection -> {
+                PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
+                ps.setString(1, spotifyData.getPlaylist().getPlaylistUri());
+                ps.setString(2, spotifyData.getPlaylist().getPlaylistName());
+                ps.setString(3, spotifyData.getPlaylist().getDescription());
+                ps.setString(4, spotifyData.getPlaylist().getPlaylistUrl());
+                ps.setString(5, spotifyData.getPlaylist().getPlaylistImageLink());
+                ps.setInt(6, spotifyData.getPlaylist().getAppUserId());
+                return ps;
+            });
+
+            if (rowsAffected <= 0) {
+                return null;
+            }
+
+            playlist = getPlaylistByPlaylistUri(spotifyData.getPlaylist().getPlaylistUri(), spotifyData.getPlaylist().getAppUserId());
         }
 
 
-        return spotifyData.getPlaylist();
+
+        return playlist;
     }
 
 
