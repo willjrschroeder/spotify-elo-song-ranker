@@ -6,10 +6,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import songranker.data.mappers.AlbumMapper;
-import songranker.data.mappers.ArtistMapper;
-import songranker.data.mappers.GenreMapper;
-import songranker.data.mappers.PlaylistMapper;
+import songranker.data.mappers.*;
 import songranker.models.*;
 
 import java.sql.Date;
@@ -28,10 +25,18 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     @Override
     @Transactional
     public boolean addSpotifyData(SpotifyData spotifyData) {
+
+        createPlaylist(spotifyData);
+        createTrack(spotifyData);
+        createArtist(spotifyData);
+        createAlbum(spotifyData);
+        createGenre(spotifyData);
+
         throw new UnsupportedOperationException();
     }
 
     @Override
+    @Transactional
     public Playlist createPlaylist(SpotifyData spotifyData){
 
 
@@ -81,6 +86,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     }
 
     @Override
+    @Transactional
     public List<Track> createTrack(SpotifyData spotifyData) {
 
 
@@ -143,6 +149,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     }
 
     @Override
+    @Transactional
     public List<Artist> createArtist(SpotifyData spotifyData){
 
         List<Artist> artists = new ArrayList<>();
@@ -204,6 +211,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     }
 
     @Override
+    @Transactional
     public List<Album> createAlbum(SpotifyData spotifyData){
 
         List<Album> albums = new ArrayList<>();
@@ -246,6 +254,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     }
 
     @Override
+    @Transactional
     public List<Genre> createGenre(SpotifyData spotifyData){
         List<Genre> genres = new ArrayList<>();
 
@@ -296,12 +305,14 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     }
 
     @Override
-    public Playlist getPlaylistByPlaylistUri(String playlistUri){
+    public Playlist getPlaylistByPlaylistUri(String playlistUri, int app_user_id){
 
         final String sql = "select playlist_uri, playlist_name, description, playlist_url, playlist_image_link, app_user_id "
-                + "from playlist where playlist_uri = ?";
+                + "from playlist where playlist_uri and app_user_id = (?, ?)";
 
-        return template.query(sql, new PlaylistMapper(), playlistUri).stream().findFirst().orElse(null);
+        return template.query(sql, new PlaylistMapper(), playlistUri, app_user_id).stream().findFirst().orElse(null);
     }
+
+
 
 }

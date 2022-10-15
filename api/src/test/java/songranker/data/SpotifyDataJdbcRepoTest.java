@@ -107,7 +107,7 @@ class SpotifyDataJdbcRepoTest {
 
         Playlist toAdd = repo.createPlaylist(testSpotifyData);
 
-        Playlist toTest = repo.getPlaylistByPlaylistUri(testPlaylist1.getPlaylistUri());
+        Playlist toTest = repo.getPlaylistByPlaylistUri(testPlaylist1.getPlaylistUri(), testPlaylist1.getAppUserId());
 
         assertNotNull(toAdd);
         assertNotNull(toTest);
