@@ -49,6 +49,34 @@ function ConfirmationPage() {
                 console.log('Something went wrong!', err);
             })
 
+            spotifyApi.getArtist("57vWImR43h4CaDao012Ofp")
+            .then(function (data) {
+                console.log(`track artist:`, data.body)
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            })
+
+            spotifyApi.getArtist("2knWnzQWhtUg9J3zVsEYm8")
+            .then(function (data) {
+                console.log(`track artist:`, data.body)
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            })
+
+            spotifyApi.getArtist("0V8tQXWkKPD5SxsB2moGew")
+            .then(function (data) {
+                console.log(`track artist:`, data.body)
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            })
+
+            spotifyApi.getArtist("0WSxLJRrB4L65JhNxIajE2")
+            .then(function (data) {
+                console.log(`track artist:`, data.body)
+            }, function (err) {
+                console.log('Something went wrong!', err);
+            })
+
     }, [spotifyAuth.spotifyAccessToken])
 
 

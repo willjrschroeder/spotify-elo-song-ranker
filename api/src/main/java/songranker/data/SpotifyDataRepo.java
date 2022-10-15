@@ -24,4 +24,6 @@ public interface SpotifyDataRepo {
 
     @Transactional
     List<Genre> createGenre(SpotifyData spotifyData);
+
+    Playlist getPlaylistByPlaylistUri(String playlistUri);
 }
