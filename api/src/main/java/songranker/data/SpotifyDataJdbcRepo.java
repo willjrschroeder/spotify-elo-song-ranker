@@ -5,10 +5,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-<<<<<<< HEAD
-=======
+//<<<<<<< HEAD
+//=======
 import org.springframework.transaction.annotation.Transactional;
->>>>>>> cd9f05079260fa0df8f0cf21e43ec89115c7a4be
+//>>>>>>> cd9f05079260fa0df8f0cf21e43ec89115c7a4be
 import songranker.data.mappers.AlbumMapper;
 import songranker.data.mappers.ArtistMapper;
 import songranker.data.mappers.GenreMapper;
@@ -21,10 +21,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> cd9f05079260fa0df8f0cf21e43ec89115c7a4be
+//<<<<<<< HEAD
+//
+//=======
+//>>>>>>> cd9f05079260fa0df8f0cf21e43ec89115c7a4be
 @Repository
 public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
@@ -67,9 +67,23 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     private void addPlaylistTrack(SpotifyData spotifyData) {
         final String sql = "insert into playlist_track (track_uri, playlist_uri) values (?,?);";
 
+        String playlistUri = getPlaylistUri(spotifyData);
+
         for(Track eachTrack : spotifyData.getTracks()){
-            template.update(sql, eachTrack.getTrack_uri() ,spotifyData.getPlaylist().getPlaylistUri());
+            template.update(sql, eachTrack.getTrack_uri() ,playlistUri);
         }
+    }
+
+    private String getPlaylistUri(SpotifyData spotifyData){
+
+        final String sql = "select playlist_uri from playlist where playlist_uri = ?;";
+
+        Playlist playlist = template.query(sql,new PlaylistMapper(), spotifyData.getPlaylist().getPlaylistUri()).stream().findFirst().orElse(spotifyData.getPlaylist());
+
+
+        return playlist.getPlaylistUri();
+
+
     }
 
     @Override
@@ -103,7 +117,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         }
 
 
-        //addPlaylistTrack(spotifyData);
+
         //addTrackAlbum(spotifyData);
 
         //addTrackArtist(spotifyData);
@@ -163,7 +177,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                     }
                 }
             }
-
+            addPlaylistTrack(spotifyData);
             //addGenreArtist(spotifyData);
         }
         return artists;
@@ -289,6 +303,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
     @Override
     public Playlist getPlaylistByPlaylistUri(String playlistUri){
+
         final String sql = "select playlist_uri, playlist_name, description, playlist_url, playlist_image_link, app_user_id "
                 + "from playlist where playlist_uri = ?";
 
