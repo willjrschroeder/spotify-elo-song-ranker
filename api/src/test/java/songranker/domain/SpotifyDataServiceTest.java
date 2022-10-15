@@ -220,8 +220,8 @@ class UserDetailsServiceImplementationTest {
 
         Result result2 = service.addSpotifyData(data);
 
-        assertEquals("[Playlist url is required]", result.getMessages().toString());
-        assertEquals("[Playlist url is required]", result2.getMessages().toString());
+        assertEquals("[Playlist Spotify url is required]", result.getMessages().toString());
+        assertEquals("[Playlist Spotify url is required]", result2.getMessages().toString());
 
         assertFalse(result.isSuccess());
     }
