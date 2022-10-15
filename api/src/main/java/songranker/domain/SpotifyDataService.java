@@ -60,7 +60,7 @@ public class SpotifyDataService {
             result.addMessage("Playlist Spotify URL is required", ResultType.INVALID);
         }
 
-        //TODO: need to add a check that appUser corresponding the appUserId exists AND is not disabled. Need a repo method getUserById
+        //TODO: need to add a check that the appUser corresponding the appUserId exists AND is not disabled. Need a repo method getUserById
 
         return result;
     }

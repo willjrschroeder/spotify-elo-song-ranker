@@ -71,7 +71,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
             description: playlistSpotifyData.description, //TODO: This is going to need to be recoded or something? Passed from the spotify API with ['] evaluating to [&#x27]"
             playlistUrl: playlistSpotifyData.external_urls.spotify,
             playlistImageLink: playlistSpotifyData.images[0].url,
-            appUserId: userId //TODO: we need to get this somehow. Can update the JWT to contain the user ID as a claim. Update in back end where JWT is created AND in front end where user is created(App.js)
+            appUserId: userId
         }
 
         return playlistObject;

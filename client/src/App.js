@@ -1,12 +1,12 @@
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import LandingPage from './LandingPage/LandingPage';
-import Register from './Register/Register'
-import Login from './Login/Login'
+import Register from './Register/Register';
+import Login from './Login/Login';
 import AuthContext from './context/AuthContext';
 import jwtDecode from "jwt-decode";
 import React, { useState, useEffect } from "react";
-import Home from "./Home/Home"
+import Home from "./Home/Home";
 import SpotifyAuthorization from './SpotifyAuthorization/SpotifyAuthorization';
 import CallbackPage from './SpotifyAuthorization/CallbackPage';
 import SpotifyAuthContext from './context/SpotifyAuthContext';
@@ -28,7 +28,7 @@ function App() {
     //this attempts to restore the JWT access token 
     const token = localStorage.getItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
     if (token) {
-      login(token)
+      login(token);
     }
     setRestoreLoginAttemptCreated(true);
 
