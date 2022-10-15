@@ -156,8 +156,13 @@ class UserDetailsServiceImplementationTest {
         SpotifyData data = testSpotifyData;
 
         // when(repository.getPlaylistByPlaylistUriAndUserId(data.getPlaylist().getPlaylistUri(),
+<<<<<<< HEAD
         // data.getPlaylist().getAppUserId()))
         // .thenReturn(testPlaylist1);
+=======
+                // data.getPlaylist().getAppUserId()))
+                // .thenReturn(testPlaylist1);
+>>>>>>> 824d5eafa6a1e951e1d43cda876284ce99f9e237
 
         Result result = service.addSpotifyData(data);
 
