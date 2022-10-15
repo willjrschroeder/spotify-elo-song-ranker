@@ -42,13 +42,14 @@ public class SpotifyDataService {
 
         if (playlist == null) {
             result.addMessage("Playlist is required", ResultType.INVALID);
+            return result;
         }
 
-        if(playlist.getPlaylistUri().isBlank()) {
+        if(playlist.getPlaylistUri() == null || playlist.getPlaylistUri().isBlank()) {
             result.addMessage("Playlist URI is required", ResultType.INVALID);
         }
 
-        if(playlist.getPlaylistName().isBlank()) {
+        if(playlist.getPlaylistName() == null || playlist.getPlaylistName().isBlank()) {
             result.addMessage("Playlist name is required", ResultType.INVALID);
         }
 
@@ -56,7 +57,7 @@ public class SpotifyDataService {
             result.addMessage("Description must be less than 300 characters", ResultType.INVALID);
         }
 
-        if(playlist.getPlaylistUrl().isBlank()) {
+        if(playlist.getPlaylistUrl() == null || playlist.getPlaylistUrl().isBlank()) {
             result.addMessage("Playlist Spotify URL is required", ResultType.INVALID);
         }
 
@@ -84,12 +85,8 @@ public class SpotifyDataService {
             result.addMessage("All tracks must have a Spotify URI", ResultType.INVALID);
         }
 
-        if(track.getTitle().isBlank()) {
+        if(track.getTitle() == null || track.getTitle().isBlank()) {
             result.addMessage("All tracks must have title", ResultType.INVALID);
-        }
-
-        if(track.getTrackDuration() <= 0) {
-            result.addMessage("All tracks must have a non-negative duration", ResultType.INVALID);
         }
 
         if(track.getTrackDuration() <= 0) {
@@ -108,9 +105,9 @@ public class SpotifyDataService {
             return result;
         }
 
-        if(track.getAlbums() == null  //TODO: my second playlist has tracks with null albums
+        if(track.getAlbums() == null
                 || track.getAlbums().isEmpty()) {
-            result.addMessage("All tracks must have an album", ResultType.INVALID); // TODO: find out if this is how singles work. They may have an album which only contains the single, or it may be null/Empty
+            result.addMessage("All tracks must have an album", ResultType.INVALID);
             return result;
         }
 
@@ -123,25 +120,21 @@ public class SpotifyDataService {
 
 
     private Result validateArtist(Artist artist, Result result){
-        if(artist.getArtistUri().isBlank()) {
+        if(artist.getArtistUri() == null || artist.getArtistUri().isBlank()) {
             result.addMessage("All artists must have a Spotify URI", ResultType.INVALID);
         }
 
-        if(artist.getArtistName().isBlank()) {
+        if(artist.getArtistName() == null || artist.getArtistName().isBlank()) {
             result.addMessage("All artists must have a name", ResultType.INVALID);
         }
 
-        if(artist.getSpotifyUrl().isBlank()) {
+        if(artist.getSpotifyUrl() == null || artist.getSpotifyUrl().isBlank()) {
             result.addMessage("All artists must have a Spotify URL", ResultType.INVALID);
-        }
-
-        if(artist.getArtistImageLink().isBlank()) {
-            result.addMessage("All artists must have a non-blank image link (can be null)", ResultType.INVALID);
         }
 
         if(artist.getGenres() == null
                 || artist.getGenres().isEmpty()) { // this doesn't add an error, not all artists have genres
-            return result;
+            return result; // just need to short circuit if there is no genre array
         }
 
         for (Genre genre : artist.getGenres()) {
@@ -152,8 +145,7 @@ public class SpotifyDataService {
     }
 
     private Result validateGenre(Genre genre, Result result){
-        return result; //TODO:
-        //throw new UnsupportedOperationException();
+        
     }
 
     private Result validateAlbum(Album album, Result result) {

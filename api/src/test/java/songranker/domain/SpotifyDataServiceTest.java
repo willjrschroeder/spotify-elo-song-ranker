@@ -94,6 +94,11 @@ class UserDetailsServiceImplementationTest {
 
     private final List<Track> testTracks = Arrays.asList(testTrack1, testTrack2, testTrack3);
 
+    private final AppUser testDisabledAppUser1 = new AppUser(1, "newTestUsername",
+            "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy", "Test Create",
+            true, new ArrayList<AppRole>() {
+    });
+
 
 
     private final SpotifyData testSpotifyData = new SpotifyData(
@@ -101,17 +106,422 @@ class UserDetailsServiceImplementationTest {
             testTracks);
 
     @Test
-    void shouldAddValidPlaylist(){
+    void shouldAddValidData(){
         SpotifyData data = testSpotifyData;
 
         when(repository.addSpotifyData(testSpotifyData)).thenReturn(true);
 
         Result result = service.addSpotifyData(data);
 
-        System.out.println((result.getMessages()));
         assertTrue(result.isSuccess());
     }
 
+    @Test
+    void shouldNotAddNullPlaylist(){
 
+        SpotifyData data = new SpotifyData(null, null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        assertEquals("[Playlist is required]", result.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrEmptyTracks(){
+
+        SpotifyData data = testSpotifyData;
+        data.setTracks(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.setTracks(new ArrayList<Track>());
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All playlists must have tracks]", result.getMessages().toString());
+        assertEquals("[All playlists must have tracks]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankPlaylistUri(){
+
+        SpotifyData data = testSpotifyData;
+        data.getPlaylist().setPlaylistUri(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getPlaylist().setPlaylistUri("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[Playlist URI is required]", result.getMessages().toString());
+        assertEquals("[Playlist URI is required]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankPlaylistName(){
+
+        SpotifyData data = testSpotifyData;
+        data.getPlaylist().setPlaylistName(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getPlaylist().setPlaylistName("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[Playlist name is required]", result.getMessages().toString());
+        assertEquals("[Playlist name is required]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankPlaylistUrl(){
+
+        SpotifyData data = testSpotifyData;
+        data.getPlaylist().setPlaylistUrl(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getPlaylist().setPlaylistUrl("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[Playlist url is required]", result.getMessages().toString());
+        assertEquals("[Playlist url is required]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddLongPlaylistDescription(){
+
+        SpotifyData data = testSpotifyData;
+        data.getPlaylist().setDescription("aaaaaaaaaaaaaaaaaaaaaaaaa      " +
+                "aaaaaaaaaaaa    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        assertEquals("[Description must be less than 300 characters]", result.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+    }
+
+    @Test
+    void shouldAddNullOrBlankPlaylistDescription(){
+
+        SpotifyData data = testSpotifyData;
+        data.getPlaylist().setDescription(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getPlaylist().setDescription("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertTrue(result.isSuccess());
+        assertTrue(result2.isSuccess());
+    }
+
+    @Test
+    void shouldAddNotPlaylistWithMissingOrDisabledUserId(){
+
+        SpotifyData data = testSpotifyData;
+        data.getPlaylist().setAppUserId(0);
+        AppUser disabledAppUser = testDisabledAppUser1;
+
+        when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getPlaylist().setAppUserId(-1);
+        Result result2 = service.addSpotifyData(data);
+
+        data.getPlaylist().setAppUserId(1);
+        when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(disabledAppUser);
+        Result result3 = service.addSpotifyData(data);
+
+        assertEquals("[Playlist must contained an existing appUserId]", result.getMessages().toString());
+        assertEquals("[Playlist must contained an existing appUserId]", result2.getMessages().toString());
+        assertEquals("[Playlist must contained an non-disabled appUserId]", result3.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+        assertFalse(result3.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankTrackUri(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).setTrack_uri(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).setTrack_uri("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[Track URI is required]", result.getMessages().toString());
+        assertEquals("[Track URI is required]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankTrackUri(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).setTrack_uri(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).setTrack_uri("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All tracks must have a Spotify URI]", result.getMessages().toString());
+        assertEquals("[All tracks must have a Spotify URI]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankTrackTitle(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).setTitle(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).setTitle("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All tracks must have a title]", result.getMessages().toString());
+        assertEquals("[All tracks must have a title]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankTrackArtistArray(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).setArtists(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).setArtists(new ArrayList<Artist>());
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All tracks must have artists]", result.getMessages().toString());
+        assertEquals("[All tracks must have artists]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddNullOrBlankTrackAlbumArray(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).setAlbums(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).setAlbums(new ArrayList<Album>());
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All tracks must have an album]", result.getMessages().toString());
+        assertEquals("[All tracks must have an album]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddBadTrackDuration(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).setTrackDuration(0);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).setTrackDuration(-1);
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All tracks must have a non-negative duration]", result.getMessages().toString());
+        assertEquals("[All tracks must have a non-negative duration]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddArtistWithNullOrBlankUri(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getArtists().get(0).setArtistUri(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getArtists().get(0).setArtistUri("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All artists must have a Spotify URI]", result.getMessages().toString());
+        assertEquals("[All artists must have a Spotify URI]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddArtistWithNullOrBlankName(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getArtists().get(0).setArtistName(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getArtists().get(0).setArtistName("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All artists must have a name]", result.getMessages().toString());
+        assertEquals("[All artists must have a name]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddArtistWithNullOrBlankUrl(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getArtists().get(0).setSpotifyUrl(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getArtists().get(0).setSpotifyUrl("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All artists must have a Spotify url]", result.getMessages().toString());
+        assertEquals("[All artists must have a Spotify url]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
+
+    @Test
+    void shouldAddArtistWithNullOrBlankImageLink(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getArtists().get(0).setArtistImageLink(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getArtists().get(0).setArtistImageLink("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertTrue(result.isSuccess());
+        assertTrue(result2.isSuccess());
+    }
+
+    @Test
+    void shouldAddArtistWithNullOrBlankGenresArray(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getArtists().get(0).setGenres(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getArtists().get(0).setGenres(new ArrayList<Genre>());
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertTrue(result.isSuccess());
+        assertTrue(result2.isSuccess());
+    }
+
+    @Test
+    void shouldNotAddArtistWithNullOrBlankGenreName(){
+
+        SpotifyData data = testSpotifyData;
+        data.getTracks().get(0).getArtists().get(0).getGenres().get(0).setGenreName(null);
+
+        when(repository.addSpotifyData(data)).thenReturn(true);
+
+        Result result = service.addSpotifyData(data);
+
+        data.getTracks().get(0).getArtists().get(0).getGenres().get(0).setGenreName("");
+
+        Result result2 = service.addSpotifyData(data);
+
+        assertEquals("[All genres must have a name]", result.getMessages().toString());
+        assertEquals("[All genres must have a name]", result2.getMessages().toString());
+
+        assertFalse(result.isSuccess());
+        assertFalse(result2.isSuccess());
+    }
 
 }
