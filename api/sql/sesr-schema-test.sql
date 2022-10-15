@@ -55,21 +55,23 @@ constraint fk_playlist_app_user_id
 );
 
 create table track (
-track_uri varChar(200) primary key,
+track_uri varChar(200) not null,
+app_user_id int not null,
 title varChar(100) not null,
 elo_score int default 1000 not null,
 num_of_matches_played int default 0 not null,
 track_duration int not null,
 popularity_num int default -1,
 spotify_url varChar(200) not null,
-preview_url varChar(200)
+preview_url varChar(200),
+constraint pk_track
+	primary key (track_uri, app_user_id)
 );
 
 create table playlist_track (
+app_user_id int primary key not null,
 track_uri varChar(200) not null,
 playlist_uri varChar(200) not null,
-constraint pk_playlist_track
-	primary key (track_uri, playlist_uri),
 constraint fk_playlist_track_track_uri
 	foreign key (track_uri)
     references track(track_uri),
