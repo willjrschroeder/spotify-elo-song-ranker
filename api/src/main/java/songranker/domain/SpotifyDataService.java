@@ -35,7 +35,29 @@ public class SpotifyDataService {
     }
 
     private Result<?> validatePlaylist(Playlist playlist){
-        throw new UnsupportedOperationException();
+        Result result = new Result();
+
+        if (playlist == null) {
+            result.addMessage("Playlist is required", ResultType.INVALID);
+        }
+
+        if(playlist.getPlaylistUri().isBlank()) {
+            result.addMessage("Playlist URI is required", ResultType.INVALID);
+        }
+
+        if(playlist.getPlaylistName().isBlank()) {
+            result.addMessage("Playlist name is required", ResultType.INVALID);
+        }
+
+        if(playlist.getDescription().length() > 300) {
+            result.addMessage("Description must be less than 300 characters", ResultType.INVALID);
+        }
+
+        if(playlist.getPlaylistUrl().isBlank()) {
+            result.addMessage("Playlist Spotify URL is required", ResultType.INVALID);
+        }
+
+        return result;
     }
 
     private Result<?> validateTracks(List<Track> tracks){
