@@ -13,6 +13,8 @@ const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
 });
 
+
+
 function ManagePlaylists() {
 
 
@@ -59,6 +61,11 @@ function ManagePlaylists() {
             []
         )
 
+    function playGameWithPlaylist(playlist) {
+
+
+    }
+
     
 
     function addPlaylistToDatabase(playlistPackage) {
@@ -91,7 +98,7 @@ function ManagePlaylists() {
         <Link to="/home" className="login">Home</Link>
         <div className="flex-container">
             {databasePlaylists.map( (pd, index) => (
-                <DatabasePlaylist key = {index} playlists={databasePlaylists}/>
+                <DatabasePlaylist key = {index} pd={pd} playGame={playGameWithPlaylist}/>
             ))}
         </div>
         <div className="flex-container">
