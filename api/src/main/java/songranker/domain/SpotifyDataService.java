@@ -80,7 +80,7 @@ public class SpotifyDataService {
     }
 
     private Result validateTrack(Track track, Result result){ // add on to result if there is an error, return result
-        if(track.getTrack_uri().isBlank()) { //TODO: it looks like the front end is passing tracks without these sometimes. (You're Gonna Go Far, Kid from the playlist My Second Playlist!)
+        if(track.getTrack_uri() == null || track.getTrack_uri().isBlank()) { //TODO: it looks like the front end is passing tracks without these sometimes. (You're Gonna Go Far, Kid from the playlist My Second Playlist!)
             result.addMessage("All tracks must have a Spotify URI", ResultType.INVALID);
         }
 
@@ -152,11 +152,13 @@ public class SpotifyDataService {
     }
 
     private Result validateGenre(Genre genre, Result result){
-        throw new UnsupportedOperationException();
+        return result; //TODO:
+        //throw new UnsupportedOperationException();
     }
 
     private Result validateAlbum(Album album, Result result) {
-        throw new UnsupportedOperationException();
+        return result; //TODO:
+        // throw new UnsupportedOperationException();
     }
 
 
