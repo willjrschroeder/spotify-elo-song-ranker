@@ -85,12 +85,12 @@ class SpotifyDataJdbcRepoTest {
 
     private final List<Album> testAlbums3 = List.of(testAlbum3);
 
-    private final Track testTrack1 = new Track("4k6Uh1HXdhtusDW5y8Gbvy", "Bad Habit", 1000, 0, 232006, 90,
+    private final Track testTrack1 = new Track("4k6Uh1HXdhtusDW5y8Gbvy", 1, "Bad Habit", 1000, 0, 232006, 90,
             "https://open.spotify.com/track/4k6Uh1HXdhtusDW5y8Gbvy", "https://p.scdn.co/mp3-preview/b46cf3781e6cbe5bd01b8a81e333899c7f9cdfc5?cid=b055b73f53474f3e931fd58a080ca3cf",
             testArtists1, testAlbums1);
-    private final Track testTrack2 = new Track ("3sNVsP50132BTNlImLx70i", "Bound 2", 1000, 0, 229146, 89,
+    private final Track testTrack2 = new Track ("3sNVsP50132BTNlImLx70i", 1, "Bound 2", 1000, 0, 229146, 89,
             "https://open.spotify.com/track/3sNVsP50132BTNlImLx70i", "", testArtists2, testAlbums2);
-    private final Track testTrack3 = new Track("58WiMFVLbAfmS7k4T0qKtG", "It's Corn", 1000, 0, 167733, 75,
+    private final Track testTrack3 = new Track("58WiMFVLbAfmS7k4T0qKtG", 1, "It's Corn", 1000, 0, 167733, 75,
             "https://open.spotify.com/track/58WiMFVLbAfmS7k4T0qKtG", "https://p.scdn.co/mp3-preview/bb70b6c247fc5e32af241a66dae9e863f37da787?cid=b055b73f53474f3e931fd58a080ca3cf",
             testArtists3, testAlbums3);
 
