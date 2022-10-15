@@ -45,7 +45,7 @@ constraint fk_user_roles_app_role_id
 create table playlist (
 playlist_uri varChar(200) primary key,
 playlist_name varChar(100) not null,
-`description` varChar(200) not null,
+`description` varChar(310),
 playlist_url varChar(200) not null,
 playlist_image_link varChar(500),
 app_user_id int not null,
@@ -62,7 +62,7 @@ num_of_matches_played int default 0 not null,
 track_duration int not null,
 popularity_num int default -1,
 spotify_url varChar(200) not null,
-preview_url varChar(200) not null
+preview_url varChar(200)
 );
 
 create table playlist_track (
