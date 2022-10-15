@@ -1,13 +1,14 @@
 import { useState } from "react";
+import useAuth from "../SpotifyAuthorization/useAuth";
 import GameDisplay from "./GameDisplay";
 
 function EloGamePage(playlistId) {
-
+    const serverAuth = useAuth();
 
     const [playlistTracks, setPlaylistTracks] = useState([]);
 
     function loadTracksByPlaylists(playlistId) { //TODO: place this in a useEffect by itself - just want this to happen once
-            fetch( "http://localhost:8080/api/tracks/playlistId" )
+            fetch( `http://localhost:8080/api/track/${playlistId}/${serverAuth.user.id}` )
             .then( response => {
                 if( response.status === 200 ) {
                     return response.json();
