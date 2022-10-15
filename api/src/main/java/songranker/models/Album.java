@@ -11,6 +11,11 @@ public class Album {
     private String spotifyUrl;
 
     public Album(String album_uri, String album_name, Date release_date, String album_image_link, String spotify_url) {
+        this.albumUri = album_uri;
+        this.albumName = album_name;
+        this.releaseDate = release_date;
+        this.albumImageLink = album_image_link;
+        this.spotifyUrl = spotify_url;
     }
 
     public String getAlbumUri() {

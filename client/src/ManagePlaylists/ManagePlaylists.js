@@ -2,24 +2,42 @@ import Playlist from "../Playlist/Playlist"
 import "./ManagePlaylists.css"
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useContext  } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import DatabasePlaylist from "../Playlist/DatabasePlaylists";
 
 
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
 });
+
+
+
 function ManagePlaylists() {
 
 
     const spotifyAuth = useContext(SpotifyAuthContext); 
     const serverAuth = useContext(AuthContext);
     
-    const userId = serverAuth.user.id;
 
     const [playlists, setPlaylists] = useState([]);
+    const [databasePlaylists, setDatabasePlaylists] = useState([])
+
+
+    function getAllPlaylists() {
+        fetch( "http://localhost:8080/api/playlists" )
+        .then( response => {
+            if( response.status === 200 ) {
+                return response.json();
+            } else( console.log( response ) )
+        } )
+        .then( databasePlaylists => {
+            setDatabasePlaylists( databasePlaylists );
+        });
+    }
+
 
     function loadAllPlaylists() {
 
@@ -38,9 +56,15 @@ function ManagePlaylists() {
         useEffect(
             () => {
                 loadAllPlaylists();
+                getAllPlaylists();
             },
             []
         )
+
+    function playGameWithPlaylist(playlist) {
+
+
+    }
 
     
 
@@ -72,7 +96,12 @@ function ManagePlaylists() {
     
         return(<>
         <Link to="/home" className="login">Home</Link>
-        <div className="container">
+        <div className="flex-container">
+            {databasePlaylists.map( (pd, index) => (
+                <DatabasePlaylist key = {index} pd={pd} playGame={playGameWithPlaylist}/>
+            ))}
+        </div>
+        <div className="flex-container">
             {playlists.map( (p, index)=> (
                 <Playlist key={index} addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
                 )

@@ -2,6 +2,7 @@ package songranker.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import songranker.data.AppUserJdbcRepo;
 import songranker.data.SpotifyDataJdbcRepo;
 import songranker.models.*;
 
@@ -12,6 +13,9 @@ public class SpotifyDataService {
 
     @Autowired
     SpotifyDataJdbcRepo repository;
+
+    @Autowired
+    AppUserJdbcRepo appUserJdbcRepo;
 
     public Result<?> addSpotifyData(SpotifyData spotifyData) {
         // TODO: Do we need a check for spotifyData being null first?
@@ -31,9 +35,6 @@ public class SpotifyDataService {
             result.addMessage("There was an error writing to the database", ResultType.INVALID); // TODO: Not sure if this is necessary. Depends on what we decide to return from the repo method
         }
 
-        //TODO: Do we need to validate that all of our primary keys are unique? Or do we let the repo layer do that
-        // and throw and exception - seems wrong? Probably need service layer checks
-        // we'll need repo methods for getPlaylistByUri, getTrackByUri, getAlbumByUri, getArtistByUri, getGenreByName
         return result;
     }
 
@@ -45,6 +46,23 @@ public class SpotifyDataService {
             return result;
         }
 
+        Playlist duplicatePlaylist = repository.getPlaylistByPlaylistUri(playlist.getPlaylistUri(), playlist.getAppUserId());
+        if (duplicatePlaylist != null) {
+            result.addMessage("Playlist is already added to the database", ResultType.INVALID);
+            return result;
+        }
+
+        AppUser user = appUserJdbcRepo.getAppUserById(playlist.getAppUserId());
+        if(user == null) {
+            result.addMessage("Playlist must contain an existing appUserId", ResultType.INVALID);
+            return result;
+        }
+
+        if(user.isDisabled()) {
+            result.addMessage("Playlist must contain a non-disabled appUserId", ResultType.INVALID);
+            return result;
+        }
+
         if(playlist.getPlaylistUri() == null || playlist.getPlaylistUri().isBlank()) {
             result.addMessage("Playlist URI is required", ResultType.INVALID);
         }
@@ -53,12 +71,14 @@ public class SpotifyDataService {
             result.addMessage("Playlist name is required", ResultType.INVALID);
         }
 
-        if(playlist.getDescription().length() > 300) {
-            result.addMessage("Description must be less than 300 characters", ResultType.INVALID);
+        if(playlist.getDescription() != null) {
+            if (playlist.getDescription().length() > 300) {
+                result.addMessage("Description must be less than 300 characters", ResultType.INVALID);
+            }
         }
 
         if(playlist.getPlaylistUrl() == null || playlist.getPlaylistUrl().isBlank()) {
-            result.addMessage("Playlist Spotify URL is required", ResultType.INVALID);
+            result.addMessage("Playlist Spotify url is required", ResultType.INVALID);
         }
 
         //TODO: need to add a check that the appUser corresponding the appUserId exists AND is not disabled. Need a repo method getUserById
@@ -71,6 +91,7 @@ public class SpotifyDataService {
 
         if(tracks == null || tracks.isEmpty()) {
             result.addMessage("All playlists must have tracks", ResultType.INVALID);
+            return result;
         }
 
         for(Track track : tracks) {
@@ -86,7 +107,11 @@ public class SpotifyDataService {
         }
 
         if(track.getTitle() == null || track.getTitle().isBlank()) {
-            result.addMessage("All tracks must have title", ResultType.INVALID);
+            result.addMessage("All tracks must have a title", ResultType.INVALID);
+        }
+
+        if(track.getSpotifyUrl() == null || track.getSpotifyUrl().isBlank()) {
+            result.addMessage("All tracks must have a Spotify url", ResultType.INVALID);
         }
 
         if(track.getTrackDuration() <= 0) {
@@ -96,6 +121,7 @@ public class SpotifyDataService {
         if(track.getArtists() == null
                 || track.getArtists().isEmpty()) {
             result.addMessage("All tracks must have artists", ResultType.INVALID);
+            return result;
         }
 
         for (Artist artist : track.getArtists()) { // check every artist in the artists array
@@ -129,7 +155,7 @@ public class SpotifyDataService {
         }
 
         if(artist.getSpotifyUrl() == null || artist.getSpotifyUrl().isBlank()) {
-            result.addMessage("All artists must have a Spotify URL", ResultType.INVALID);
+            result.addMessage("All artists must have a Spotify url", ResultType.INVALID);
         }
 
         if(artist.getGenres() == null
@@ -153,7 +179,7 @@ public class SpotifyDataService {
 
     private Result validateAlbum(Album album, Result result) {
         if(album.getAlbumUri() == null || album.getAlbumUri().isBlank()){
-            result.addMessage("All albums must have a Spotify Uri", ResultType.INVALID);
+            result.addMessage("All albums must have a Spotify URI", ResultType.INVALID);
         }
 
         if(album.getAlbumName() == null || album.getAlbumName().isBlank()){
