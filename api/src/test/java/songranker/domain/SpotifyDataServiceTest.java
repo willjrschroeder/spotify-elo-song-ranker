@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import songranker.data.AppUserJdbcRepo;
 import songranker.data.AppUserRepo;
 import songranker.data.SpotifyDataJdbcRepo;
 import songranker.models.*;
@@ -18,6 +19,9 @@ import static org.mockito.Mockito.when;
 class UserDetailsServiceImplementationTest {
     @Autowired
     SpotifyDataService service;
+
+    @MockBean
+    AppUserJdbcRepo appUserRepository;
 
     @MockBean
     SpotifyDataJdbcRepo repository;
@@ -155,11 +159,9 @@ class UserDetailsServiceImplementationTest {
     void shouldNotAddDuplicatePlaylistUriAndUserIdCombination(){
         SpotifyData data = testSpotifyData;
 
-        // when(repository.getPlaylistByPlaylistUriAndUserId(data.getPlaylist().getPlaylistUri(),
-        // data.getPlaylist().getAppUserId()))
-        // .thenReturn(testPlaylist1);
-                // data.getPlaylist().getAppUserId()))
-                // .thenReturn(testPlaylist1);
+        when(repository.getPlaylistByPlaylistUri(data.getPlaylist().getPlaylistUri(),
+        data.getPlaylist().getAppUserId()))
+        .thenReturn(testPlaylist1);
 
         Result result = service.addSpotifyData(data);
 
@@ -273,7 +275,7 @@ class UserDetailsServiceImplementationTest {
         data.getPlaylist().setAppUserId(0);
         AppUser disabledAppUser = testDisabledAppUser1;
 
-        // when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(null);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
 
@@ -283,12 +285,12 @@ class UserDetailsServiceImplementationTest {
         Result result2 = service.addSpotifyData(data);
 
         data.getPlaylist().setAppUserId(1);
-        // when(repository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(disabledAppUser);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(disabledAppUser);
         Result result3 = service.addSpotifyData(data);
 
-        assertEquals("[Playlist must contained an existing appUserId]", result.getMessages().toString());
-        assertEquals("[Playlist must contained an existing appUserId]", result2.getMessages().toString());
-        assertEquals("[Playlist must contained an non-disabled appUserId]", result3.getMessages().toString());
+        assertEquals("[Playlist must contain an existing appUserId]", result.getMessages().toString());
+        assertEquals("[Playlist must contain an existing appUserId]", result2.getMessages().toString());
+        assertEquals("[Playlist must contain a non-disabled appUserId]", result3.getMessages().toString());
 
         assertFalse(result.isSuccess());
         assertFalse(result2.isSuccess());

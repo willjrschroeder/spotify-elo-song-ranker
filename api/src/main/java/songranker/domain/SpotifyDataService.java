@@ -2,6 +2,7 @@ package songranker.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import songranker.data.AppUserJdbcRepo;
 import songranker.data.SpotifyDataJdbcRepo;
 import songranker.models.*;
 
@@ -12,6 +13,9 @@ public class SpotifyDataService {
 
     @Autowired
     SpotifyDataJdbcRepo repository;
+
+    @Autowired
+    AppUserJdbcRepo appUserJdbcRepo;
 
     public Result<?> addSpotifyData(SpotifyData spotifyData) {
         // TODO: Do we need a check for spotifyData being null first?
@@ -42,6 +46,23 @@ public class SpotifyDataService {
 
         if (playlist == null) {
             result.addMessage("Playlist is required", ResultType.INVALID);
+            return result;
+        }
+
+        Playlist duplicatePlaylist = repository.getPlaylistByPlaylistUri(playlist.getPlaylistUri(), playlist.getAppUserId());
+        if (duplicatePlaylist != null) {
+            result.addMessage("Playlist is already added to the database", ResultType.INVALID);
+            return result;
+        }
+
+        AppUser user = appUserJdbcRepo.getAppUserById(playlist.getAppUserId());
+        if(user == null || user.isDisabled()) {
+            result.addMessage("Playlist must contain an existing appUserId", ResultType.INVALID);
+            return result;
+        }
+
+        if(user.isDisabled()) {
+            result.addMessage("Playlist must contain a non-disabled appUserId", ResultType.INVALID);
             return result;
         }
 
