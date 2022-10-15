@@ -75,11 +75,11 @@ class SpotifyDataServiceTest {
 
     private final List<Artist> testArtists3 = List.of(testArtist3, testArtist4, testArtist5);
 
-    private final Album testAlbum1 = new Album("3Ks0eeH0GWpY4AU20D5HPD", "Gemini Rights", new Date(2022, Calendar.AUGUST,15), "https://i.scdn.co/image/ab67616d0000b27368968350c2550e36d96344ee", "https://open.spotify.com/album/3Ks0eeH0GWpY4AU20D5HPD");
+    private final Album testAlbum1 = new Album("3Ks0eeH0GWpY4AU20D5HPD", "Gemini Rights", new java.sql.Date(2022, Calendar.AUGUST,15), "https://i.scdn.co/image/ab67616d0000b27368968350c2550e36d96344ee", "https://open.spotify.com/album/3Ks0eeH0GWpY4AU20D5HPD");
 
-    private final Album testAlbum2 = new Album("7D2NdGvBHIavgLhmcwhluK", "Yeezus", new Date(2013, Calendar.JUNE, 18), "https://i.scdn.co/image/ab67616d0000b2731dacfbc31cc873d132958af9", "https://open.spotify.com/album/7D2NdGvBHIavgLhmcwhluK");
+    private final Album testAlbum2 = new Album("7D2NdGvBHIavgLhmcwhluK", "Yeezus", new java.sql.Date(2013, Calendar.JUNE, 18), "https://i.scdn.co/image/ab67616d0000b2731dacfbc31cc873d132958af9", "https://open.spotify.com/album/7D2NdGvBHIavgLhmcwhluK");
 
-    private final Album testAlbum3 = new Album("6UA672BEiCeihRReCCnlPb", "It's Corn", new Date(2022, Calendar.AUGUST, 28), "https://i.scdn.co/image/ab67616d0000b273a1d09d85651bec771fefa1cc", "6UA672BEiCeihRReCCnlPb");
+    private final Album testAlbum3 = new Album("6UA672BEiCeihRReCCnlPb", "It's Corn", new java.sql.Date(2022, Calendar.AUGUST, 28), "https://i.scdn.co/image/ab67616d0000b273a1d09d85651bec771fefa1cc", "6UA672BEiCeihRReCCnlPb");
 
     private final List<Album> testAlbums1 = List.of(testAlbum1);
 

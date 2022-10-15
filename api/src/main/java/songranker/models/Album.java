@@ -1,7 +1,8 @@
 package songranker.models;
 
+import java.sql.Date;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Album {
     private String albumUri;
