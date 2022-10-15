@@ -46,6 +46,16 @@ public class AppUserJdbcRepo implements AppUserRepo {
     }
 
     @Override
+    public AppUser getAppUserById(int app_user_id){
+        List<AppRole> userRoles = getRolesByAppUserId(app_user_id);
+
+        final String sql = "select * from app_user where app_user_id = ?";
+
+        return template.query(sql, new AppUserMapper(userRoles), app_user_id).stream().findFirst().orElse(null);
+
+    }
+
+    @Override
     @Transactional
     public AppUser createUser(AppUser appUser){
 
@@ -116,6 +126,18 @@ public class AppUserJdbcRepo implements AppUserRepo {
                 "where au.username = ?;";
 
         return template.query(sql, new AppRoleMapper(), username);
+    }
+
+    public List<AppRole> getRolesByAppUserId(int app_user_id){
+        String sql = "select r.app_role_id, r.role_name\n" +
+                "from app_role as r\n"+
+                "inner join user_roles as ur\n"+
+                "\ton r.app_role_id = ur.app_role_id\n"+
+                "inner join app_user as au\n"+
+                "\ton au.app_user_id = ur.app_user_id\n"+
+                "where au.app_user_id = ?;";
+
+        return template.query(sql, new AppRoleMapper(), app_user_id);
     }
 
     public List<AppRole> getRoleByRoleName(String roleName){

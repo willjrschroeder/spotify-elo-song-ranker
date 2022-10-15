@@ -299,26 +299,26 @@ class UserDetailsServiceImplementationTest {
         assertFalse(result2.isSuccess());
     }
 
-    @Test
-    void shouldNotAddNullOrBlankTrackUri(){
-
-        SpotifyData data = testSpotifyData;
-        data.getTracks().get(0).setTrack_uri(null);
-
-        when(repository.addSpotifyData(data)).thenReturn(true);
-
-        Result result = service.addSpotifyData(data);
-
-        data.getTracks().get(0).setTrack_uri("");
-
-        Result result2 = service.addSpotifyData(data);
-
-        assertEquals("[All tracks must have a Spotify URI]", result.getMessages().toString());
-        assertEquals("[All tracks must have a Spotify URI]", result2.getMessages().toString());
-
-        assertFalse(result.isSuccess());
-        assertFalse(result2.isSuccess());
-    }
+//    @Test
+//    void shouldNotAddNullOrBlankTrackUri(){
+//
+//        SpotifyData data = testSpotifyData;
+//        data.getTracks().get(0).setTrack_uri(null);
+//
+//        when(repository.addSpotifyData(data)).thenReturn(true);
+//
+//        Result result = service.addSpotifyData(data);
+//
+//        data.getTracks().get(0).setTrack_uri("");
+//
+//        Result result2 = service.addSpotifyData(data);
+//
+//        assertEquals("[All tracks must have a Spotify URI]", result.getMessages().toString());
+//        assertEquals("[All tracks must have a Spotify URI]", result2.getMessages().toString());
+//
+//        assertFalse(result.isSuccess());
+//        assertFalse(result2.isSuccess());
+//    }
 
     @Test
     void shouldNotAddNullOrBlankTrackTitle(){

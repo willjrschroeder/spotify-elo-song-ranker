@@ -9,5 +9,7 @@ public interface AppUserRepo {
 
     AppUser getUserByUsername(String username);
 
+    AppUser getAppUserById(int app_user_id);
+
     AppUser createUser(AppUser appUser);
 }

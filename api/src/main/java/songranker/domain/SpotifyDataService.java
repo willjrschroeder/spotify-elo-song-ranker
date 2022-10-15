@@ -145,7 +145,7 @@ public class SpotifyDataService {
     }
 
     private Result validateGenre(Genre genre, Result result){
-        
+        return null;
     }
 
     private Result validateAlbum(Album album, Result result) {
