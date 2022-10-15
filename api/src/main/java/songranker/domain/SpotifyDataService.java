@@ -35,9 +35,6 @@ public class SpotifyDataService {
             result.addMessage("There was an error writing to the database", ResultType.INVALID); // TODO: Not sure if this is necessary. Depends on what we decide to return from the repo method
         }
 
-        //TODO: Do we need to validate that all of our primary keys are unique? Or do we let the repo layer do that
-        // and throw and exception - seems wrong? Probably need service layer checks
-        // we'll need repo methods for getPlaylistByUri, getTrackByUri, getAlbumByUri, getArtistByUri, getGenreByName
         return result;
     }
 
@@ -56,7 +53,7 @@ public class SpotifyDataService {
         }
 
         AppUser user = appUserJdbcRepo.getAppUserById(playlist.getAppUserId());
-        if(user == null || user.isDisabled()) {
+        if(user == null) {
             result.addMessage("Playlist must contain an existing appUserId", ResultType.INVALID);
             return result;
         }

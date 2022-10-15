@@ -98,6 +98,11 @@ class UserDetailsServiceImplementationTest {
 
     private final List<Track> testTracks = Arrays.asList(testTrack1, testTrack2, testTrack3);
 
+    private final AppUser testAppUser1 = new AppUser(1, "newTestUsername",
+            "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy", "Test Create",
+            false, new ArrayList<AppRole>() {
+    });
+
     private final AppUser testDisabledAppUser1 = new AppUser(1, "newTestUsername",
             "$2a$10$VtVK8vKTeFblMnmzLEP6AucvOG.HveI/ZohIlrmQ7s3qUaGmIkPvy", "Test Create",
             true, new ArrayList<AppRole>() {
@@ -113,7 +118,8 @@ class UserDetailsServiceImplementationTest {
     void shouldAddValidData(){
         SpotifyData data = testSpotifyData;
 
-        when(repository.addSpotifyData(testSpotifyData)).thenReturn(true);
+        when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -141,6 +147,7 @@ class UserDetailsServiceImplementationTest {
         data.setTracks(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -162,6 +169,7 @@ class UserDetailsServiceImplementationTest {
         when(repository.getPlaylistByPlaylistUri(data.getPlaylist().getPlaylistUri(),
         data.getPlaylist().getAppUserId()))
         .thenReturn(testPlaylist1);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -177,6 +185,7 @@ class UserDetailsServiceImplementationTest {
         data.getPlaylist().setPlaylistUri(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -197,6 +206,8 @@ class UserDetailsServiceImplementationTest {
         data.getPlaylist().setPlaylistName(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
+
 
         Result result = service.addSpotifyData(data);
 
@@ -217,6 +228,7 @@ class UserDetailsServiceImplementationTest {
         data.getPlaylist().setPlaylistUrl(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -242,6 +254,7 @@ class UserDetailsServiceImplementationTest {
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -257,6 +270,7 @@ class UserDetailsServiceImplementationTest {
         data.getPlaylist().setDescription(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -304,6 +318,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).setTrack_uri(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -325,6 +340,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).setTitle(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -346,6 +362,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).setArtists(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -367,6 +384,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).setAlbums(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -388,6 +406,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).setTrackDuration(0);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -409,6 +428,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getArtists().get(0).setArtistUri(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -430,6 +450,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getArtists().get(0).setArtistName(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -451,6 +472,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getArtists().get(0).setSpotifyUrl(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -472,6 +494,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getArtists().get(0).setArtistImageLink(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -490,6 +513,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getArtists().get(0).setGenres(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -508,6 +532,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getArtists().get(0).getGenres().get(0).setGenreName(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -529,6 +554,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getAlbums().get(0).setAlbumUri(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -550,6 +576,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getAlbums().get(0).setAlbumName(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -571,6 +598,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getAlbums().get(0).setSpotifyUrl(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
@@ -592,6 +620,7 @@ class UserDetailsServiceImplementationTest {
         data.getTracks().get(0).getAlbums().get(0).setReleaseDate(null);
 
         when(repository.addSpotifyData(data)).thenReturn(true);
+        when(appUserRepository.getAppUserById(data.getPlaylist().getAppUserId())).thenReturn(testAppUser1);
 
         Result result = service.addSpotifyData(data);
 
