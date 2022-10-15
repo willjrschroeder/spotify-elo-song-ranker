@@ -126,7 +126,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
             artistUri: artistSpotifyData.uri,
             artistName: artistSpotifyData.name,
             spotifyUrl: artistSpotifyData.external_urls.spotify,
-            artistImageLink: artistSpotifyData.images[0].url,
+            artistImageLink: (artistSpotifyData.images.length === 0 ? null: artistSpotifyData.images[0].url),
             genres: artistSpotifyData.genres // string array of genres
         }
 
