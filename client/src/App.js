@@ -41,9 +41,10 @@ function App() {
 
     localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_KEY, token)
 
-    const { sub, roles, display_name } = jwtDecode(token);
+    const { sub, roles, display_name, id } = jwtDecode(token);
 
     const user = {
+      id: id,
       username: sub,
       display_name,
       roles,

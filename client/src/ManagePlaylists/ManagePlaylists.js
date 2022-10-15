@@ -1,17 +1,23 @@
 import Playlist from "../Playlist/Playlist"
-import PlaylistNames from "../Playlist/PlaylistNames/PlaylistNames"
 import "./ManagePlaylists.css"
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+
 
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
 });
 function ManagePlaylists() {
+
+
     const spotifyAuth = useContext(SpotifyAuthContext); 
+    const serverAuth = useContext(AuthContext);
+    
+    const userId = serverAuth.user.id;
 
     const [playlists, setPlaylists] = useState([]);
 
@@ -36,22 +42,22 @@ function ManagePlaylists() {
             []
         )
 
-    const [playlistPackage, setPlaylistPackage] = useState(null);
+    
 
-    function addPlaylistToDatabase(event) {
+    function addPlaylistToDatabase(playlistPackage) {
+        console.log(playlistPackage);
 
-
-        event.preventDefault();
-
-        fetch( "http://localhost:8080/api/playlists", {
+        fetch( "http://localhost:8080/api/spotify_data", {
             method:"POST",
-            body: JSON.stringify(playlistPackage),
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + serverAuth.user.token
+            },
+            body: JSON.stringify(playlistPackage)
+
         }).then( async response => {
             if( response.status === 201 ) {
-                return response.json();
+                return response.json(); //TODO: add success handling
             } 
                 return Promise.reject( await response.json() );
         })
@@ -59,35 +65,21 @@ function ManagePlaylists() {
             if( errorList instanceof TypeError ){
                 console.log( "Could not connect to api.");
             } else {
-            }
+            } //TODO: add error handling
         });
 
     }
     
         return(<>
-        <Link to="/home">Home</Link>
-        <div className="cards">
-            {playlists.map( (p, index) => <Playlist key={p.id} playlistData={p} index={index}  />) }
-        </div>
-        <div className="player">
-            <div class="upper-part">
-                {/* <div class="play-icon">
-                    <svg width="20" height="20" fill="#2992dc" stroke="#2992dc" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-play" viewBox="0 0 24 24">
-                    <defs/>
-                    <path d="M5 3l14 9-14 9V3z"/>
-                    </svg>
-                </div> */}
-                <div className="info-area" id="test">
-                    {playlists.map( (pl, index) => <PlaylistNames key={pl.id} playlistData={pl} onPlaylistAdd={addPlaylistToDatabase} index={index}  />)}
-                </div>
-            </div>
-            {/* <div class="progress-bar">
-                <span class="progress"></span>
-            </div> */}
+        <Link to="/home" className="login">Home</Link>
+        <div className="container">
+            {playlists.map( (p, index)=> (
+                <Playlist key={index} addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
+                )
+            )}
         </div>
         </>
         )
-    
     }
 
 

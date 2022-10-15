@@ -19,11 +19,11 @@ function Login(props) {
         fetch("http://localhost:8080/api/security/authenticate", {
             method: "POST",
             headers: {
-                "Content-type": "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 username,
-                password,
+                password
             })
         }).then(async response => {
             if (response.status === 200) {

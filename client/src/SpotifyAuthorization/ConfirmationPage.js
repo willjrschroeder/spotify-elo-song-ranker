@@ -81,11 +81,11 @@ function ConfirmationPage() {
 
 
 
-    // const returnedData = useGetSpotifyData('38cfqZXcGK4KPtDrGUNMkI'); //TODO: delete this once done testing GetSpotifyData
-    // console.log(returnedData);
-    // function testGetSpotifyData() { //TODO: delete this once dont testing GetSpotifyData
-    //     console.log(returnedData);
-    // }
+    const returnedData = useGetSpotifyData('38cfqZXcGK4KPtDrGUNMkI'); //TODO: delete this once done testing GetSpotifyData
+    console.log(returnedData);
+    function testGetSpotifyData() { //TODO: delete this once dont testing GetSpotifyData
+        console.log(returnedData);
+    }
 
     return (
         <>
@@ -96,7 +96,7 @@ function ConfirmationPage() {
                         <img src={userData.images[0].url} alt="User profile pulled down from the linked Spotify account"></img>
                         <h3>Your Spotify Account was successfully linked</h3>
                         <Link to="/home"><button className='btn'>Home</button></Link>
-                        {/* <button onClick={testGetSpotifyData}>Test GetSpotifyData</button>  TODO: delete this once dont testing GetSpotifyData */}
+                        <button onClick={testGetSpotifyData}>Test GetSpotifyData</button>  {/* TODO: delete this once dont testing GetSpotifyData */}
                     </div>
                     :
                     null

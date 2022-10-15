@@ -5,6 +5,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+<<<<<<< HEAD
+=======
+import org.springframework.transaction.annotation.Transactional;
+>>>>>>> cd9f05079260fa0df8f0cf21e43ec89115c7a4be
 import songranker.data.mappers.AlbumMapper;
 import songranker.data.mappers.ArtistMapper;
 import songranker.data.mappers.GenreMapper;
@@ -17,14 +21,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> cd9f05079260fa0df8f0cf21e43ec89115c7a4be
 @Repository
 public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
     @Autowired
     JdbcTemplate template;
 
-
+    @Override
+    @Transactional
+    public boolean addSpotifyData(SpotifyData spotifyData) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override
     public Playlist createPlaylist(SpotifyData spotifyData){

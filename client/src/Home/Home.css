@@ -1,1 +1,19 @@
 
+:root {
+    --accent-color: #B958A5;
+    --accent-color-400: #9145B6;
+    --bg-color: #fdcf6f;
+    --dash-color: #FFED99;
+    --text-color: #AC66CC;
+    --border-radius: 20px;
+    --border-color: #AC66CC;
+  }
+  .logout {
+    font-family:monospace;
+    text-decoration: none;
+    font-size: 3ch;
+    transition-duration: .3s;
+    position:absolute;
+    top: 40px;
+    right: 90px;
+}

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface SpotifyDataRepo {
 
+    @Transactional
+    boolean addSpotifyData(SpotifyData spotifyData);
 
     @Transactional
     Playlist createPlaylist(SpotifyData spotifyData);

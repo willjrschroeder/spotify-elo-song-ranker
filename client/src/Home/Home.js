@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import AuthContext from "../context/AuthContext";
 import {Link} from "react-router-dom";
+import "./Home.css"
 
 function Home() {
 
@@ -15,7 +16,7 @@ function Home() {
     return (
         <>
             <div>
-                <button className='login' onClick={() => auth.logout()}>logout</button>
+                <button className='logout' onClick={() => auth.logout()}>logout</button>
             </div>
             <div>
                 {canPlay && (<h2>play</h2>)}

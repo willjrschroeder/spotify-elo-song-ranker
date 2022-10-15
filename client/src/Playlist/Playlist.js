@@ -1,21 +1,24 @@
 import "./Playlist.css";
+import useGetSpotifyData from "../ManagePlaylists/GetSpotifyData/useGetSpotifyData";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
+
 function Playlist(props) {
 
+
+    const authServer = useContext(AuthContext);
+    const userId = authServer.user.id;
+
+    const spotifyData = useGetSpotifyData(props.p.id, userId);
+
+
+
+
     return(<>
-    <div className="container">
-        <div className="cards">
-            <label className="card">
-                <img src={props.playlistData.images[0].url} alt="Playlist"></img>
-            </label>
-        </div>
-        <label className="song-info" id="song-info-1">
-            <div className="title">{props.playlistData.name}</div>
-            <div className="sub-line">
-            <div className="subtitle"></div>
-            <button onClick={props.addPlaylistToDatabase}>Add all tracks from this playlist to rank</button>
-            </div>
-        </label>
-    </div>
+                <div >
+                    <img className="images" src={props.p.images[0].url}></img>
+                    <button onClick={() => props.addPlaylist(spotifyData)}>Add Tracks</button>
+                </div>
     </>
     )
 
