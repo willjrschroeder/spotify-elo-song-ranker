@@ -89,12 +89,12 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     @Transactional
     public List<Track> createTrack(SpotifyData spotifyData) {
 
+        List<Track> tracks = new ArrayList<>();
 
         final String sql = "insert into track (track_uri, app_user_id, title, elo_score, num_of_matches_played, track_duration, popularity_num, spotify_url, preview_url) "
                 + "values (?,?,?,?,?,?,?,?,?);";
 
         for (Track eachTrack : spotifyData.getTracks()) {
-
             int rowsAffected = template.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
                 ps.setString(1, eachTrack.getTrack_uri());
@@ -111,10 +111,12 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                 return ps;
             });
 
-
-            if(rowsAffected <=0){
+            if (rowsAffected <= 0) {
                 return null;
             }
+
+            tracks.add(eachTrack);
+
 
         }
 
@@ -124,9 +126,23 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         //addTrackArtist(spotifyData);
 
-        return spotifyData.getTracks();
+        return tracks;
 
     }
+
+    private List<Track> existingTracks(SpotifyData spotifyData){
+        final String sql = "select * from track where app_user_id = ?";
+
+        List<Artist> artists = existingArtists(spotifyData);
+
+
+        List<Album> albums = existingAlbums(spotifyData);
+
+
+        return template.query(sql, new TracksMapper(artists, albums), spotifyData.getPlaylist().getAppUserId());
+
+    }
+
 
     private void addTrackArtist(SpotifyData spotifyData) {
         final String sql = "insert into track_artist (track_uri, artist_uri) values (?,?);";
@@ -201,15 +217,6 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         return template.query(sql, new ArtistMapper(existingGenres), spotifyData);
     }
 
-    private List<Track> existingTracks(SpotifyData spotifyData){
-        final String sql = "select * from track where ";
-
-
-
-
-
-
-    }
 
     private void addGenreArtist(SpotifyData spotifyData) {
 
