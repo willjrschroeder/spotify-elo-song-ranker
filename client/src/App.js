@@ -12,6 +12,7 @@ import CallbackPage from './SpotifyAuthorization/CallbackPage';
 import SpotifyAuthContext from './context/SpotifyAuthContext';
 import ConfirmationPage from './SpotifyAuthorization/ConfirmationPage';
 import ManagePlaylists from './ManagePlaylists/ManagePlaylists';
+import EloGamePage from './EloGamePage/EloGamePage';
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
@@ -116,6 +117,9 @@ function App() {
               </Route>
               <Route exact path="/playlistManager">
                 <ManagePlaylists></ManagePlaylists>
+              </Route>
+              <Route exact path="/eloGame">
+                <EloGamePage />
               </Route>
             </Switch>
           </BrowserRouter>
