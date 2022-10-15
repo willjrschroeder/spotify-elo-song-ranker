@@ -80,7 +80,7 @@ public class SpotifyDataService {
     }
 
     private Result validateTrack(Track track, Result result){ // add on to result if there is an error, return result
-        if(track.getTrack_uri() == null || track.getTrack_uri().isBlank()) { //TODO: it looks like the front end is passing tracks without these sometimes. (You're Gonna Go Far, Kid from the playlist My Second Playlist!)
+        if(track.getTrack_uri() == null || track.getTrack_uri().isBlank()) {
             result.addMessage("All tracks must have a Spotify URI", ResultType.INVALID);
         }
 
@@ -108,13 +108,13 @@ public class SpotifyDataService {
             return result;
         }
 
-        if(track.getAlbums() == null
+        if(track.getAlbums() == null  //TODO: my second playlist has tracks with null albums
                 || track.getAlbums().isEmpty()) {
             result.addMessage("All tracks must have an album", ResultType.INVALID); // TODO: find out if this is how singles work. They may have an album which only contains the single, or it may be null/Empty
             return result;
         }
 
-        for (Album album : track.getAlbums()) { //TODO: this should be an [albums], which will always(probably) be length 1. We will have to go into the front end and change how album is packaged into the SpotifyData object
+        for (Album album : track.getAlbums()) {
             result = validateAlbum(album, result);
         }
 
