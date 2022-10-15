@@ -5,6 +5,7 @@ import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext  } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import DatabasePlaylist from "../Playlist/DatabasePlaylists";
 
 
 
@@ -90,7 +91,7 @@ function ManagePlaylists() {
         <Link to="/home" className="login">Home</Link>
         <div className="flex-container">
             {databasePlaylists.map( (pd, index) => (
-                <Playlist key = {index} playlists={databasePlaylists}/>
+                <DatabasePlaylist key = {index} playlists={databasePlaylists}/>
             ))}
         </div>
         <div className="flex-container">
