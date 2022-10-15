@@ -31,7 +31,6 @@ public class JwtConverter {
                 .setExpiration(new Date( new Date().getTime() + 3600000 ))
                 .signWith(key)
                 .compact();
-
         return token;
     }
 
