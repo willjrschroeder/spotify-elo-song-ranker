@@ -49,13 +49,15 @@ function ManagePlaylists() {
 
         fetch( "http://localhost:8080/api/spotify_data", {
             method:"POST",
-            body: JSON.stringify(playlistPackage),
             headers: {
-                "Content-Type": "application/json"
-            }
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + serverAuth.user.token
+            },
+            body: JSON.stringify(playlistPackage)
+
         }).then( async response => {
             if( response.status === 201 ) {
-                return response.json();
+                return response.json(); //TODO: add success handling
             } 
                 return Promise.reject( await response.json() );
         })
@@ -63,7 +65,7 @@ function ManagePlaylists() {
             if( errorList instanceof TypeError ){
                 console.log( "Could not connect to api.");
             } else {
-            }
+            } //TODO: add error handling
         });
 
     }
