@@ -20,7 +20,7 @@ public class TrackController {
     TrackService service;
 
     @GetMapping("/{playlistUri}/{appUserId}")
-    public ResponseEntity<Object> getPlaylistsByAppUserId(@PathVariable String playlistUri, @PathVariable int appUserId) {
+    public ResponseEntity<Object> getTracksByPlaylistUri(@PathVariable String playlistUri, @PathVariable int appUserId) {
         Result<List<Track>> result = service.getTracksByPlaylistUri(playlistUri, appUserId);
 
         if (result.isSuccess()) {
