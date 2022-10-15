@@ -31,6 +31,9 @@ public class SpotifyDataService {
             result.addMessage("There was an error writing to the database", ResultType.INVALID); // TODO: Not sure if this is necessary. Depends on what we decide to return from the repo method
         }
 
+        //TODO: Do we need to validate that all of our primary keys are unique? Or do we let the repo layer do that
+        // and throw and exception - seems wrong? Probably need service layer checks
+        // we'll need repo methods for getPlaylistByUri, getTrackByUri, getAlbumByUri, getArtistByUri, getGenreByName
         return result;
     }
 
@@ -57,22 +60,106 @@ public class SpotifyDataService {
             result.addMessage("Playlist Spotify URL is required", ResultType.INVALID);
         }
 
+        //TODO: need to add a check that the appUser corresponding the appUserId exists AND is not disabled. Need a repo method getUserById
+
         return result;
     }
 
-    private Result<?> validateTracks(List<Track> tracks){
-        throw new UnsupportedOperationException();
+    private Result validateTracks(List<Track> tracks){
+        Result result = new Result();
+
+        if(tracks == null || tracks.isEmpty()) {
+            result.addMessage("All playlists must have tracks", ResultType.INVALID);
+        }
+
+        for(Track track : tracks) {
+            result = validateTrack(track, result);
+        }
+
+        return result;
     }
 
-    private Result<?> validateTrack(Track track){
-        throw new UnsupportedOperationException();
+    private Result validateTrack(Track track, Result result){ // add on to result if there is an error, return result
+        if(track.getTrack_uri() == null || track.getTrack_uri().isBlank()) {
+            result.addMessage("All tracks must have a Spotify URI", ResultType.INVALID);
+        }
+
+        if(track.getTitle().isBlank()) {
+            result.addMessage("All tracks must have title", ResultType.INVALID);
+        }
+
+        if(track.getTrackDuration() <= 0) {
+            result.addMessage("All tracks must have a non-negative duration", ResultType.INVALID);
+        }
+
+        if(track.getTrackDuration() <= 0) {
+            result.addMessage("All tracks must have a non-negative duration", ResultType.INVALID);
+        }
+
+        if(track.getArtists() == null
+                || track.getArtists().isEmpty()) {
+            result.addMessage("All tracks must have artists", ResultType.INVALID);
+        }
+
+        for (Artist artist : track.getArtists()) { // check every artist in the artists array
+            result = validateArtist(artist, result);
+        }
+        if(!result.isSuccess()) {
+            return result;
+        }
+
+        if(track.getAlbums() == null  //TODO: my second playlist has tracks with null albums
+                || track.getAlbums().isEmpty()) {
+            result.addMessage("All tracks must have an album", ResultType.INVALID); // TODO: find out if this is how singles work. They may have an album which only contains the single, or it may be null/Empty
+            return result;
+        }
+
+        for (Album album : track.getAlbums()) {
+            result = validateAlbum(album, result);
+        }
+
+        return result;
     }
 
-    private Result<?> validateArtists(List<Artist> artists){
-        throw new UnsupportedOperationException();
+
+    private Result validateArtist(Artist artist, Result result){
+        if(artist.getArtistUri().isBlank()) {
+            result.addMessage("All artists must have a Spotify URI", ResultType.INVALID);
+        }
+
+        if(artist.getArtistName().isBlank()) {
+            result.addMessage("All artists must have a name", ResultType.INVALID);
+        }
+
+        if(artist.getSpotifyUrl().isBlank()) {
+            result.addMessage("All artists must have a Spotify URL", ResultType.INVALID);
+        }
+
+        if(artist.getArtistImageLink().isBlank()) {
+            result.addMessage("All artists must have a non-blank image link (can be null)", ResultType.INVALID);
+        }
+
+        if(artist.getGenres() == null
+                || artist.getGenres().isEmpty()) { // this doesn't add an error, not all artists have genres
+            return result;
+        }
+
+        for (Genre genre : artist.getGenres()) {
+            result = validateGenre(genre, result);
+        }
+
+        return result;
     }
 
-    private Result<?> validateGenres(List<Genre> genres){
-        throw new UnsupportedOperationException();
+    private Result validateGenre(Genre genre, Result result){
+        return result; //TODO:
+        //throw new UnsupportedOperationException();
     }
+
+    private Result validateAlbum(Album album, Result result) {
+        return result; //TODO:
+        // throw new UnsupportedOperationException();
+    }
+
+
 }

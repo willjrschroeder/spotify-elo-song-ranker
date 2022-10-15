@@ -71,7 +71,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
             description: playlistSpotifyData.description, //TODO: This is going to need to be recoded or something? Passed from the spotify API with ['] evaluating to [&#x27]"
             playlistUrl: playlistSpotifyData.external_urls.spotify,
             playlistImageLink: playlistSpotifyData.images[0].url,
-            appUserId: userId //TODO: we need to get this somehow. Can update the JWT to contain the user ID as a claim. Update in back end where JWT is created AND in front end where user is created(App.js)
+            appUserId: userId
         }
 
         return playlistObject;
@@ -102,19 +102,19 @@ const useGetSpotifyData = ((playlistId, userId) => {
         const track = fullyHydratedTrackData // easier naming for obj construction, while keeping a descriptive name for the input parameter
 
         const trackObject = {
-            trackUri: track.uri,
+            track_uri: track.uri,
             title: track.name,
             trackDuration: track.duration_ms,
             popularityNumber: track.popularity,
             spotifyUrl: track.external_urls.spotify,
             thirtySecondPreviewUrl: track.preview_url,
-            album: {
+            albums: [{
                 albumUri: track.album.uri,
                 albumName: track.album.name,
                 releaseDate: track.album.release_date,
                 albumImageLink: track.album.images[0].url,
                 spotifyUrl: track.album.external_urls.spotify
-            },
+            }],
             artists: track.artists
         }
         return trackObject;

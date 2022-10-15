@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import org.springframework.transaction.annotation.Transactional;
 import songranker.data.mappers.AlbumMapper;
 import songranker.data.mappers.ArtistMapper;
@@ -18,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Repository
 public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
@@ -40,13 +40,13 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         int rowsAffected = template.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
-                    ps.setString(1, spotifyData.getPlaylist().getPlaylistUri());
-                    ps.setString(2, spotifyData.getPlaylist().getPlaylistName());
-                    ps.setString(3, spotifyData.getPlaylist().getDescription());
-                    ps.setString(4, spotifyData.getPlaylist().getPlaylistUrl());
-                    ps.setString(5, spotifyData.getPlaylist().getPlaylistImageLink());
-                    ps.setInt(6, spotifyData.getPlaylist().getAppUserId());
-                    return ps;
+            ps.setString(1, spotifyData.getPlaylist().getPlaylistUri());
+            ps.setString(2, spotifyData.getPlaylist().getPlaylistName());
+            ps.setString(3, spotifyData.getPlaylist().getDescription());
+            ps.setString(4, spotifyData.getPlaylist().getPlaylistUrl());
+            ps.setString(5, spotifyData.getPlaylist().getPlaylistImageLink());
+            ps.setInt(6, spotifyData.getPlaylist().getAppUserId());
+            return ps;
         });
 
         if(rowsAffected <= 0){
