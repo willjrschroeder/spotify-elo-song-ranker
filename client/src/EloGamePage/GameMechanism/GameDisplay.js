@@ -10,9 +10,9 @@ function GameDisplay({ updateTrackScores, track1, track2 }){
     useEffect( () => {
         if(!winnerTrack || !loserTrack) return; // don't execute the block if a track is still null
 
-        const { updatedWinnerTrack, updatedLoserTrack } = useCalculateEloTrackScores(winnerTrack, loserTrack); // gets tracks with new ELO scores
+        // const { updatedWinnerTrack, updatedLoserTrack } = useCalculateEloTrackScores(winnerTrack, loserTrack); // this probably lives in track, can't call inside useEffect
 
-        updateTrackScores(updatedWinnerTrack, updatedLoserTrack ); // sends updated scores back up to the parent EloGamePage
+        // updateTrackScores(updatedWinnerTrack, updatedLoserTrack ); // sends updated scores back up to the parent EloGamePage
     }, 
     [winnerTrack]); // effect is triggered when the winner changes (I think it may change twice if we put winner and loser)
 

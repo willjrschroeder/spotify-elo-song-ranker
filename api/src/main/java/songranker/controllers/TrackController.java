@@ -19,9 +19,9 @@ public class TrackController {
     @Autowired
     TrackService service;
 
-    @GetMapping("/{playlistUri}/{appUserId}")
-    public ResponseEntity<Object> getTracksByPlaylistUri(@PathVariable String playlistUri, @PathVariable int appUserId) {
-        Result<List<Track>> result = service.getTracksByPlaylistUri(playlistUri, appUserId);
+    @GetMapping("/{playlistUri}")
+    public ResponseEntity<Object> getTracksByPlaylistUri(@PathVariable String playlistUri) {
+        Result<List<Track>> result = service.getTracksByPlaylistUri(playlistUri);
 
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);

@@ -1,14 +1,23 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import GameDisplay from "./GameMechanism/GameDisplay";
 import GameTrack from "./GameMechanism/GameTrack";
 
 function EloGamePage() {
 
-    const { playlistId } = useParams
+    const location = useLocation();
+    const { playlist } = location.state;
     const [playlistTracks, setPlaylistTracks] = useState([]);
+    const serverAuth = useContext(AuthContext);
 
     function loadTracksByPlaylists(playlistId) {
-            fetch( "http://localhost:8080/api/tracks/" + playlistId )
+            fetch( "http://localhost:8080/api/track/" + playlist.playlistUri, {
+                method:"GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + serverAuth.user.token
+                }})
             .then( response => {
                 if( response.status === 200 ) {
                     return response.json();
@@ -25,7 +34,7 @@ function EloGamePage() {
     return(
         <>
         <h1>Rank your songs</h1>
-        <GameTrack></GameTrack>
+        <GameDisplay playlistTracks = {playlistTracks}></GameDisplay>
         
         </>
     )
