@@ -445,7 +445,6 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     private void addPlaylistTrack(SpotifyData spotifyData) {
         final String sql = "insert into playlist_track (app_user_id, track_uri, playlist_uri) values (?,?,?);";
 
-
         for (Track eachTrack : spotifyData.getTracks()) {
             template.update(sql, eachTrack.getApp_user_id(), eachTrack.getTrack_uri(), spotifyData.getPlaylist().getPlaylistUri());
         }
