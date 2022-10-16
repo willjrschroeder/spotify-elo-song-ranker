@@ -55,9 +55,14 @@ constraint pk_track
 );
 
 create table playlist_track (
-app_user_id int primary key not null,
+app_user_id int not null,
 track_uri varChar(200) not null,
 playlist_uri varChar(200) not null,
+constraint pk_playlist_track
+	primary key (app_user_id, track_uri, playlist_uri),
+constraint fk_playlist_track_app_user_id
+	foreign key (app_user_id)
+    references app_user(app_user_id),
 constraint fk_playlist_track_track_uri
 	foreign key (track_uri)
     references track(track_uri),

@@ -104,6 +104,11 @@ class SpotifyDataJdbcRepoTest {
             testTracks);
 
     @Test
+    void shouldAddSpotifyData(){
+        assertTrue(repo.addSpotifyData(testSpotifyData));
+    }
+
+    @Test
     void shouldCreateValidPlaylist() {
 
         Playlist toAdd = repo.createPlaylist(testSpotifyData);
