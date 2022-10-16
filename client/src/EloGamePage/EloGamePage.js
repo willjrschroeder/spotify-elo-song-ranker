@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import GameTrack from "./GameMechanism/GameTrack";
 
 function EloGamePage() {
 
@@ -24,7 +25,8 @@ function EloGamePage() {
     return(
         <>
         <h1>Rank your songs</h1>
-
+        <GameTrack></GameTrack>
+        
         </>
     )
 }
