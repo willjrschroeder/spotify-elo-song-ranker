@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import GameDisplay from "./GameMechanism/GameDisplay";
 import GameTrack from "./GameMechanism/GameTrack";
 
 function EloGamePage() {
@@ -33,7 +34,7 @@ function EloGamePage() {
     return(
         <>
         <h1>Rank your songs</h1>
-        <GameTrack></GameTrack>
+        <GameDisplay playlistTracks = {playlistTracks}></GameDisplay>
         
         </>
     )
