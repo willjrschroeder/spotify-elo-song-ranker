@@ -104,6 +104,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
         const trackObject = {
             track_uri: track.uri,
             title: track.name,
+            appUserId: userId,
             trackDuration: track.duration_ms,
             popularityNumber: track.popularity,
             spotifyUrl: track.external_urls.spotify,

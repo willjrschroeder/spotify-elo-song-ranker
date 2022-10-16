@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
@@ -11,23 +11,23 @@ function EloGamePage() {
     const [playlistTracks, setPlaylistTracks] = useState([]);
     const serverAuth = useContext(AuthContext);
 
-    function loadTracksByPlaylists(playlistId) {
-            fetch( "http://localhost:8080/api/track/" + playlist.playlistUri, {
-                method:"GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + serverAuth.user.token
-                }})
-            .then( response => {
-                if( response.status === 200 ) {
-                    return response.json();
-                } else( console.log( response ) )
-            } )
-            .then( playlistTracks => {
-                setPlaylistTracks( playlistTracks );
-            });
-    }
+    useEffect( () => {
+        fetch( "http://localhost:8080/api/track/" + playlist.playlistUri, {
+            method:"GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + serverAuth.user.token
+            }})
+        .then( response => {
+            if( response.status === 200 ) {
+                return response.json();
+            } else( console.log( response ) )
+        } )
+        .then( playlistTracks => {
+            setPlaylistTracks( playlistTracks );
+        });
 
+    }, []);
 
 
 
