@@ -2,9 +2,10 @@ function Track(props) {
     return(
         <>
         <tr>
-            <td>{id}</td>
-            <td>{title}</td>
-            <td>{releaseYear}</td>
+            <td>{props.t.title}</td>
+            <td>{props.t.popularityNum}</td>
+            <td>{props.t.artists}</td>
+            <td>{props.t.eloScore}</td>
         </tr> 
         </>
     )

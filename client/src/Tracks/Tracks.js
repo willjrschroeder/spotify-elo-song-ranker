@@ -1,30 +1,29 @@
 // data.body.items gives an array/list of playlists
+import Track from "./Track/Track"
 
 function Tracks() {
 
-    const spotifyAuth = useContext(SpotifyAuthContext); 
 
     const [tracks, setTracks] = useState([]);
 
-    function loadAllTracksFromPlaylist() {
+    function loadTracksPlaylist() {
 
-        if (!spotifyAuth.spotifyAccessToken) return; // return if the access token is not yet set
-
-        spotifyApi.setAccessToken(spotifyAuth.spotifyAccessToken);
-
-        spotifyApi.getMe()
-        .then(function (data) {
-            return spotifyApi.getUserPlaylists(data.body.id);
-        })
-        .then(function (data) {
-            setPlaylists(data.body.items);
-        });
-
+        function getAllTracks() {
+            fetch( "http://localhost:8080/api/tracks" )
+            .then( response => {
+                if( response.status === 200 ) {
+                    return response.json();
+                } else( console.log( response ) )
+            } )
+            .then( tracks => {
+                setTracks( tracks );
+            });
+        }
         
         }
         useEffect(
             () => {
-                loadAllPlaylists();
+                getAllTracks();
             },
             []
         )
@@ -36,12 +35,15 @@ function Tracks() {
             <thead>
                 <tr>
                     <th>Track Name</th>
-                    <th>Release Date</th>
+                    <th>Spotify Populatity Score</th>
                     <th>Artist(s)</th>
+                    <th>EloScore</th>
                 </tr>
             </thead>
             <tbody>
-
+                {tracks.map(
+                    (t, index) => (<Track t={t} key = {index} />)
+                )}
             </tbody>
         </table>
         </>
