@@ -12,7 +12,7 @@ public class TrackJdbcRepo implements TrackRepo{
     @Autowired
     JdbcTemplate template;
     @Override
-    public List<Track> getTracksByPlaylistUri(String playlistUri, int appUserId) {
+    public List<Track> getTracksByPlaylistUri(String playlistUri) {
         throw new UnsupportedOperationException();
     }
 }

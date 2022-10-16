@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import songranker.data.TrackJdbcRepo;
 import songranker.models.Result;
+import songranker.models.ResultType;
 import songranker.models.Track;
 
 import java.util.List;
@@ -13,20 +14,17 @@ public class TrackService {
     @Autowired
     TrackJdbcRepo repository;
 
-    public Result<List<Track>> getTracksByPlaylistUri(String playlistUri, int appUserId) {
-        Result result = validateUser(appUserId);
-        if (!result.isSuccess()) {
+    public Result<List<Track>> getTracksByPlaylistUri(String playlistUri) {
+        Result result = new Result();
+
+        if(playlistUri == null || playlistUri.isBlank()) {
+            result.addMessage("Playlist URI is required", ResultType.INVALID);
             return result;
         }
 
-        //TODO: check if uri is null or blank
-
-        List<Track> tracks = repository.getTracksByPlaylistUri(playlistUri, appUserId);
+        List<Track> tracks = repository.getTracksByPlaylistUri(playlistUri);
         result.setPayload(tracks);
         return result;
     }
 
-    private Result validateUser(int appUserId) {
-        throw new UnsupportedOperationException();
-    }
 }

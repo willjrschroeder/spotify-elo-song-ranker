@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 import GameTrack from "./GameMechanism/GameTrack";
 
 function EloGamePage() {
 
     const { playlistId } = useParams
     const [playlistTracks, setPlaylistTracks] = useState([]);
+    const serverAuth = useContext(AuthContext);
 
     function loadTracksByPlaylists(playlistId) {
-            fetch( "http://localhost:8080/api/tracks/" + playlistId )
+            fetch( "http://localhost:8080/api/track/" + playlistId, {
+                method:"GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + serverAuth.user.token
+                }})
             .then( response => {
                 if( response.status === 200 ) {
                     return response.json();
