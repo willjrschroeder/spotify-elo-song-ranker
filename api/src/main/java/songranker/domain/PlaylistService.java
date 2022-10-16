@@ -2,6 +2,7 @@ package songranker.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import songranker.data.AppUserJdbcRepo;
 import songranker.data.PlaylistJdbcRepo;
 import songranker.models.Playlist;
 import songranker.models.Result;
@@ -12,6 +13,9 @@ public class PlaylistService {
 
     @Autowired
     PlaylistJdbcRepo repository;
+
+    @Autowired
+    AppUserJdbcRepo appUserRepo;
 
     public Result<List<Playlist>> getPlaylistsByAppUserId(int appUserId) {
         Result result = validateUser(appUserId);
@@ -25,6 +29,6 @@ public class PlaylistService {
     }
 
     private Result validateUser(int appUserId) {
-        throw new UnsupportedOperationException();
+
     }
 }
