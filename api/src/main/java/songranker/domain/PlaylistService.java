@@ -1,12 +1,13 @@
 package songranker.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import songranker.data.PlaylistJdbcRepo;
 import songranker.models.Playlist;
 import songranker.models.Result;
 
 import java.util.List;
-
+@Service
 public class PlaylistService {
 
     @Autowired
