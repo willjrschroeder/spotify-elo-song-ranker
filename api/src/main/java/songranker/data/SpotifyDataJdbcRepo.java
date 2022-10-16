@@ -149,7 +149,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                             eachTrack.setNumOfMatchesPlayed(0);
                             ps.setInt(5, eachTrack.getNumOfMatchesPlayed());
                             ps.setInt(6, eachTrack.getTrackDuration());
-                            ps.setInt(7, eachTrack.getPopularityNum());
+                            ps.setInt(7, eachTrack.getPopularityNumber());
                             ps.setString(8, eachTrack.getSpotifyUrl());
                             ps.setString(9, eachTrack.getPreviewUrl());
                             return ps;
@@ -180,7 +180,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                     eachTrack.setNumOfMatchesPlayed(0);
                     ps.setInt(5, eachTrack.getNumOfMatchesPlayed());
                     ps.setInt(6, eachTrack.getTrackDuration());
-                    ps.setInt(7, eachTrack.getPopularityNum());
+                    ps.setInt(7, eachTrack.getPopularityNumber());
                     ps.setString(8, eachTrack.getSpotifyUrl());
                     ps.setString(9, eachTrack.getPreviewUrl());
                     return ps;

@@ -2,12 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
-import GameTrack from "./GameMechanism/GameTrack";
 
 function EloGamePage() {
 
-    const location = useLocation();
-    const { playlist } = location.state;
+    const playlist = useLocation();
     const [playlistTracks, setPlaylistTracks] = useState([]);
     const serverAuth = useContext(AuthContext);
 
@@ -34,7 +32,7 @@ function EloGamePage() {
     return(
         <>
         <h1>Rank your songs</h1>
-        <GameDisplay playlistTracks = {playlistTracks}></GameDisplay>
+        <GameDisplay trackCollection = {playlistTracks}></GameDisplay>
         
         </>
     )

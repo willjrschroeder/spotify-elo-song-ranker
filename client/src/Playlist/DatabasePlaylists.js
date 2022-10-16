@@ -2,19 +2,23 @@ import "./Playlist.css";
 import useGetSpotifyData from "../ManagePlaylists/GetSpotifyData/useGetSpotifyData";
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function DatabasePlaylist(props) {
-    return(<>
-                <div>
-                    <img className="images" src={props.pd.images[0].url} alt="img"></img>
-                    <Link to={{
-                        pathname:"/eloGame",
-                        state:{
-                            playlist: props.pd,
-                        }
-                    }} />
-                </div>
+function DatabasePlaylist({ pd }) {
+
+    const location = {
+        pathname: '/eloGame',
+        state: pd
+      }
+      console.log(location);
+
+    return (<>
+        <div>
+            <img className="images" src={pd.playlistImageLink} alt="img"></img>
+            <Link to={location}> 
+                <button>Rank Tracks in this Playlist</button>
+            </Link>
+        </div>
     </>
     )
 
