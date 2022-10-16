@@ -138,11 +138,11 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         if (existingTracks.size() > 0) {
             for (Track eachTrack : spotifyData.getTracks()) {
                 for (Track each : existingTracks) {
-                    if (each.getApp_user_id() != eachTrack.getApp_user_id()) {
+                    if (each.getAppUserId() != eachTrack.getAppUserId()) {
                         int rowsAffected = template.update(connection -> {
                             PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
                             ps.setString(1, eachTrack.getTrack_uri());
-                            ps.setInt(2, eachTrack.getApp_user_id());
+                            ps.setInt(2, eachTrack.getAppUserId());
                             ps.setString(3, eachTrack.getTitle());
                             eachTrack.setEloScore(1000);
                             ps.setInt(4, eachTrack.getEloScore());
@@ -173,7 +173,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                 int rowsAffected = template.update(connection -> {
                     PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
                     ps.setString(1, eachTrack.getTrack_uri());
-                    ps.setInt(2, eachTrack.getApp_user_id());
+                    ps.setInt(2, eachTrack.getAppUserId());
                     ps.setString(3, eachTrack.getTitle());
                     eachTrack.setEloScore(1000);
                     ps.setInt(4, eachTrack.getEloScore());
@@ -446,7 +446,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         final String sql = "insert into playlist_track (app_user_id, track_uri, playlist_uri) values (?,?,?);";
 
         for (Track eachTrack : spotifyData.getTracks()) {
-            template.update(sql, eachTrack.getApp_user_id(), eachTrack.getTrack_uri(), spotifyData.getPlaylist().getPlaylistUri());
+            template.update(sql, eachTrack.getAppUserId(), eachTrack.getTrack_uri(), spotifyData.getPlaylist().getPlaylistUri());
         }
     }
 
