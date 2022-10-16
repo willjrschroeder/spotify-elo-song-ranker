@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import songranker.data.mappers.*;
 import songranker.models.*;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -26,13 +27,17 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     @Transactional
     public boolean addSpotifyData(SpotifyData spotifyData) {
 
-        createPlaylist(spotifyData);
-        createTrack(spotifyData);
-        createArtist(spotifyData);
-        createAlbum(spotifyData);
-        createGenre(spotifyData);
+        try {
+            createPlaylist(spotifyData);
+            createTrack(spotifyData);
+            createArtist(spotifyData);
+            createAlbum(spotifyData);
+            createGenre(spotifyData);
 
-        throw new UnsupportedOperationException();
+            return true;
+        } catch (UnsupportedOperationException ex){
+            return false;
+        }
     }
 
     @Override
