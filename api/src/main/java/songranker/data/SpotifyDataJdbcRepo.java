@@ -32,9 +32,9 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
             createAlbum(spotifyData);
             createGenre(spotifyData);
             addPlaylistTrack(spotifyData);
-//            addTrackArtist(spotifyData);
-//            addTrackAlbum(spotifyData);
-//            addGenreArtist(spotifyData);
+            addTrackArtist(spotifyData);
+            addTrackAlbum(spotifyData);
+            addGenreArtist(spotifyData);
 
             return true;
         } catch (UnsupportedOperationException ex) {
