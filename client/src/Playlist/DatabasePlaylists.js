@@ -8,12 +8,12 @@ function DatabasePlaylist(props) {
     return(<>
                 <div>
                     <img className="images" src={props.pd.images[0].url} alt="img"></img>
-                    {/* <Link to:{{
-                        pathname:"/EloGamePage",
+                    <Link to={{
+                        pathname:"/eloGame",
                         state:{
                             playlist: props.pd,
                         }
-                    }}></Link> */}
+                    }} />
                 </div>
     </>
     )
