@@ -101,7 +101,7 @@ function ManagePlaylists() {
     }
     
         return(<>
-        <Link to="/home" className="login">Home</Link>
+        <div className="header">Manage Playlists</div>
         <div className="flex-container">
             <div>
                 <table className="table">

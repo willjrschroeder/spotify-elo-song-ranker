@@ -29,9 +29,9 @@ public class TrackController {
         return ErrorResponse.build(result);
     }
 
-    @PutMapping("/{updatedEloScore}")
-    public ResponseEntity<Object> updateTrackEloScore(@PathVariable Integer updatedEloScore){
-        Result result = service.updateTrackEloScore(updatedEloScore);
+    @PutMapping
+    public ResponseEntity<Object> updateTrackEloScore(@RequestBody Track updatedTrack){
+        Result result = service.updateTrackEloScore(updatedTrack);
 
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

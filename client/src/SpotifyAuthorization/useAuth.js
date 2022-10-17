@@ -10,7 +10,7 @@ function useAuth(code) {
 
     // this method is run once every time a new authorization code is generated.
     // it makes a post request to the express server and is returned an accessToken, refreshToken, and expiration time
-    useEffect(() => {
+    //useEffect(() => {
         axios.post('http://localhost:3001/api/spotify/login', { // makes a post request to our express server, passing in the authorization code
             code
         }).then(response => { // this response contains our access_token and our refresh_token
@@ -24,29 +24,29 @@ function useAuth(code) {
             // **THIS currently happens every time. This is due to React making two requests on every page load
             history.push("/spotify");
         })
-    }, [code]); // performs every time a new authentication code is accquired
+    //}, [code]); // performs every time a new authentication code is accquired
 
 
     // this method is run every time the refreshToken or expiresIn variable is updated
     // it makes a post request to the express server and is returned a new access token with a new expiration time
-    useEffect(() => {
-        if (!refreshToken || !expiresIn) return; // This makes sure a refresh request is not being made before these fields are defined
-        const interval = setInterval(() => {
-            axios.post('http://localhost:3001/api/spotify/refresh_token', { // makes a post request to our express server, passing in the refreshToken
-                refreshToken
-            }).then(response => { // this response contains our access_token and our refresh_token
-                setAccessToken(response.data.accessToken);
-                setExpiresIn(response.data.expiresIn);
-            }).catch(() => { // if there is an error during token refreshing, the user is pushed back to the spotify OAuth page.
-                // TODO: Not sure if we want to handle this error in another way
-                history.push("/spotify");
-            })
-        }, (expiresIn - 60) * 1000); // this sets the token to refresh one minute before it will expire
+    // useEffect(() => {
+    //     if (!refreshToken || !expiresIn) return; // This makes sure a refresh request is not being made before these fields are defined
+    //     const interval = setInterval(() => {
+    //         axios.post('http://localhost:3001/api/spotify/refresh_token', { // makes a post request to our express server, passing in the refreshToken
+    //             refreshToken
+    //         }).then(response => { // this response contains our access_token and our refresh_token
+    //             setAccessToken(response.data.accessToken);
+    //             setExpiresIn(response.data.expiresIn);
+    //         }).catch(() => { // if there is an error during token refreshing, the user is pushed back to the spotify OAuth page.
+    //             // TODO: Not sure if we want to handle this error in another way
+    //             history.push("/spotify");
+    //         })
+    //     }, (expiresIn - 60) * 1000); // this sets the token to refresh one minute before it will expire
 
-        return () => clearInterval(interval);
-    }, [refreshToken, expiresIn])
+    //     return () => clearInterval(interval);
+    // }, [refreshToken, expiresIn])
 
-    return accessToken; // returns access token to the callback page
+    //return accessToken; // returns access token to the callback page
 }
 
 export default useAuth;

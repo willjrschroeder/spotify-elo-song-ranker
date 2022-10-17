@@ -43,8 +43,14 @@ public class TrackJdbcRepo implements TrackRepo{
     }
 
     @Override
-    public boolean updateTrackEloScore(Integer updatedEloScore) {
-        throw new UnsupportedOperationException();
+    public boolean updateTrackEloScore(Track updatedTrack) {
+
+        final String sql = "update track\n"
+                +"set elo_score = ?,\n"
+                +"num_of_matches_played = num_of_matches_played + 1\n"
+                +"where track_uri=? and app_user_id=?;";
+
+        return (template.update(sql, updatedTrack.getEloScore(), updatedTrack.getTrack_uri(), updatedTrack.getAppUserId())) > 0;
     }
 
     private List<String> getTrackUrisByPlaylistUri(String playlistUri) {
