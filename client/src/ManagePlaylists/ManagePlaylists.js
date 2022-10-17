@@ -39,6 +39,7 @@ function ManagePlaylists() {
             } else( console.log( response ) )
         } )
         .then( databasePlaylists => {
+            console.log(databasePlaylists);
             setDatabasePlaylists( databasePlaylists );
         });
     }
@@ -102,16 +103,41 @@ function ManagePlaylists() {
         return(<>
         <Link to="/home" className="login">Home</Link>
         <div className="flex-container">
-            {databasePlaylists.map( (pd, index) => (
-                <DatabasePlaylist key = {index} pd={pd} playGame={playGameWithPlaylist}/>
-            ))}
-        </div>
-        <div className="flex-container">
-            {playlists.map( (p, index)=> (
-                <Playlist key={index} addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
-                )
-            )}
-        </div>
+            <div>
+                <table className="table">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {databasePlaylists.map( (pd, index) => (
+                    <DatabasePlaylist key = {index} pd={pd} playGame={playGameWithPlaylist}/>
+                ))}
+                    </tbody>
+                </table>
+            </div>
+            <div >
+                <table className="table table-bordered">
+                    <thead className="thead-dark">
+                        <tr className="table-rows">
+                            <th></th>
+                            <th>Name</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody className="tbl-body">
+                    {playlists.map( (p, index)=> (
+                    <Playlist key={index} addPlaylist = {addPlaylistToDatabase} p={p} index={index}/>
+                    )
+                )}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>    
         </>
         )
     }

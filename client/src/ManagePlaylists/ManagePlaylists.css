@@ -3,3 +3,13 @@
     width: 300px;
     display: inline-block;
 }
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    margin:0 auto;
+    column-gap: 50px;
+}
+table {
+    border: 1px solid black;
+    table-layout: fixed;
+}

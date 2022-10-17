@@ -11,57 +11,6 @@
 }
 
 
-.container {
-  isolation: isolate;
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 100%;
-  max-width: 800px;
-  min-height: 650px;
-  overflow: hidden;
-}
-
-.card {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  font-size: 3rem;
-  line-height: 1;
-  text-transform: uppercase;
-  padding: 2rem;
-  background-color: var(--accent-color);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 400px;
-  min-height: 500px;
-  will-change: transform;
-  transform: translateX(var(--xVal)) scale(var(--sVal));
-  z-index: var(--z-index);
-  transition: transform 350ms ease;
-  overflow: hidden;
-  color: var(--dash-color);
-  isolation: isolate;
-  outline: 12px solid var(--dash-color);
-}
-
-.card h3 {
-  font-weight: 100;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(hsl(0, 0%, 0%, 0) 50%, hsl(0, 0%, 0%, 1));
-  mix-blend-mode: multiply;
-  z-index: -1;
-}
-
 .buttons {
   position: absolute;
   bottom: 10px;
@@ -86,4 +35,7 @@ button:last-child {
 button:hover {
   background-color: var(--accent-color-400);
   cursor: pointer;
+}
+tr {
+  
 }
