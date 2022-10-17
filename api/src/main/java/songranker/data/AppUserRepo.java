@@ -12,4 +12,6 @@ public interface AppUserRepo {
     AppUser getAppUserById(int app_user_id);
 
     AppUser createUser(AppUser appUser);
+
+    boolean deleteAppUserById(int appUserId);
 }

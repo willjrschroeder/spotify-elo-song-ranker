@@ -27,13 +27,14 @@ public class AppUserController {
         return ErrorResponse.build(result);
     }
 
-    @PutMapping("/{updatedEloScore}")
-    public ResponseEntity<Object> updateTrackEloScore(@PathVariable Integer updatedEloScore){
-        Result result = service.updateTrackEloScore(updatedEloScore);
+    @DeleteMapping("{appUserId}")
+    public ResponseEntity<Object> deleteAppUserById(@PathVariable int appUserId){
+        Result result = service.deleteAppUserById(appUserId);
 
-        if (result.isSuccess()) {
+        if(result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
         return ErrorResponse.build(result);
     }
 }

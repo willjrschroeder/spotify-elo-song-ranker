@@ -28,4 +28,22 @@ public class AppUserService {
         result.setPayload(users);
         return result;
     }
+
+    public Result deleteAppUserById(int appUserId) {
+        Result result = new Result();
+
+        AppUser user = repository.getAppUserById(appUserId);
+
+        if(user == null || user.isDisabled()) {
+            result.addMessage("User could not be found in the database", ResultType.INVALID);
+            return result;
+        }
+
+        boolean success = repository.deleteAppUserById(appUserId);
+
+        if(!success){
+            result.addMessage("Error deleting user from the database", ResultType.INVALID);
+        }
+        return result;
+    }
 }
