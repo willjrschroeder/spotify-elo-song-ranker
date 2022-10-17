@@ -10,4 +10,6 @@ public interface TrackRepo {
     List<Track> getTracksByPlaylistUri(String playlistUri);
 
     boolean updateTrackEloScore(Track updatedTrack);
+
+    List<Track> getTracksByAppUserId(int appUserId);
 }

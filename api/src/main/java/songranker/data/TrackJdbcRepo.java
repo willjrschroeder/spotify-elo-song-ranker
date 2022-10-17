@@ -118,6 +118,28 @@ public class TrackJdbcRepo implements TrackRepo{
         return albums;
     }
 
+    @Override
+    public List<Track> getTracksByAppUserId(int appUserId) {
+        final String sql = "select * from track as t \n" +
+                "where app_user_id = ?;";
+        List<Track> tracks = new ArrayList<>();
+
+        return null;
+    }
+
+    public List<Artist> getTop10Artists(int appUserId) {
+        final String sql = "select avg(t.elo_score)\n" +
+                "from artist a\n" +
+                "inner join track_artist ta on ta.artist_uri = a.artist_uri\n" +
+                "inner join track t on t.track_uri = ta.track_uri\n" +
+                "group by a.artist_uri;";
+        return null;
+    }
+
+    public List<Genre> getTop10Genres(int appUserId) {
+        return null;
+    }
+
 
 
 }
