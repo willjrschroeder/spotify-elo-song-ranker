@@ -7,5 +7,5 @@ import java.util.List;
 public interface TrackRepo {
     List<Track> getTracksByPlaylistUri(String playlistUri);
 
-    boolean updateTrackEloScore(Integer updatedEloScore);
+    boolean updateTrackEloScore(Track updatedTrack);
 }

@@ -45,20 +45,22 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
 
         async function putScores(winner, loser) {
             await Promise.all( // trigger both puts at once
-                fetch(`http://localhost:8080/api/track/${winner.eloScore}`, {
+                fetch(`http://localhost:8080/api/track/`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + serverAuth.user.token
-                    }
+                    },
+                    body: JSON.stringify(winner)
                 }),
 
-                fetch(`http://localhost:8080/api/track/${loser.eloScore}`, {
+                fetch(`http://localhost:8080/api/track/`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + serverAuth.user.token
-                    }
+                    },
+                    body: JSON.stringify(loser)
                 })
             );
         }
@@ -75,25 +77,26 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
 function updateScores(winner, loser) { // probably triggered by onClick in GameTrack
 
     // update the collection of tracks in memory to reflect the updated winner and loser scores
-    setCurrentTracks(currentTracks.map((track) => {
-        if (track.trackUri === winner.track_uri) {
+    const updatedTrackList = currentTracks.map((track) => {
+        if (track.track_uri === winner.track_uri) {
             return winner;
         }
         if (track.track_uri === loser.track_uri) {
             return loser;
         }
         return track;
-    }));
+    });
 
-    setUnselectableTracks(...unselectableTracks, loser);
-    setUnselectableTracks(...unselectableTracks, winner); // mark the tracks being updated as unselectable
+    setCurrentTracks(updatedTrackList);
+
+    setUnselectableTracks([...unselectableTracks, winner, loser]); // mark the tracks being updated as unselectable
 
     sendScoresToDatabase(winner, loser);
 
     // randomly chooses new tracks
     let newTracks = null;
     while (!newTracks) { // continues to loop until there are enough tracks to select from (could be awaiting posts)
-        newTracks = randomizeTracks(currentTracks, unselectableTracks);
+        newTracks = randomizeTracks(updatedTrackList, [...unselectableTracks, winner, loser]);
     }
 
     // changes the tracks that are being displayed by the return of the function
