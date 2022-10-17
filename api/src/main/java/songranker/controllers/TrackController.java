@@ -28,5 +28,15 @@ public class TrackController {
         }
         return ErrorResponse.build(result);
     }
+
+    @PutMapping("/{updatedEloScore}")
+    public ResponseEntity<Object> updateTrackEloScore(@PathVariable Integer updatedEloScore){
+        Result result = service.updateTrackEloScore(updatedEloScore);
+
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
 }
 

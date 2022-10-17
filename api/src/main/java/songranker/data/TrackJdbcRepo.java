@@ -34,6 +34,11 @@ public class TrackJdbcRepo implements TrackRepo{
         return template.query(sql, new TracksMapper(trackArtists, trackAlbums), playlistUri);
     }
 
+    @Override
+    public boolean updateTrackEloScore(Integer updatedEloScore) {
+        throw new UnsupportedOperationException();
+    }
+
     private List<String> getTrackUrisByPlaylistUri(String playlistUri) {
 
         final String sql = "select track_uri from playlist_track\n"

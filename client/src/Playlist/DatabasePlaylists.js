@@ -1,7 +1,4 @@
 import "./Playlist.css";
-import useGetSpotifyData from "../ManagePlaylists/GetSpotifyData/useGetSpotifyData";
-import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 function DatabasePlaylist({ pd }) {

@@ -17,9 +17,7 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
     useEffect(() => {
         if (!winnerTrack || !loserTrack) return; // don't execute the block if a track is still null
 
-
         async function putScores() {
-
             await Promise.all( // trigger both puts at once
                 fetch(`http://localhost:8080/api/track`, {
                     method: "PUT",
@@ -37,11 +35,13 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
                         "Authorization": "Bearer " + serverAuth.user.token
                     },
                     body: JSON.stringify(loserTrack)
-                }));
-            putScores();
-            setUnselectableTracks(unselectableTracks.filter((element) => element !== winnerTrack)); // removes the winner from unselectableTracks
-            setUnselectableTracks(unselectableTracks.filter((element) => element !== loserTrack)); // removes the loser from unselectableTracks
+                })
+            );
         }
+
+        putScores();
+        setUnselectableTracks(unselectableTracks.filter((element) => element !== winnerTrack)); // removes the winner from unselectableTracks
+        setUnselectableTracks(unselectableTracks.filter((element) => element !== loserTrack)); // removes the loser from unselectableTracks
 
     }, [winnerTrack]); // effect is triggered when the winner changes (I think it may change twice if we put winner and loser)
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
 
