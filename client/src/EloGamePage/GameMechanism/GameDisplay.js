@@ -1,33 +1,80 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../../context/AuthContext";
 import GameTrack from "./GameTrack";
 import useCalculateEloTrackScores from "./useCalculateEloTrackScores";
 
 
 function GameDisplay({ updateTrackScores, trackCollection }) {
+    const serverAuth = useContext(AuthContext);
     const [winnerTrack, setWinnerTrack] = useState();
     const [loserTrack, setLoserTrack] = useState();
+    const [currentTracks, setCurrentTracks] = useState(trackCollection);
     const [unselectableTracks, setUnselectableTracks] = useState([]);
     const [track1, setTrack1] = useState();
     const [track2, setTrack2] = useState();
 
+
     useEffect(() => {
         if (!winnerTrack || !loserTrack) return; // don't execute the block if a track is still null
 
-        // const { updatedWinnerTrack, updatedLoserTrack } = useCalculateEloTrackScores(winnerTrack, loserTrack); // this probably lives in track, can't call inside useEffect
 
-        // updateTrackScores(updatedWinnerTrack, updatedLoserTrack ); // sends updated scores back up to the parent EloGamePage
-    }, [winnerTrack]); // effect is triggered when the winner changes (I think it may change twice if we put winner and loser)
+        async function putScores() {
 
-    function updateScores(winner) { // probably triggered by onClick, or a left/right arrow key, etc. However we want user input to pick a winner
-        if(winner.track_uri === track1.track_uri) {
-            setLoserTrack(track2);
-            setWinnerTrack(track1);
+            await Promise.all( // trigger both puts at once
+                fetch(`http://localhost:8080/api/track`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + serverAuth.user.token
+                    },
+                    body: JSON.stringify(winnerTrack)
+                }),
+
+                fetch(`http://localhost:8080/api/track`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + serverAuth.user.token
+                    },
+                    body: JSON.stringify(loserTrack)
+                }));
+            putScores();
+            setUnselectableTracks(unselectableTracks.filter((element) => element !== winnerTrack)); // removes the winner from unselectableTracks
+            setUnselectableTracks(unselectableTracks.filter((element) => element !== loserTrack)); // removes the loser from unselectableTracks
         }
 
-        //TODO: change the loser to the opposite of winner - may need to happen first so the useEffect doesn't trigger early
-        //TODO: use the setters to set the winner track to either track 1 or track 2 based on event - triggers the useEffect
+    }, [winnerTrack]); // effect is triggered when the winner changes (I think it may change twice if we put winner and loser)
 
-        //TODO: call randomize tracks and update track display with track1/2 setters
+    // this function triggers a put request to update the scores, and it triggers two new random tracks to be picked
+    // it is passed in winner and loser tracks with updated ELO scores
+    function updateScores(winner, loser) { // probably triggered by onClick, or a left/right arrow key, etc. However we want user input to pick a winner
+
+        // update the collection of tracks in memory to reflect the updated winner and loser scores
+        setCurrentTracks(currentTracks.map((track) => {
+            if (track.track_uri === winner.track_uri) {
+                return winner;
+            }
+            if (track.track_uri === loser.track_uri) {
+                return loser;
+            }
+            return track;
+        }));
+
+        setUnselectableTracks(...unselectableTracks, loser);
+        setUnselectableTracks(...unselectableTracks, winner); // mark the tracks being updated as unselectable
+
+        setLoserTrack(loser);
+        setWinnerTrack(winner); // this should trigger the useEffect, which updates the tracks in the DB
+
+        // randomly chooses new tracks
+        let newTracks = null;
+        while (!newTracks) { // continues to loop until there are enough tracks to select from (could be awaiting posts)
+            newTracks = randomizeTracks(currentTracks, unselectableTracks);
+        }
+
+        // changes the tracks that are being displayed by the return of the function
+        setTrack1(newTracks[0]);
+        setTrack1(newTracks[1]);
 
     }
 
@@ -36,12 +83,13 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
     // returns selected tracks if at least two tracks are available to be chosen
     // returns two null tracks if there are not at least two selectable tracks
     function randomizeTracks(trackCollection, unselectableTracks) {
-        let selectableTracks = trackCollection.map((element, index) => {
+        let selectableTracks = trackCollection.filter((element, index) => {
             return (!unselectableTracks.includes(index)); // returns true if the current track index is not included in the unselectableTracks array
         });
 
-        if (selectableTracks.length < 2) { // return nulls if there aren't two selectable tracks. Need to wait for some post requests to resolve
-            return [null, null];
+        // returns null if there aren't two selectable tracks. Need to wait for put requests to resolve
+        if (selectableTracks.length < 2) {
+            return null;
         }
 
         // select the first random track
@@ -65,8 +113,8 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
 
     return (
         <>
-            <GameTrack track={track1} updateScores={updateScores} />
-            <GameTrack track={track2} updateScores={updateScores} />
+            <GameTrack displayTrack={track1} otherTrack={track2} updateScores={updateScores} />
+            <GameTrack displayTrack={track2} otherTrack={track1} updateScores={updateScores} />
         </>
     );
 }

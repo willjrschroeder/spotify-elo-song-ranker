@@ -11,7 +11,7 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
     const serverAuth = useContext(AuthContext);
 
     useEffect( () => {
-        fetch( "http://localhost:8080/api/track/" + playlist.playlistUri, {
+        fetch( `http://localhost:8080/api/track/${playlist.playlistUri}`, {
             method:"GET",
             headers: {
                 "Content-Type": "application/json",
