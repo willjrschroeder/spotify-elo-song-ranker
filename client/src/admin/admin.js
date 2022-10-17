@@ -2,11 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import User from "./Users/Users";
 import UserPlaylist from "./Users/UserPlaylist";
+import AuthContext from "../context/AuthContext";
 
 function admin() {
     const [playlists, setPlaylists] = useState([])
     const [currentUser, setCurrentUser] = useState(null);
     const [users, setUsers] = useState([]);
+
+
+    const auth = useContext(AuthContext);
 
     const userLocation = {
         pathname: '/confirmDelUser',
@@ -15,10 +19,32 @@ function admin() {
       console.log(location);
 
     function getAllUsers() {
-
+            fetch( `http://localhost:8080/api/user/`)
+            .then( response => {
+                if( response.status === 200 ) {
+                    return response.json();
+                } else( console.log( response ) )
+            } )
+            .then( users => {
+                setUsers( users );
+            });
     }
+    useEffect(
+        () => {
+            getAllUsers();
+        },
+        []
+    )
     function getPlaylistsByUser() {
-
+        fetch( `http://localhost:8080/api/user/${auth.user.id}`)
+        .then( response => {
+            if( response.status === 200 ) {
+                return response.json();
+            } else( console.log( response ) )
+        } )
+        .then( users => {
+            setUsers( users );
+        });
     }
 
     return(
