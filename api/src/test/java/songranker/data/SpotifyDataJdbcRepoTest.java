@@ -49,11 +49,13 @@ class SpotifyDataJdbcRepoTest {
 
     private final Genre testGenre8 = new Genre("social media pop");
 
+    private final Genre testGenre9 = new Genre("undefined");
+
     private final List<Genre> testGenres1 = List.of(testGenre1, testGenre2);
 
     private final List<Genre> testGenres2 = List.of(testGenre3, testGenre4);
 
-    private final List<Genre> testGenres3= List.of();
+    private final List<Genre> testGenres3= List.of(testGenre9);
 
     private final List<Genre> testGenres4= List.of(testGenre5, testGenre6, testGenre7, testGenre8);
 
@@ -105,6 +107,7 @@ class SpotifyDataJdbcRepoTest {
 
     @Test
     void shouldAddSpotifyData(){
+
         assertTrue(repo.addSpotifyData(testSpotifyData));
     }
 

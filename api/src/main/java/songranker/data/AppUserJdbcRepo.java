@@ -84,6 +84,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
         return appUser;
     }
 
+
     private void addUserRoles(AppUser appUser){
         final String sql = "insert into user_roles (app_user_id, app_role_id) values (?,?);";
 
