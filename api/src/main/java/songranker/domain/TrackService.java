@@ -15,7 +15,7 @@ public class TrackService {
     TrackJdbcRepo repository;
 
     public Result<List<Track>> getTracksByPlaylistUri(String playlistUri) {
-        Result result = new Result();
+        Result<List<Track>> result = new Result<>();
 
         if(playlistUri == null || playlistUri.isBlank()) {
             result.addMessage("Playlist URI is required", ResultType.INVALID);
@@ -51,6 +51,19 @@ public class TrackService {
             result.addMessage("Error writing ELO score to the database", ResultType.INVALID);
         }
 
+        return result;
+    }
+
+    public Result<List<Track>> getTracksByUser(String appUserId) {
+        Result<List<Track>> result = new Result<List<Track>>();
+
+        if (appUserId == null || appUserId.isBlank()) {
+            result.addMessage("User Id is required", ResultType.INVALID);
+            return result;
+        }
+
+        List<Track> tracks = repository.getTracksByPlaylistUri(appUserId);
+        result.setPayload(tracks);
         return result;
     }
 }

@@ -38,5 +38,14 @@ public class TrackController {
         }
         return ErrorResponse.build(result);
     }
+    @GetMapping("/{appUserId}")
+    public ResponseEntity<Object> getTracksByUser(@PathVariable String appUserId) {
+        Result<List<Track>> result = service.getTracksByUser(appUserId);
+
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(),HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
 }
 
