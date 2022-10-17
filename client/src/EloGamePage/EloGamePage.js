@@ -63,7 +63,7 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
             );
         }
 
-        putScores();
+        putScores(winner, loser);
         setUnselectableTracks(unselectableTracks.filter((element) => element !== winner)); // removes the winner from unselectableTracks
         setUnselectableTracks(unselectableTracks.filter((element) => element !== loser)); // removes the loser from unselectableTracks
 
@@ -76,7 +76,7 @@ function updateScores(winner, loser) { // probably triggered by onClick in GameT
 
     // update the collection of tracks in memory to reflect the updated winner and loser scores
     setCurrentTracks(currentTracks.map((track) => {
-        if (track.trackUri === winner.trackUri) {
+        if (track.trackUri === winner.track_uri) {
             return winner;
         }
         if (track.track_uri === loser.track_uri) {
