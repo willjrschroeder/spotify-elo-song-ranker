@@ -31,15 +31,16 @@ function Home() {
             <div>
                 <Link to="/playlistManager">Playlists</Link>
             </div>
-
             <div className="flex-summary">
-                <h5>Top 10 Tracks</h5>
-            </div>
-            <div className="flex-summary">
-                <h5>Top 10 Genres</h5>
-            </div>
-            <div className="flex-summary">
-                <h5>Top 10 Artists</h5>
+                <div>
+                    <h5>Top 10 Tracks</h5>
+                </div>
+                <div>
+                    <h5>Top 10 Genres</h5>
+                </div>
+                <div>
+                    <h5>Top 10 Artists</h5>
+                </div>
             </div>
         </>
     )

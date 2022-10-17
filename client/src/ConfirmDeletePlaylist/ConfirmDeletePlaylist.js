@@ -4,7 +4,7 @@ import "./ConfirmDeletePlaylist.css";
 function ConfirmDeletePlaylist() {
 
     function deletePlaylist() {
-
+        
     }
 
     return(

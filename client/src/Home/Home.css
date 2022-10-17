@@ -17,3 +17,8 @@
     top: 40px;
     right: 90px;
 }
+.flex-summary{
+  display: flex;
+  flex-direction: row;
+  column-gap: 60px;
+}
