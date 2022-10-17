@@ -20,13 +20,7 @@ public class TrackJdbcRepo implements TrackRepo{
     @Autowired
     JdbcTemplate template;
 
-    @Override
-    public List<Track> getAllTracks(int appUserId){
-        final String sql = "select * from track where app_user_id = ?;";
 
-
-        return null;
-    }
     @Override
     public List<Track> getTracksByPlaylistUri(String playlistUri) {
         List<String> trackUris = getTrackUrisByPlaylistUri(playlistUri);
@@ -118,7 +112,16 @@ public class TrackJdbcRepo implements TrackRepo{
 
         return albums;
     }
+    @Override
+    public List<Track> getTracksByAppUserId(int appUserId) {
+        return null;
+    }
 
+    public List<Artist> getTop10Artists(int appUserId) {
+        return null;
+    }
 
-
+    public List<Genre> getTop10Genres(int appUserId) {
+        return null;
+    }
 }

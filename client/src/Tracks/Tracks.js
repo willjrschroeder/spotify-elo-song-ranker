@@ -6,8 +6,6 @@ function Tracks() {
 
     const [tracks, setTracks] = useState([]);
 
-    function loadTracksPlaylist() {
-
         function getAllTracks() {
             fetch( "http://localhost:8080/api/tracks" )
             .then( response => {
@@ -20,7 +18,6 @@ function Tracks() {
             });
         }
         
-        }
         useEffect(
             () => {
                 getAllTracks();

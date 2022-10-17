@@ -3,9 +3,7 @@ package songranker.domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import songranker.data.TrackJdbcRepo;
-import songranker.models.Result;
-import songranker.models.ResultType;
-import songranker.models.Track;
+import songranker.models.*;
 
 import java.util.List;
 @Service
@@ -54,16 +52,42 @@ public class TrackService {
         return result;
     }
 
-    public Result<List<Track>> getTracksByUser(String appUserId) {
+    public Result<List<Track>> getTracksByUser(int appUserId) {
         Result<List<Track>> result = new Result<List<Track>>();
 
-        if (appUserId == null || appUserId.isBlank()) {
+        if (appUserId <= 0) {
             result.addMessage("User Id is required", ResultType.INVALID);
             return result;
         }
 
-        List<Track> tracks = repository.getTracksByPlaylistUri(appUserId);
+        List<Track> tracks = repository.getTracksByAppUserId(appUserId);
         result.setPayload(tracks);
+        return result;
+    }
+
+    public Result<List<Artist>> getTop10Artists(int appUserId) {
+        Result<List<Artist>> result = new Result<List<Artist>>();
+
+        if (appUserId <=0) {
+            result.addMessage("User Id is required", ResultType.INVALID);
+            return result;
+        }
+
+        List<Artist> artists = repository.getTop10Artists(appUserId);
+        result.setPayload(artists);
+        return result;
+    }
+
+    public Result<List<Genre>> getTop10Genres(int appUserId) {
+        Result<List<Genre>> result = new Result<List<Genre>>();
+
+        if (appUserId <=0) {
+            result.addMessage("User Id is required", ResultType.INVALID);
+            return result;
+        }
+
+        List<Genre> genre = repository.getTop10Genres(appUserId);
+        result.setPayload(genre);
         return result;
     }
 }
