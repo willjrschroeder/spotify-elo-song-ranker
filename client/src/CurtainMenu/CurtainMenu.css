@@ -1,28 +1,29 @@
 .floating-btn {
     position: absolute;
     top: 15px;
-    left: 35px;
-    width: 80px;
-    height: 80px;
+    right: 35px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     background: #f1f1f1;
     cursor: pointer;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
+    opacity: 50%;    
 }
 .floating-btn img {
     width: 35px; 
     height: 35px;
 }
-
 nav {
     position: fixed;
-    left: 0;
+    right: 0;
     top: 0;
-    background: #f1f1f1;
+    background: black;
     height: 100vh;
     transition: transform 0.4s ease-in-out;
+    opacity: 50%;
 }
 
 nav.active {
@@ -42,15 +43,17 @@ nav a:first-of-type{
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 30px;
-    height: 30px;
+
     cursor: pointer;
     color: #fff;
     background: crimson;
 }
+.links {
+    margin-top: 50px;
+}
 
 @media screen and (max-width: 900px){
     nav {
-        transform: translateX(-100%);
+        transform: translateX(100%);
     }
 }

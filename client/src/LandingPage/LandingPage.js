@@ -15,17 +15,7 @@ function Home() {
     <div className='basket'></div>
     <div className='rope'></div> */}
     <div className='label'>Spotify Rankings</div>
-    {auth.user ? (
-    <>
-    <h2>Your are logged in</h2>
-    </>
-    ) : (
-        <>
-            <div className="flex-container">
-                <Link className='login' to = "/login">Login</Link>
-            </div>
-        </>
-    )}
+
     {auth.user && (
             <div className="flex-container">
             Welcome {auth.user.username}!

@@ -99,6 +99,7 @@ function App() {
       <AuthContext.Provider value={auth}>
         <SpotifyAuthContext.Provider value={spotifyAuth}>
           <BrowserRouter>
+          <Curtain></Curtain>
             <Switch>
               <Route exact path="/">
                 {!user ? <LandingPage /> : <Redirect to="/home" />}
