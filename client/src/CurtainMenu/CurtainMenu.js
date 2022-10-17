@@ -51,7 +51,7 @@ function CurtainMenu() {
           <Link to="/playlistManager"><button>Manage Playlists</button></Link>
           {auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button>Manage Users</button></Link> : <div></div>) : <div></div>}
         </div>
-        {auth.user ? <Link><button onClick={auth.logout}>Logout</button></Link> : <Link to="/login"><button>Login</button></Link>}
+        {auth.user ? <Link to="/"><button onClick={auth.logout}>Logout</button></Link> : <Link to="/login"><button>Login</button></Link>}
 
       </nav>
     </>
