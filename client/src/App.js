@@ -13,6 +13,11 @@ import SpotifyAuthContext from './context/SpotifyAuthContext';
 import ConfirmationPage from './SpotifyAuthorization/ConfirmationPage';
 import ManagePlaylists from './ManagePlaylists/ManagePlaylists';
 import EloGamePage from './EloGamePage/EloGamePage';
+import ErrorPage from './ErrorPage/ErrorPage';
+import ConfirmDeletePlaylist from './ConfirmDeletePlaylist/ConfirmDeletePlaylist';
+import ConfirmDeleteUser from './ConfirmDeleteUser/ConfirmDeleteUser';
+import Summary from './Summary/Summary';
+import Curtain from './CurtainMenu/CurtainMenu';
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
@@ -93,6 +98,7 @@ function App() {
       <AuthContext.Provider value={auth}>
         <SpotifyAuthContext.Provider value={spotifyAuth}>
           <BrowserRouter>
+          <Curtain></Curtain>
             <Switch>
               <Route exact path="/">
                 {!user ? <LandingPage /> : <Redirect to="/home" />}
@@ -120,6 +126,18 @@ function App() {
               </Route>
               <Route exact path="/eloGame">
                 <EloGamePage />
+              </Route>
+              <Route exact path="/confirmDelUser">
+                <ConfirmDeleteUser></ConfirmDeleteUser>
+              </Route>
+              <Route exact path="/confirmDelPlaylist">
+                <ConfirmDeletePlaylist></ConfirmDeletePlaylist>
+              </Route>
+              <Route exact path="/summary">
+                <Summary></Summary>
+              </Route>
+              <Route>
+                <ErrorPage></ErrorPage>
               </Route>
             </Switch>
           </BrowserRouter>
