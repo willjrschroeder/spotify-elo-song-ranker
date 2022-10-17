@@ -4,7 +4,7 @@ import GameTrack from "./GameTrack";
 import useCalculateEloTrackScores from "./useCalculateEloTrackScores";
 
 
-function GameDisplay({ updateTrackScores, trackCollection }) {
+function GameDisplay({ trackCollection }) {
     const serverAuth = useContext(AuthContext);
     const [winnerTrack, setWinnerTrack] = useState();
     const [loserTrack, setLoserTrack] = useState();
@@ -41,11 +41,11 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
         setUnselectableTracks(unselectableTracks.filter((element) => element !== winnerTrack)); // removes the winner from unselectableTracks
         setUnselectableTracks(unselectableTracks.filter((element) => element !== loserTrack)); // removes the loser from unselectableTracks
 
-    }, [winnerTrack]); // effect is triggered when the winner changes (I think it may change twice if we put winner and loser)
+    }, [winnerTrack]); // effect is triggered when the winner changes
 
     // this function triggers a put request to update the scores, and it triggers two new random tracks to be picked
     // it is passed in winner and loser tracks with updated ELO scores
-    function updateScores(winner, loser) { // probably triggered by onClick, or a left/right arrow key, etc. However we want user input to pick a winner
+    function updateScores(winner, loser) { // probably triggered by onClick in GameTrack
 
         // update the collection of tracks in memory to reflect the updated winner and loser scores
         setCurrentTracks(currentTracks.map((track) => {
@@ -72,7 +72,7 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
 
         // changes the tracks that are being displayed by the return of the function
         setTrack1(newTracks[0]);
-        setTrack1(newTracks[1]);
+        setTrack2(newTracks[1]);
 
     }
 
@@ -81,8 +81,8 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
     // returns selected tracks if at least two tracks are available to be chosen
     // returns two null tracks if there are not at least two selectable tracks
     function randomizeTracks(trackCollection, unselectableTracks) {
-        let selectableTracks = trackCollection.filter((element, index) => {
-            return (!unselectableTracks.includes(index)); // returns true if the current track index is not included in the unselectableTracks array
+        let selectableTracks = trackCollection.filter((element) => {
+            return (!unselectableTracks.includes(element)); // returns true if the current track is not included in the unselectableTracks array
         });
 
         // returns null if there aren't two selectable tracks. Need to wait for put requests to resolve

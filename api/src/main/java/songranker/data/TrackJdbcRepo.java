@@ -24,7 +24,7 @@ public class TrackJdbcRepo implements TrackRepo{
         List<String> trackUris = getTrackUrisByPlaylistUri(playlistUri);
         List<Album> trackAlbums = getAlbumsByTrackUri(trackUris);
         List<Artist> trackArtists = getArtistsByTrackUri(trackUris);
-        final String sql = "select * from tracks as t\n"
+        final String sql = "select * from track as t\n"
                 +"inner join playlist_track as pt\n"
                 +"on t.app_user_id = pt.app_user_id\n"
                 +"inner join playlist as p\n"
@@ -54,7 +54,7 @@ public class TrackJdbcRepo implements TrackRepo{
                 +"on a.artist_uri = ta.artist_uri\n"
                 +"inner join track as t\n"
                 +"on t.track_uri = ta.track_uri\n"
-                +"where t.track_uri = ?,";
+                +"where t.track_uri = ?;";
 
         List<Artist> trackArtists = new ArrayList<>();
 
@@ -74,7 +74,7 @@ public class TrackJdbcRepo implements TrackRepo{
         final String sql = "select * from genre as g\n"
                 +"inner join genre_artist as ga\n"
                 +"on g.genre_id = ga.genre_id\n"
-                +"inner join track_arist as ta\n"
+                +"inner join track_artist as ta\n"
                 +"on ta.artist_uri = ga.artist_uri\n"
                 +"where ta.track_uri = ?;";
 

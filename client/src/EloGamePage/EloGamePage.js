@@ -22,8 +22,8 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
                 return response.json();
             } else( console.log( response ) )
         } )
-        .then( playlistTracks => {
-            setPlaylistTracks( playlistTracks );
+        .then( tracks => {
+            setPlaylistTracks( tracks );
         });
 
     }, []);
