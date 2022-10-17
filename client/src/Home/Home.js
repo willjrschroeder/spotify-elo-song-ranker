@@ -21,8 +21,9 @@ function Home() {
             <div>
                 <button className='logout' onClick={() => auth.logout()}>Logout</button>
             </div>
+            <div className="header">Home Page</div>
             <div className="button-area">
-                <Link to="/playlistManager" className="button">Playlists</Link>
+                <Link to="/playlistManager" ><button>Manage Playlists</button></Link>
             </div>
             <div className="flex-summary">
                 <div>
