@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     "/api/track/**/**").authenticated() // allow only users and admins to access getTrackByPlaylist endpoint
             .antMatchers(HttpMethod.GET,
     "/api/playlist/**").authenticated() // allow only users and admins to access getPlaylists by user ID endpoint
-            //.antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission
+            //.antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission //TODO: turn this back on
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

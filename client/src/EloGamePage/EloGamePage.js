@@ -3,9 +3,10 @@ import { useLocation, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
 
-function EloGamePage() {
+function EloGamePage() { //TODO: Don't let this be triggered if there are less than 2 tracks in the playlist
 
-    const playlist = useLocation();
+    const location = useLocation();
+    const playlist = location.state;
     const [playlistTracks, setPlaylistTracks] = useState([]);
     const serverAuth = useContext(AuthContext);
 
@@ -26,8 +27,6 @@ function EloGamePage() {
         });
 
     }, []);
-
-
 
     return(
         <>
