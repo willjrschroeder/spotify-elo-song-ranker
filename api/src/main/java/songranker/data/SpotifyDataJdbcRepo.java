@@ -214,11 +214,12 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         final String sql = "insert into artist (artist_uri, artist_name, spotify_url, artist_image_link) "
                 + "values (?,?,?,?);";
+
         if (existingArtists.size() > 0) {
             for (Track eachTrack : spotifyData.getTracks()) {
                 for (Artist eachArtist : eachTrack.getArtists()) {
                     for (Artist existing : existingArtists) {
-                        if (!existing.getArtistUri().equals(eachArtist.getArtistUri())) {
+                        if (!existing.getArtistUri().equals(eachArtist.getArtistUri()) && !artists.contains(eachArtist)) {
                             int rowsAffected = template.update(connection -> {
                                 PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
                                 ps.setString(1, eachArtist.getArtistUri());
@@ -243,23 +244,31 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         } else {
             for (Track eachTrack : spotifyData.getTracks()) {
                 for (Artist eachArtist : eachTrack.getArtists()) {
-                    int rowsAffected = template.update(connection -> {
-                        PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
-                        ps.setString(1, eachArtist.getArtistUri());
-                        ps.setString(2, eachArtist.getArtistName());
-                        ps.setString(3, eachArtist.getSpotifyUrl());
-                        ps.setString(4, eachArtist.getArtistImageLink());
-                        return ps;
-                    });
+                    if (!artists.contains(eachArtist)) {
+                        int rowsAffected = template.update(connection -> {
+                            PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
+                            ps.setString(1, eachArtist.getArtistUri());
+                            ps.setString(2, eachArtist.getArtistName());
+                            ps.setString(3, eachArtist.getSpotifyUrl());
+                            ps.setString(4, eachArtist.getArtistImageLink());
+                            return ps;
+                        });
 
-                    if (rowsAffected <= 0) {
+                        if (rowsAffected <= 0) {
+                            return null;
+                        }
+
+                        artists.add(eachArtist);
+                    } else {
                         return null;
                     }
 
-                    artists.add(eachArtist);
                 }
+
             }
+
         }
+
 
         return artists;
     }
