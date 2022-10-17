@@ -19,17 +19,11 @@ function Home() {
     return (
         <>
             <div>
-                <button className='logout' onClick={() => auth.logout()}>logout</button>
+                <button className='logout' onClick={() => auth.logout()}>Logout</button>
             </div>
-            <div>
-                {canPlay && (<h2>play</h2>)}
-            </div>
-
-            <div>
-                {canDelete && (<h2>delete</h2>)}
-            </div>
-            <div>
-                <Link to="/playlistManager">Playlists</Link>
+            <div className="header">Home Page</div>
+            <div className="button-area">
+                <Link to="/playlistManager" ><button>Manage Playlists</button></Link>
             </div>
             <div className="flex-summary">
                 <div>

@@ -18,7 +18,13 @@
     right: 90px;
 }
 .flex-summary{
+  margin-top: 50px;
   display: flex;
   flex-direction: row;
   column-gap: 60px;
+  justify-content: center;
+}
+
+.button-area {
+  margin-top: 30px;
 }
