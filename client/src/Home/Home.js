@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import AuthContext from "../context/AuthContext";
 import {Link} from "react-router-dom";
 import "./Home.css"
@@ -8,14 +8,14 @@ function Home() {
 
     const auth = useContext(AuthContext);
 
-    const canPlay = auth.user !== null;
-
-    const canDelete = auth.user && auth.user.hasRole("admin")
-
     function loadAllTracks() {
 
     }
-
+    useEffect(
+        () => {
+            loadAllTracks();
+        },[]
+    )
     return (
         <>
             <div>
