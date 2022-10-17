@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./CurtainMenu.css";
 import Menu from "./menu.svg";
 import AuthContext from "../context/AuthContext";
+import userEvent from "@testing-library/user-event";
 
 function CurtainMenu() {
 
@@ -50,6 +51,7 @@ function CurtainMenu() {
         <Link to="/playlistManager">Playlists</Link>
         <Link to="/summary">Summary</Link>
         <Link to="/eloGame">Play Game</Link>
+        {auth.user.hasRoles("admin") ? <Link to="/admin">Manage Users</Link> : <></>}
         
       </nav>
     </>

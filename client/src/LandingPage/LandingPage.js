@@ -9,11 +9,11 @@ function Home() {
 
     return <>
     <div className='flex-container'>
-    <div className= "balloon" ></div>
+        <div className= "balloon" ></div>
     </div>
-    <div className='bottom'></div>
+    {/* <div className='bottom'></div>
     <div className='basket'></div>
-    <div className='rope'></div>
+    <div className='rope'></div> */}
     <div className='label'>Spotify Rankings</div>
     {auth.user ? (
     <>

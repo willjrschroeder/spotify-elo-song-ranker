@@ -1,0 +1,18 @@
+.header {
+    text-align: center;
+    font-size: 8ch;
+}
+.home {
+    margin-left: 20px;
+}
+
+.second {
+    font-size: 2ch;
+    background-color: #14274E;
+}
+.flex-users {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

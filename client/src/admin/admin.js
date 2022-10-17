@@ -65,12 +65,19 @@ function Admin() {
                         {users.map( u => (<User u={u}></User>))}
                 </form>
                 <div className="flex-user-select">
-                    <div>
+                    {!currentUser ? <div>
+                        <h4>Username:</h4>
+                        <h4>Display Name:</h4>
+                        <button>Update User</button>
+                        <div><Link>Delete</Link></div> 
+                    </div> : <div>
                         <h4>Username:{currentUser.username}</h4>
                         <h4>Display Name:{currentUser.displayName}</h4>
                         <button>Update User</button>
                         <div><Link to={userLocation}>Delete</Link></div> 
-                    </div>
+                    </div>}
+                    
+                    
                     <div>
                         <h4>User Playlists</h4>
                         <table>
