@@ -19,6 +19,14 @@ public class TrackJdbcRepo implements TrackRepo{
 
     @Autowired
     JdbcTemplate template;
+
+    @Override
+    public List<Track> getAllTracks(int appUserId){
+        final String sql = "select * from track where app_user_id = ?;";
+
+
+        return null;
+    }
     @Override
     public List<Track> getTracksByPlaylistUri(String playlistUri) {
         List<String> trackUris = getTrackUrisByPlaylistUri(playlistUri);
