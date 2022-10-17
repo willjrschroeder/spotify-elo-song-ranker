@@ -1,7 +1,7 @@
 function Users(props) {
     return(
         <>
-            <option value={props.u.displayName}></option>
+            <option value={props.u.username}></option>
         </>
     )
 }

@@ -1,0 +1,10 @@
+h1 {
+    text-align: center;
+}
+.flex-summary {
+
+        display: flex;
+        flex-direction: row;
+        column-gap: 60px;
+      
+}
