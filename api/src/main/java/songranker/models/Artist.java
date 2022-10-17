@@ -1,12 +1,26 @@
 package songranker.models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Artist {
     private String artistUri;
     private String artistName;
     private String spotifyUrl;
     private String artistImageLink;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Artist artist = (Artist) o;
+        return Objects.equals(artistUri, artist.artistUri) && Objects.equals(artistName, artist.artistName) && Objects.equals(spotifyUrl, artist.spotifyUrl) && Objects.equals(artistImageLink, artist.artistImageLink) && Objects.equals(genres, artist.genres);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(artistUri, artistName, spotifyUrl, artistImageLink, genres);
+    }
 
     private List<Genre> genres; // List of Genre models associated with the Artist
 
