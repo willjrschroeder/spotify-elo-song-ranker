@@ -12,6 +12,9 @@ function Home() {
 
     const canDelete = auth.user && auth.user.hasRole("admin")
 
+    function loadAllTracks() {
+
+    }
 
     return (
         <>
@@ -27,6 +30,16 @@ function Home() {
             </div>
             <div>
                 <Link to="/playlistManager">Playlists</Link>
+            </div>
+
+            <div className="flex-summary">
+                <h5>Top 10 Tracks</h5>
+            </div>
+            <div className="flex-summary">
+                <h5>Top 10 Genres</h5>
+            </div>
+            <div className="flex-summary">
+                <h5>Top 10 Artists</h5>
             </div>
         </>
     )

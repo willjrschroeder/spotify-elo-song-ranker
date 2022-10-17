@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import User from "./Users/Users";
+import UserPlaylist from "./Users/UserPlaylist";
 
 function admin() {
     const [playlists, setPlaylists] = useState([])
     const [currentUser, setCurrentUser] = useState(null);
     const [users, setUsers] = useState([]);
+
+    const userLocation = {
+        pathname: '/confirmDelUser',
+        state: currentUser
+      }
+      console.log(location);
 
     function getAllUsers() {
 
@@ -32,7 +39,7 @@ function admin() {
                         <h4>Username:{currentUser.username}</h4>
                         <h4>Display Name:{currentUser.displayName}</h4>
                         <button onClick={EditUser}>Update User</button>
-                        <div><Link to="/confirmDelUser">Delete</Link></div> 
+                        <div><Link to={location}>Delete</Link></div> 
                     </div>
                     <div>
                         <h4>User Playlists</h4>
@@ -42,7 +49,7 @@ function admin() {
                                 <th></th>
                             </thead>
                             <tbody>
-
+                                {playlists.map((p, index) => (<UserPlaylist p={p} key={index}></UserPlaylist>))}
                             </tbody>
                         </table>
                     </div>
