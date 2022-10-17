@@ -19,6 +19,7 @@ function CallbackPage({ setSpotifyToken }) {
             code
         }).then(response => { // this response contains our access_token and our refresh_token
             setSpotifyToken(response.data.accessToken);
+            localStorage.setItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY, response.data.accessToken);
             
             // setAccessToken(response.data.accessToken);
             // setRefreshToken(response.data.refreshToken);
