@@ -1,18 +1,20 @@
+import useCalculateEloTrackScores from "./useCalculateEloTrackScores";
 
 
-function GameTrack({ track1, track2}){
-    
-    //TODO: return a display of the individual tracks
-    
+function GameTrack({ displayTrack, otherTrack, updateScores }) {
+    const { updatedWinnerTrack, updatedLoserTrack } = useCalculateEloTrackScores(displayTrack, otherTrack);
+
+
+    function handleClick() {
+        updateScores(updatedWinnerTrack, updatedLoserTrack);
+    }
+
     return (
         <>
-        <div className="flexTrackUpdate">
-            <h3>{track1.title}: {track1.eloScore}</h3>
-        </div>
-        <div className="flexTrackUpdate">
-            <h3>{track2.title}: {track2.eloScore}</h3>
-        </div>
-
+            <div className="flexTrackUpdate">
+                <h3>{displayTrack.title}: {displayTrack.eloScore}</h3>
+                <button onClick={handleClick}>Choose Track</button>
+            </div>
         </>
     );
 }

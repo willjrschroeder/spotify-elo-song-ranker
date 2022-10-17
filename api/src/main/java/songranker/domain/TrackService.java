@@ -27,4 +27,25 @@ public class TrackService {
         return result;
     }
 
+    public Result updateTrackEloScore(Integer updatedEloScore) {
+        Result result = new Result();
+
+        if(updatedEloScore == null) {
+            result.addMessage("Elo score must be included", ResultType.INVALID);
+            return result;
+        }
+
+        if(updatedEloScore < 0) {
+            result.addMessage("Elo score must be positive", ResultType.INVALID);
+            return result;
+        }
+
+        boolean success = repository.updateTrackEloScore(updatedEloScore);
+
+        if (!success) {
+            result.addMessage("Error writing ELO score to the database", ResultType.INVALID);
+        }
+
+        return result;
+    }
 }

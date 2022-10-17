@@ -1,18 +1,17 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
-import GameTrack from "./GameMechanism/GameTrack";
 
-function EloGamePage() {
+function EloGamePage() { //TODO: Don't let this be triggered if there are less than 2 tracks in the playlist
 
     const location = useLocation();
-    const { playlist } = location.state;
+    const playlist = location.state;
     const [playlistTracks, setPlaylistTracks] = useState([]);
     const serverAuth = useContext(AuthContext);
 
     useEffect( () => {
-        fetch( "http://localhost:8080/api/track/" + playlist.playlistUri, {
+        fetch( `http://localhost:8080/api/track/${playlist.playlistUri}`, {
             method:"GET",
             headers: {
                 "Content-Type": "application/json",
@@ -23,18 +22,16 @@ function EloGamePage() {
                 return response.json();
             } else( console.log( response ) )
         } )
-        .then( playlistTracks => {
-            setPlaylistTracks( playlistTracks );
+        .then( tracks => {
+            setPlaylistTracks( tracks );
         });
 
     }, []);
 
-
-
     return(
         <>
         <h1>Rank your songs</h1>
-        <GameDisplay playlistTracks = {playlistTracks}></GameDisplay>
+        <GameDisplay trackCollection = {playlistTracks}></GameDisplay>
         
         </>
     )

@@ -1,0 +1,56 @@
+.floating-btn {
+    position: absolute;
+    top: 15px;
+    left: 35px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.floating-btn img {
+    width: 35px; 
+    height: 35px;
+}
+
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #f1f1f1;
+    height: 100vh;
+    transition: transform 0.4s ease-in-out;
+}
+
+nav.active {
+    transform: translateX(0%)
+}
+
+nav a {
+    display: block;
+    padding: 10px 25px;
+    font-size: 25px;
+}
+nav a:first-of-type{
+    padding-top: 35px;
+}
+
+.close-curtain {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: #fff;
+    background: crimson;
+}
+
+@media screen and (max-width: 900px){
+    nav {
+        transform: translateX(-100%);
+    }
+}

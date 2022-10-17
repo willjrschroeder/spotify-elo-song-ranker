@@ -1,0 +1,16 @@
+.flex-deleteUser {
+    width: 400px;
+    border: 1px solid #2d2d2d;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 200px;
+
+}
+.confirmDeleteUser {
+    margin-bottom: 30px;
+    font-size: 5ch;
+}
