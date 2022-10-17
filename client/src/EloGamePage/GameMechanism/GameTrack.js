@@ -2,7 +2,7 @@ import useCalculateEloTrackScores from "./useCalculateEloTrackScores";
 
 
 function GameTrack({ displayTrack, otherTrack, updateScores }) {
-    const { updatedWinnerTrack, updatedLoserTrack } = useCalculateEloTrackScores(displayTrack, otherTrack);
+    const [ updatedWinnerTrack, updatedLoserTrack ] = useCalculateEloTrackScores(displayTrack, otherTrack);
 
 
     function handleClick() {
