@@ -25,6 +25,7 @@ public class TrackJdbcRepo implements TrackRepo{
         final String sql = "select * from track where app_user_id = ?;";
 
 
+
         return null;
     }
     @Override
@@ -33,10 +34,8 @@ public class TrackJdbcRepo implements TrackRepo{
         List<Album> trackAlbums = getAlbumsByTrackUri(trackUris);
         List<Artist> trackArtists = getArtistsByTrackUri(trackUris);
         final String sql = "select * from track as t\n"
-                +"inner join playlist_track as pt\n"
-                +"on t.app_user_id = pt.app_user_id\n"
                 +"inner join playlist as p\n"
-                +"on p.app_user_id = pt.app_user_id\n"
+                +"on p.app_user_id = t.app_user_id\n"
                 +"where p.playlist_uri = ?;";
 
         return template.query(sql, new TracksMapper(trackArtists, trackAlbums), playlistUri);
