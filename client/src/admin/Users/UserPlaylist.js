@@ -14,3 +14,4 @@ function UserPlaylist({p}) {
         </>
     )
 }
+export default UserPlaylist;

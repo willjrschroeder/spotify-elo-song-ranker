@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import User from "./Users/Users";
 import UserPlaylist from "./Users/UserPlaylist";
 import AuthContext from "../context/AuthContext";
+import "./Admin.css";
 
-function admin() {
+function Admin() {
     const [playlists, setPlaylists] = useState([])
-    const [currentUser, setCurrentUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState();
     const [users, setUsers] = useState([]);
+    const user = {
+        username:"fill"
+    }
 
 
     const auth = useContext(AuthContext);
@@ -16,7 +20,7 @@ function admin() {
         pathname: '/confirmDelUser',
         state: currentUser
       }
-      console.log(location);
+      console.log(userLocation);
 
     function getAllUsers() {
             fetch( `http://localhost:8080/api/user/`)
@@ -64,8 +68,8 @@ function admin() {
                     <div>
                         <h4>Username:{currentUser.username}</h4>
                         <h4>Display Name:{currentUser.displayName}</h4>
-                        <button onClick={EditUser}>Update User</button>
-                        <div><Link to={location}>Delete</Link></div> 
+                        <button>Update User</button>
+                        <div><Link to={userLocation}>Delete</Link></div> 
                     </div>
                     <div>
                         <h4>User Playlists</h4>
@@ -85,4 +89,4 @@ function admin() {
         </>
     )
 }
-export default admin;
+export default Admin;

@@ -18,6 +18,7 @@ import ConfirmDeletePlaylist from './ConfirmDeletePlaylist/ConfirmDeletePlaylist
 import ConfirmDeleteUser from './ConfirmDeleteUser/ConfirmDeleteUser';
 import Summary from './Summary/Summary';
 import Curtain from './CurtainMenu/CurtainMenu';
+import Admin from './Admin/Admin';
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
@@ -134,6 +135,9 @@ function App() {
               </Route>
               <Route exact path="/summary">
                 <Summary></Summary>
+              </Route>
+              <Route exact path="/admin">
+                <Admin></Admin>
               </Route>
               <Route>
                 <ErrorPage></ErrorPage>
