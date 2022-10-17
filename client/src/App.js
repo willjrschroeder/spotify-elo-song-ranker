@@ -114,7 +114,7 @@ function App() {
                 {user ? <SpotifyAuthorization /> : <Redirect to="/" />}
               </Route>
               <Route exact path="/callback">
-                {user ? <CallbackPage /> : <Redirect to="/spotify" />}
+                {user ? <CallbackPage setSpotifyToken={setSpotifyToken}/> : <Redirect to="/spotify" />}
               </Route>
               <Route exact path="/spotify/confirmation">
                 {spotifyToken ? <ConfirmationPage /> : <Redirect to="/spotify" />}

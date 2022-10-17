@@ -27,20 +27,25 @@ public class TrackService {
         return result;
     }
 
-    public Result updateTrackEloScore(Integer updatedEloScore) {
+    public Result updateTrackEloScore(Track updatedTrack) {
         Result result = new Result();
 
-        if(updatedEloScore == null) {
-            result.addMessage("Elo score must be included", ResultType.INVALID);
-            return result;
-        }
-
-        if(updatedEloScore < 0) {
+        if(updatedTrack.getEloScore() < 0) {
             result.addMessage("Elo score must be positive", ResultType.INVALID);
             return result;
         }
 
-        boolean success = repository.updateTrackEloScore(updatedEloScore);
+        if(updatedTrack.getTrack_uri() == null || updatedTrack.getTrack_uri().isBlank()) {
+            result.addMessage("Track URI is required", ResultType.INVALID);
+            return result;
+        }
+
+        if(updatedTrack.getAppUserId() <= 0) {
+            result.addMessage("User ID is required", ResultType.INVALID);
+            return result;
+        }
+
+        boolean success = repository.updateTrackEloScore(updatedTrack);
 
         if (!success) {
             result.addMessage("Error writing ELO score to the database", ResultType.INVALID);
