@@ -46,13 +46,13 @@ function CurtainMenu() {
             X
           </button>
         )}
-        <Link to="./">Landing Page</Link>
-        <Link to="/home">Home</Link>
-        <Link to="/playlistManager">Playlists</Link>
-        <Link to="/summary">Summary</Link>
-        <Link to="/eloGame">Play Game</Link>
-        {auth.user.hasRoles("admin") ? <Link to="/admin">Manage Users</Link> : <></>}
-        
+        <div className="links">
+          <Link to="/home"><button>Home</button></Link>
+          <Link to="/playlistManager"><button>Manage Playlists</button></Link>
+          {auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button>Manage Users</button></Link> : <div></div>) : <div></div>}
+        </div>
+        {auth.user ? <Link><button onClick={auth.logout}>Logout</button></Link> : <Link to="/login"><button>Login</button></Link>}
+
       </nav>
     </>
   );
