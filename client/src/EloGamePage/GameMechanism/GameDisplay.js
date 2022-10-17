@@ -19,22 +19,20 @@ function GameDisplay({ updateTrackScores, trackCollection }) {
 
         async function putScores() {
             await Promise.all( // trigger both puts at once
-                fetch(`http://localhost:8080/api/track`, {
+                fetch(`http://localhost:8080/api/track/${winnerTrack.eloScore}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + serverAuth.user.token
-                    },
-                    body: JSON.stringify(winnerTrack)
+                    }
                 }),
 
-                fetch(`http://localhost:8080/api/track`, {
+                fetch(`http://localhost:8080/api/track/${loserTrack.eloScore}`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
                         "Authorization": "Bearer " + serverAuth.user.token
-                    },
-                    body: JSON.stringify(loserTrack)
+                    }
                 })
             );
         }
