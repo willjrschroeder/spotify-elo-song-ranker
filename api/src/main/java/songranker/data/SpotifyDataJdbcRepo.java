@@ -431,22 +431,8 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         return template.query(sql, new AlbumMapper());
     }
 
-    private List<Album> artistAlbums(SpotifyData spotifyData) {
-        final String sql = "select * from album where album_name = ?";
-
-        List<String> albumNames = new ArrayList<>();
-
-        for (Track eachTrack : spotifyData.getTracks()) {
-            for (Album eachAlbum : eachTrack.getAlbums()) {
-                albumNames.add(eachAlbum.getAlbumName());
-            }
-        }
-
-        return template.query(sql, new AlbumMapper(), albumNames);
-    }
-
     private List<Genre> existingGenres() {
-        final String sql = "select * from genre;";
+        final String sql = "select genre_id, genre_name from genre;";
 
 
         return template.query(sql, new GenreMapper());
