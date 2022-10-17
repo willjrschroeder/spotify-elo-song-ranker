@@ -130,13 +130,13 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         List<Track> tracks = new ArrayList<>();
 
-        List<Track> existingTracks = existingTracks(spotifyData);
+        List<String> existingTracks = existingTracksUris(spotifyData);
 
         final String sql = "insert into track (track_uri, app_user_id, title, elo_score, num_of_matches_played, track_duration, popularity_num, spotify_url, preview_url) "
                 + "values (?,?,?,?,?,?,?,?,?);";
 
         for (Track eachTrack : spotifyData.getTracks()) {
-            if (!existingTracks.contains(eachTrack)) {
+            if (!existingTracks.contains(eachTrack.getTrack_uri())) {
                 int rowsAffected = template.update(connection -> {
                     PreparedStatement ps = connection.prepareStatement(sql, Statement.NO_GENERATED_KEYS);
                     ps.setString(1, eachTrack.getTrack_uri());
@@ -159,7 +159,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
 
                 tracks.add(eachTrack);
-                existingTracks.add(eachTrack);
+                existingTracks.add(eachTrack.getTrack_uri());
             } else {
                 return null;
             }
@@ -168,6 +168,8 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
         return tracks;
 
     }
+
+
 
 
     @Override
@@ -306,6 +308,25 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
     }
 
+    private List<String> existingTracksUris(SpotifyData spotifyData) {
+
+        final String sql = "select * from track where app_user_id = ?";
+
+        List<Artist> artists = existingArtists(spotifyData);
+
+
+        List<Album> albums = existingAlbums();
+
+        List<Track> tracks = template.query(sql, new TracksMapper(artists, albums), spotifyData.getPlaylist().getAppUserId());
+
+        List<String> uris = new ArrayList<>();
+
+        for(Track each : tracks){
+            uris.add(each.getTrack_uri());
+        }
+        return uris;
+    }
+
     private List<Artist> existingArtists(SpotifyData spotifyData) {
         final String sql = "select * from artist;";
 
@@ -408,24 +429,23 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     private void addPlaylistTrack(SpotifyData spotifyData) {
         final String sql = "insert into playlist_track (app_user_id, track_uri, playlist_uri) values (?,?,?);";
 
-        List<Track> existingTracks = existingTracks(spotifyData);
+        List<String> existingTracksUris = existingTracksUris(spotifyData);
 
-        if (existingTracks.size() > 0) {
+        List<String> written = new ArrayList<>();
+
+
             for (Track eachTrack : spotifyData.getTracks()) {
-                for (Track existingTrack : existingTracks) {
-                    if (existingTrack.getTrack_uri().equals(eachTrack.getTrack_uri())) {
+                if(!written.contains(eachTrack.getTrack_uri())){
+                    if (existingTracksUris.contains(eachTrack.getTrack_uri())) {
                         template.update(sql, eachTrack.getAppUserId(), eachTrack.getTrack_uri(), spotifyData.getPlaylist().getPlaylistUri());
+                        written.add(eachTrack.getTrack_uri());
                     }
                 }
 
-            }
-        } else {
-            for (Track eachTrack : spotifyData.getTracks()) {
-                template.update(sql, eachTrack.getAppUserId(), eachTrack.getTrack_uri(), spotifyData.getPlaylist().getPlaylistUri());
-            }
-        }
+                }
 
-    }
+            }
+
 
     private void addGenreArtist(SpotifyData spotifyData) {
 
@@ -453,10 +473,16 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         List<String> existing = existingAlbumsUris();
 
+        List<String> written = new ArrayList<>();
+
+
         for (Track eachTrack : spotifyData.getTracks()) {
-            for (Album eachAlbum : eachTrack.getAlbums()) {
-                if (existing.contains(eachAlbum.getAlbumUri())) {
-                    template.update(sql, eachTrack.getTrack_uri(), eachAlbum.getAlbumUri());
+            if (!written.contains(eachTrack.getTrack_uri())) {
+                for (Album eachAlbum : eachTrack.getAlbums()) {
+                    if (existing.contains(eachAlbum.getAlbumUri())) {
+                        template.update(sql, eachTrack.getTrack_uri(), eachAlbum.getAlbumUri());
+                        written.add(eachTrack.getTrack_uri());
+                    }
                 }
             }
         }
@@ -467,10 +493,15 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
         List<String> existing = existingArtistsUris(spotifyData);
 
+        List<String> written = new ArrayList<>();
+
         for (Track eachTrack : spotifyData.getTracks()) {
-            for (Artist eachArtist : eachTrack.getArtists()) {
-                if (existing.contains(eachArtist.getArtistUri())) {
-                    template.update(sql, eachTrack.getTrack_uri(), eachArtist.getArtistUri());
+            if (!written.contains(eachTrack.getTrack_uri())) {
+                for (Artist eachArtist : eachTrack.getArtists()) {
+                    if (existing.contains(eachArtist.getArtistUri())) {
+                        template.update(sql, eachTrack.getTrack_uri(), eachArtist.getArtistUri());
+                        written.add(eachTrack.getTrack_uri());
+                    }
                 }
             }
         }
