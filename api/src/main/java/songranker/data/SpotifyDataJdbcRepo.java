@@ -23,6 +23,29 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
     @Autowired
     JdbcTemplate template;
 
+    @Transactional
+    public boolean deleteSpotifyData(String playlistUri, int appUserId) {
+        List<String> trackUris = getTrackUrisByPlaylistUri(playlistUri);
+
+        for (String eachUri : trackUris) {
+            template.update("delete from track_album where track_uri = ?;", eachUri);
+            template.update("delete from track_artist where track_uri = ?;", eachUri);
+            template.update("delete from playlist_track where track_uri = ? and app_user_id = ? and playlist_uri = ?;", eachUri, appUserId, playlistUri);
+            template.update("delete from track where track_uri = ? and app_user_id = ?;", eachUri, appUserId);
+        }
+
+        return (template.update("delete from playlist where playlist_uri = ? and app_user_id = ?;", playlistUri, appUserId)) > 0;
+    }
+
+    private List<String> getTrackUrisByPlaylistUri(String playlistUri) {
+
+        final String sql = "select track_uri from playlist_track\n"
+                +"where playlist_uri = ?;";
+
+        return template.query(sql, (resultSet, rowNum) -> {
+            return resultSet.getString("track_uri");}, playlistUri);
+    }
+
     @Override
     @Transactional
     public boolean addSpotifyData(SpotifyData spotifyData) {

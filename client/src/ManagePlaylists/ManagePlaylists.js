@@ -35,6 +35,7 @@ function ManagePlaylists() {
                 } else (console.log(response))
             })
             .then(databasePlaylists => {
+                clearMessages();
                 setDatabasePlaylists(databasePlaylists);
             })
             .catch(showMessage('Error connecting to Spotify server.', true));
@@ -82,6 +83,26 @@ function ManagePlaylists() {
             });
     }
 
+    function removePlaylistFromDatabase(playlistUri) {
+        fetch(`http://localhost:8080/api/spotify_data/delete/${playlistUri}/${serverAuth.user.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + serverAuth.user.token
+            }
+
+        }).then(async response => {
+            if (response.status === 204) {
+                getAllPlaylists();
+                showMessage('Playlist successfully deleted.', false);
+            }
+            return Promise.reject(await response.json());
+        })
+            .catch(errorList => {
+                showMessage('Could not connect to server.', true);
+            });
+    }
+
     function showMessage(message, isErrorMessage) {
         clearMessages();
 
@@ -98,6 +119,7 @@ function ManagePlaylists() {
 
     function clearMessages() {
         document.getElementById("messages").innerHTML = "";
+        document.getElementById("messages").className = "";
     }
 
     return (<>
@@ -130,7 +152,7 @@ function ManagePlaylists() {
                         </thead>
                         <tbody>
                             {databasePlaylists.map((databasePlaylist, index) => (
-                                <DatabasePlaylist key={index} pd={databasePlaylist} />
+                                <DatabasePlaylist key={index} pd={databasePlaylist} removePlaylistFromDatabase={removePlaylistFromDatabase}/>
                             ))}
                         </tbody>
                     </table>
