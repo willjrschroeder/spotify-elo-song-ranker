@@ -127,19 +127,19 @@ function App() {
                 {(user && spotifyToken) ? <Home /> : <Redirect to="/spotify" />}
               </Route>
               <Route exact path="/playlistManager">
-                <ManagePlaylists></ManagePlaylists>
+                {user ? <ManagePlaylists></ManagePlaylists> : <Redirect to="/"/>}
               </Route>
               <Route exact path="/eloGame">
-                <EloGamePage />
+              {user ? <EloGamePage></EloGamePage> : <Redirect to="/"/>}
               </Route>
               <Route exact path="/confirmDelUser">
-                <ConfirmDeleteUser></ConfirmDeleteUser>
+              {user ? <ConfirmDeleteUser></ConfirmDeleteUser> : <Redirect to="/"/>}
               </Route>
               <Route exact path="/confirmDelPlaylist">
-                <ConfirmDeletePlaylist></ConfirmDeletePlaylist>
+              {user ? <ConfirmDeletePlaylist></ConfirmDeletePlaylist> : <Redirect to="/"/>}
               </Route>
               <Route exact path="/summary">
-                <Summary></Summary>
+              {user ? <Summary></Summary> : <Redirect to="/"/>}
               </Route>
               <Route exact path="/admin">
               {user ? (user.hasRole("admin") ? <Admin></Admin> : <Redirect to="/home"/>) : <Redirect to="/"/>}
