@@ -36,7 +36,7 @@ public class TrackJdbcRepo implements TrackRepo{
         }
 
         return tracks;
-        
+
     }
 
 
@@ -60,6 +60,15 @@ public class TrackJdbcRepo implements TrackRepo{
 
         return tracks;
 
+    }
+
+    @Override
+    public List<Track> getTracksByAppUserId(int appUserId) {
+        final String sql = "select * from track as t \n" +
+                "where app_user_id = ?;";
+        List<Track> tracks = new ArrayList<>();
+
+        return null;
     }
 
     @Override
@@ -129,21 +138,15 @@ public class TrackJdbcRepo implements TrackRepo{
         return template.query(sql, new AlbumMapper(), trackUri);
     }
 
-    @Override
-    public List<Track> getTracksByAppUserId(int appUserId) {
-        final String sql = "select * from track as t \n" +
-                "where app_user_id = ?;";
-        List<Track> tracks = new ArrayList<>();
 
-        return null;
-    }
 
     public List<Artist> getTop10Artists(int appUserId) {
-        final String sql = "select avg(t.elo_score)\n" +
+        final String sql = "select avg(t.elo_score), artist_name\n" +
                 "from artist a\n" +
                 "inner join track_artist ta on ta.artist_uri = a.artist_uri\n" +
                 "inner join track t on t.track_uri = ta.track_uri\n" +
-                "group by a.artist_uri;";
+                "group by a.artist_uri\n"+
+                "limit 10;";
         return null;
     }
 
