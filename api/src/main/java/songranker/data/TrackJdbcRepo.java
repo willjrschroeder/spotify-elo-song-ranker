@@ -26,19 +26,29 @@ public class TrackJdbcRepo implements TrackRepo{
 
 
 
+
+
         return null;
     }
     @Override
     public List<Track> getTracksByPlaylistUri(String playlistUri) {
         List<String> trackUris = getTrackUrisByPlaylistUri(playlistUri);
-        List<Album> trackAlbums = getAlbumsByTrackUri(trackUris);
-        List<Artist> trackArtists = getArtistsByTrackUri(trackUris);
+        List<Album> trackAlbums;
+        List<Artist> trackArtists;
+        List<Track> tracks = new ArrayList<>();
         final String sql = "select * from track as t\n"
                 +"inner join playlist as p\n"
                 +"on p.app_user_id = t.app_user_id\n"
                 +"where p.playlist_uri = ?;";
 
-        return template.query(sql, new TracksMapper(trackArtists, trackAlbums), playlistUri);
+        for(String eachUri : trackUris){
+            trackAlbums = getAlbumsByTrackUri(eachUri);
+            trackArtists = getArtistsByTrackUri(eachUri);
+           tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), playlistUri));
+        }
+
+        return tracks;
+
     }
 
     @Override
@@ -61,7 +71,7 @@ public class TrackJdbcRepo implements TrackRepo{
             return resultSet.getString("track_uri");}, playlistUri);
     }
 
-    private List<Artist> getArtistsByTrackUri(List<String> trackUris) {
+    private List<Artist> getArtistsByTrackUri(String trackUri) {
         final String sql = "select * from artist as a\n"
                 +"inner join track_artist as ta\n"
                 +"on a.artist_uri = ta.artist_uri\n"
@@ -71,18 +81,13 @@ public class TrackJdbcRepo implements TrackRepo{
 
         List<Artist> trackArtists = new ArrayList<>();
 
-        List<Genre> artistGenres = getGenresByTrackUri(trackUris);
+        List<Genre> artistGenres = getGenresByTrackUri(trackUri);
 
-        for(String each : trackUris){
-            List<Artist> matchingArtists = template.query(sql, new ArtistMapper(artistGenres), each);
 
-            trackArtists.addAll(matchingArtists);
-        }
-
-        return trackArtists;
+        return template.query(sql, new ArtistMapper(artistGenres), trackUri);
     }
 
-    private List<Genre> getGenresByTrackUri(List<String> trackUris) {
+    private List<Genre> getGenresByTrackUri(String trackUri) {
 
         final String sql = "select * from genre as g\n"
                 +"inner join genre_artist as ga\n"
@@ -91,31 +96,18 @@ public class TrackJdbcRepo implements TrackRepo{
                 +"on ta.artist_uri = ga.artist_uri\n"
                 +"where ta.track_uri = ?;";
 
-        List<Genre> genres = new ArrayList<>();
 
-        for(String each : trackUris){
-            List<Genre> matchingGenres = template.query(sql, new GenreMapper(), each);
-
-            genres.addAll(matchingGenres);
-        }
-
-        return genres;
+        return template.query(sql, new GenreMapper(), trackUri);
     }
 
-    private List<Album> getAlbumsByTrackUri(List<String> trackUris) {
+    private List<Album> getAlbumsByTrackUri(String trackUri) {
         final String sql = "select * from album as ab\n"
                 +"inner join track_album as ta\n"
                 +"on ab.album_uri = ta.album_uri\n"
                 +"where ta.track_uri = ?;";
 
-        List<Album> albums = new ArrayList<>();
-        for(String each : trackUris){
-            List<Album> matchingAlbums = template.query(sql, new AlbumMapper(), each);
 
-            albums.addAll(matchingAlbums);
-        }
-
-        return albums;
+        return template.query(sql, new AlbumMapper(), trackUri);
     }
 
     @Override
