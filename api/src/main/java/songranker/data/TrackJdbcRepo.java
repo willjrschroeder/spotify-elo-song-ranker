@@ -135,16 +135,51 @@ public class TrackJdbcRepo implements TrackRepo{
     public List<Artist> getTop10Artists(int appUserId) {
         final String sql = "select avg(t.elo_score), a.artist_uri, a.artist_name, a.spotify_url, a.artist_image_link\n" +
                 "from artist a\n" +
-                "inner join track_artist ta on ta.artist_uri = a.artist_uri\n" +
+                "inner join \n" +
+                "(select *\n" +
+                "from track_artist\n" +
+                "where artist_uri = ?\n" +
+                ")\n" +
+                "as ta on ta.artist_uri = a.artist_uri\n" +
                 "inner join (\n" +
                 "\tselect *\n" +
                 "    from track \n" +
                 "    where app_user_id = ?\n" +
                 ") as t\n" +
                 "on t.track_uri = ta.track_uri\n" +
-                "group by a.artist_uri\n" +
-                "limit 10;\n";
-        return template.query(sql, new ArtistMapper(), appUserId);
+                "group by a.artist_uri;";
+
+        List<String> artistUris = getArtistUrisByUserId(appUserId);
+        List<Genre> artistGenre;
+        List<Artist> artists = new ArrayList<>();
+
+        for(String eachUri : artistUris){
+            artistGenre = getGenresByArtistUri(eachUri);
+            artists.addAll(template.query(sql, new ArtistMapper(artistGenre), eachUri, appUserId));
+        }
+
+        return artists;
+    }
+    private List<String> getArtistUrisByUserId(int appUserId) {
+        final String sql = "select ta.artist_uri \n" +
+                "from track_artist ta\n" +
+                "\tinner join track t on t.track_uri = ta.track_uri\n" +
+                "\twhere t.app_user_id = ?;";
+
+        return template.query(sql, (resultSet, rowNum) -> {
+            return resultSet.getString("artist_uri");}, appUserId);
+    }
+    private List<Genre> getGenresByArtistUri(String artistUri) {
+
+        final String sql = "select * from genre as g\n"
+                +"inner join genre_artist as ga\n"
+                +"on g.genre_id = ga.genre_id\n"
+                +"inner join track_artist as ta\n"
+                +"on ta.artist_uri = ga.artist_uri\n"
+                +"where ta.artist_uri = ?;";
+
+
+        return template.query(sql, new GenreMapper(), artistUri);
     }
 
     public List<Genre> getTop10Genres(int appUserId) {
