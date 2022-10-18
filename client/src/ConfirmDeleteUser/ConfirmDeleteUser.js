@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import "./ConfirmDeleteUser.css";
 
@@ -11,6 +11,8 @@ function ConfirmDeleteUser() {
     const user = location.state;
     const serverAuth = useContext(AuthContext);
 
+    const history = useHistory();
+
 
     function deleteUser() {
         fetch(`http://localhost:8080/api/user/delete/${user.appUserId}`, {
@@ -21,7 +23,9 @@ function ConfirmDeleteUser() {
         }
     }).then(response => {
             if (response.status === 204) {
-                return response.json();
+                const holder = response.json();
+                history.push("/admin")
+                return holder;
                 } else (console.log(response)) // TODO: log success message
         }).catch(error => {
             console.log(error); // TODO: log error message
