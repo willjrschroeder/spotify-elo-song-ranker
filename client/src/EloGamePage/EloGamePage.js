@@ -11,14 +11,13 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
 
     const serverAuth = useContext(AuthContext);
     const [currentTracks, setCurrentTracks] = useState();
-    const [unselectableTracks, setUnselectableTracks] = useState([]);
     const [track1, setTrack1] = useState();
     const [track2, setTrack2] = useState();
 
 
     // Load a collection of tracks from the API. Perform once on page load
     useEffect(() => {
-        fetch(`http://localhost:8080/api/track/${playlist.playlistUri}`, {
+        fetch(`http://localhost:8080/api/track/playlist/${playlist.playlistUri}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -32,7 +31,7 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
             })
             .then(tracks => {
                 setCurrentTracks(tracks);
-                randomizeTracks(tracks, unselectableTracks);
+                randomizeTracks(tracks);
             });
 
     }, []);
@@ -66,8 +65,6 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
         }
 
         putScores(winner, loser);
-        setUnselectableTracks(unselectableTracks.filter((element) => element !== winner)); // removes the winner from unselectableTracks
-        setUnselectableTracks(unselectableTracks.filter((element) => element !== loser)); // removes the loser from unselectableTracks
 
     }
 
@@ -89,14 +86,12 @@ function updateScores(winner, loser) { // probably triggered by onClick in GameT
 
     setCurrentTracks(updatedTrackList);
 
-    setUnselectableTracks([...unselectableTracks, winner, loser]); // mark the tracks being updated as unselectable
-
     sendScoresToDatabase(winner, loser);
 
     // randomly chooses new tracks
     let newTracks = null;
     while (!newTracks) { // continues to loop until there are enough tracks to select from (could be awaiting posts)
-        newTracks = randomizeTracks(updatedTrackList, [...unselectableTracks, winner, loser]);
+        newTracks = randomizeTracks(updatedTrackList);
     }
 
     // changes the tracks that are being displayed by the return of the function
@@ -109,18 +104,10 @@ function updateScores(winner, loser) { // probably triggered by onClick in GameT
 // does not choose tracks if they have a pending put request to update their score
 // returns selected tracks if at least two tracks are available to be chosen
 // returns two null tracks if there are not at least two selectable tracks
-function randomizeTracks(trackCollection, unselectableTracks) {
-    let selectableTracks = trackCollection.filter((element) => {
-        return (!unselectableTracks.includes(element)); // returns true if the current track is not included in the unselectableTracks array
-    });
-
-    // returns null if there aren't two selectable tracks. Need to wait for put requests to resolve
-    if (selectableTracks.length < 2) {
-        return null;
-    }
-
+function randomizeTracks(trackCollection) {
+    
     // select the first random track
-    let selectedIndex = Math.floor(Math.random() * selectableTracks.length);
+    let selectedIndex = Math.floor(Math.random() * trackCollection.length);
     let selectedIndex2 = -1;
     let keep_going = true;
 

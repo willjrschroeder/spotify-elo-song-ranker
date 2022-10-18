@@ -13,7 +13,7 @@ function GameTrack({ displayTrack, otherTrack, updateScores }) {
         <>
             <div className="flexTrackUpdate">
                 <div>
-                    <img src={displayTrack.albums[0].albumImageLink} />
+                    <img src={displayTrack.albums[0].albumImageLink} alt="Song's album"/>
                     <h3>{displayTrack.title}</h3>
                     <h4>{displayTrack.artists[0].artistName}</h4>
                 </div>

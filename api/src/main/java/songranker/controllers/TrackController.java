@@ -17,7 +17,7 @@ public class TrackController {
     @Autowired
     TrackService service;
 
-    @GetMapping("/{playlistUri}")
+    @GetMapping("/playlist/{playlistUri}")
     public ResponseEntity<Object> getTracksByPlaylistUri(@PathVariable String playlistUri) {
         Result<List<Track>> result = service.getTracksByPlaylistUri(playlistUri);
 

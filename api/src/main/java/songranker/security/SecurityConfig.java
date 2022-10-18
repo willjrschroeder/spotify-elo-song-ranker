@@ -39,9 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.POST,
     "/api/spotify_data").authenticated() // allow only users and admins to access write SpotifyData endpoint
             .antMatchers(HttpMethod.GET,
-    "/api/track/**/**").authenticated() // allow only users and admins to access getTrackByPlaylist endpoint
+    "/api/track/**").authenticated() // allow only users and admins to access getTrackByPlaylist endpoint
             .antMatchers(HttpMethod.GET,
-    "/api/playlist/**").authenticated() // allow only users and admins to access getPlaylists by user ID endpoint
+    "/api/track/playlist/**").authenticated() // allow only users and admins to access getTrackByPlaylist endpoint
+            .antMatchers(HttpMethod.GET,
+    "/api/playlist/**").authenticated() // allow only users and admins to access playlist endpoints
             //.antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission //TODO: turn this back on
             .and()
             .sessionManagement()

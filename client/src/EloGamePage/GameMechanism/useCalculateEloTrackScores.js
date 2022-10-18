@@ -1,5 +1,5 @@
 function useCalculateEloTrackScores(winnerTrack, loserTrack){
-    const k = 32; // constant that determines the maximum a score can change by in each match
+    const k = 50; // constant that determines the maximum a score can change by in each match
     let winnerScore = winnerTrack.eloScore;
     let loserScore = loserTrack.eloScore;
     let updatedWinner = {...winnerTrack};

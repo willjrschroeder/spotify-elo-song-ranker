@@ -140,7 +140,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
     }
 
-    public List<AppRole> getRolesByAppUserId(int app_user_id){
+    private List<AppRole> getRolesByAppUserId(int app_user_id){
         String sql = "select r.app_role_id, r.role_name\n" +
                 "from app_role as r\n"+
                 "inner join user_roles as ur\n"+
@@ -152,7 +152,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
         return template.query(sql, new AppRoleMapper(), app_user_id);
     }
 
-    public List<AppRole> getRoleByRoleName(String roleName){
+   public List<AppRole> getRoleByRoleName(String roleName){
         String sql = "select r.app_role_id, r.role_name\n"+
                 "from app_role as r\n"+
                 "where r.role_name = ?;";
