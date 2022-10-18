@@ -15,7 +15,7 @@ function Track(props) {
         <tr>
             <td>{props.title}</td>
             <td>{props.pop}</td>
-            <td>{artists.join(", ")}</td>
+            <td>{isEmptyOrUndefined ? artists.join(", ") : "No "}</td>
             <td>{props.elo}</td>
         </tr> 
         </>

@@ -10,11 +10,14 @@ function Summary() {
     const [artists, setArtists] = useState([]);
     const [genres, setGenres] = useState([]);
 
+    let tracks10 = tracks.slice(0,10);
+    let artists10 = artists.slice(0,10);
+
     const auth = useContext(AuthContext);
 
     function getAllTracksByUser() {
 
-        fetch( "http://localhost:8080/api/track/"+auth.user.id , {
+        fetch( "http://localhost:8080/api/track/top10track/"+auth.user.id , {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -97,7 +100,7 @@ function Summary() {
                                 </tr>
                             </thead>
                             <tbody>
-                            {tracks.map((t, index) =>
+                            {tracks10.map((t, index) =>
                                 <Track key = {index} title={t.title} pop={t.popularityNumber} elo={t.eloScore} artists={t.artists}></Track>
                                 )}
                             </tbody>
@@ -128,7 +131,7 @@ function Summary() {
                                 </tr>
                             </thead>
                             <tbody>
-                            {artists.map((a, index) =>
+                            {artists10.map((a, index) =>
                                 <Artist key = {index} artist={a.artistName} genres={a.genres}></Artist>
                                 )}
                             </tbody>
