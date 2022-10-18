@@ -14,15 +14,18 @@ function Playlist(props) {
 
 
 
-    return(<>
-        <tr>    
-            <td><img className="images" src={props.p.images[0].url} alt="img"></img></td>  
-            <td>{props.p.name}</td>
-            <td><button onClick={() => props.addPlaylist(spotifyData)}>Add Tracks</button></td> 
+    return (<>
+        <tr>
+            <td><img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" src={props.p.images[0].url} alt="img"></img></td>
+            <td>
+                <p>Playlist Title:</p>
+                <p>{props.p.name}</p>
+                <button onClick={() => props.addPlaylist(spotifyData)}>Add Playlist to Tracking</button>
+            </td>
         </tr>
 
-                    
-                
+
+
     </>
     )
 

@@ -35,9 +35,9 @@ function ManagePlaylists() {
                 } else (console.log(response))
             })
             .then(databasePlaylists => {
-                console.log(databasePlaylists);
                 setDatabasePlaylists(databasePlaylists);
-            });
+            })
+            .catch(showMessage('Error connecting to Spotify server.', true));
     }
 
 
@@ -103,41 +103,38 @@ function ManagePlaylists() {
     return (<>
         <div className="header">Manage Playlists</div>
         <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
-        <div className="flex-container">
-            <div>
-                <table className="table">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {databasePlaylists.map((databasePlaylist, index) => (
-                            <DatabasePlaylist key={index} pd={databasePlaylist} />
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-            <div >
-                <table className="table table-bordered">
-                    <thead className="thead-dark">
-                        <tr className="table-rows">
-                            <th></th>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody className="tbl-body">
-                        {playlists.map((playlist, index) => {
-                            const databasePlaylistUris = databasePlaylists.map((playlist) => (playlist.playlistUri));
+        <div class="container-fluid w-50">
+            <div class="row">
+            <div class="col">
+                    <table className="table">
+                        <thead className="thead-dark">
+                            <tr className="table-rows">
+                                <th colSpan={2}>Spotify Playlists</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {playlists.map((playlist, index) => {
+                                const databasePlaylistUris = databasePlaylists.map((playlist) => (playlist.playlistUri));
 
-                            return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
-                        })}
-                    </tbody>
-                </table>
-
+                                return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <table className="table">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th colSpan={2}>Currently Tracked Playlists</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {databasePlaylists.map((databasePlaylist, index) => (
+                                <DatabasePlaylist key={index} pd={databasePlaylist} />
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </>
