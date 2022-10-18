@@ -3,7 +3,6 @@ import "./ManagePlaylists.css"
 import SpotifyWebApi from 'spotify-web-api-node';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import DatabasePlaylist from "../Playlist/DatabasePlaylists";
 
@@ -16,15 +15,11 @@ const spotifyApi = new SpotifyWebApi({
 
 
 function ManagePlaylists() {
-
-
     const spotifyAuth = useContext(SpotifyAuthContext);
     const serverAuth = useContext(AuthContext);
 
-
     const [playlists, setPlaylists] = useState([]);
     const [databasePlaylists, setDatabasePlaylists] = useState([])
-
 
     function getAllPlaylists() {
         fetch(`http://localhost:8080/api/playlist/${serverAuth.user.id}`, {
