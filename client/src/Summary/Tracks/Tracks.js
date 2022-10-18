@@ -33,7 +33,6 @@ function Tracks() {
                 <tr>
                     <th>Track Name</th>
                     <th>Spotify Populatity Score</th>
-                    <th>Artist(s)</th>
                     <th>EloScore</th>
                 </tr>
             </thead>

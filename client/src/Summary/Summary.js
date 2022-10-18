@@ -1,6 +1,9 @@
 import { useContext, useState, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import "./Summary.css";
+import Artist from "./Tracks/Artist/Artist";
+import Genre from "./Tracks/Genre/Genre";
+import Track from "./Tracks/Track/Track";
 function Summary() {
 
     const [tracks, setTracks] = useState([]);
@@ -83,13 +86,53 @@ function Summary() {
         <h1>Summary</h1>
         <div className="flex-summary">
                     <div>
-                        <h5>Top 10 Tracks</h5>
+                    <h5>Top Tracks</h5>
+                        <table className="table table-striped">
+                            <thead className="table-dark">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Spotify Popularity</th>
+                                    <th>Artist(s)</th>
+                                    <th>Elo Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {tracks.map((t, index) =>
+                                <Track key = {index} title={t.title} pop={t.popularityNumber} elo={t.eloScore} artists={t.artists}></Track>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                     <div>
-                        <h5>Top 10 Genres</h5>
+                        <h5>Top Genres</h5>
+                        <table className="table table-striped">
+                            <thead className="table-dark">
+                                <tr>
+                                    <th>Genre</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {genres.map((g, index) =>
+                                <Genre key = {index} genreName={g.genreName}></Genre>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                     <div>
-                        <h5>Top 10 Artists</h5>
+                        <h5>Top Artists</h5>
+                        <table className="table table-striped">
+                            <thead className="table-dark">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Genre(s)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {artists.map((a, index) =>
+                                <Artist key = {index} artist={a.artistName} genres={a.genres}></Artist>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
         </>
