@@ -51,6 +51,7 @@ function ManagePlaylists() {
                 return spotifyApi.getUserPlaylists(data.body.id);
             })
             .then(function (data) {
+                console.log(data.body.items);
                 setPlaylists(data.body.items);
             });
     }
