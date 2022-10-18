@@ -32,7 +32,23 @@ public class SpotifyDataService {
 
         boolean addResult = repository.addSpotifyData(spotifyData);
         if(!addResult) {
-            result.addMessage("There was an error writing to the database", ResultType.INVALID); // TODO: Not sure if this is necessary. Depends on what we decide to return from the repo method
+            result.addMessage("There was an error writing to the database", ResultType.INVALID);
+        }
+
+        return result;
+    }
+
+    public Result deleteSpotifyData(String playlistUri, int appUserId){
+        Result result = new Result();
+
+        if(playlistUri == null || playlistUri.isBlank()) {
+            result.addMessage("Playlist URI is required", ResultType.INVALID);
+            return result;
+        }
+
+        boolean success = repository.deleteSpotifyData(playlistUri, appUserId);
+        if(!success) {
+            result.addMessage("There was an error deleting from the database", ResultType.INVALID);
         }
 
         return result;

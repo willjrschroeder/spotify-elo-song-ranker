@@ -147,7 +147,8 @@ public class TrackJdbcRepo implements TrackRepo{
                 "    where app_user_id = ?\n" +
                 ") as t\n" +
                 "on t.track_uri = ta.track_uri\n" +
-                "group by a.artist_uri;";
+                "group by a.artist_uri\n" +
+                "limit 10;";
 
         List<String> artistUris = getArtistUrisByUserId(appUserId);
         List<Genre> artistGenre;
@@ -194,7 +195,8 @@ public class TrackJdbcRepo implements TrackRepo{
                 "on t.track_uri = ta.track_uri\n" +
                 "inner join genre_artist ga on ga.artist_uri = a.artist_uri\n" +
                 "inner join genre g on g.genre_id = ga.genre_id\n" +
-                "group by g.genre_id;";
+                "group by g.genre_id\n" +
+                "limit 10;";
         return template.query(sql, new GenreMapper(), appUserId);
     }
 

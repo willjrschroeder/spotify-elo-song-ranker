@@ -29,4 +29,13 @@ public class SpotifyDataController {
         return ErrorResponse.build(result);
     }
 
+    @DeleteMapping("/delete/{playlistUri}/{appUserId}")
+    public ResponseEntity<Object> delete(@PathVariable String playlistUri, @PathVariable int appUserId) {
+        Result result = service.deleteSpotifyData(playlistUri, appUserId);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return ErrorResponse.build(result);
+    }
+
 }

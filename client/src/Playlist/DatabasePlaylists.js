@@ -1,25 +1,37 @@
 import "./Playlist.css";
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
 
-function DatabasePlaylist({ pd }) {
+function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
 
     const location = {
         pathname: '/eloGame',
         state: pd
-      }
-      console.log(location);
+    }
 
-    return (<>
-            <tr>    
-            <td> <img className="images" src={pd.playlistImageLink} alt="img"></img></td>  
-            <td>{pd.name}</td>
-            <td>            <Link to={location}> 
-                <button>Rank Tracks in this Playlist</button>
-            </Link>Add Tracks</td> 
-        </tr>
-           
+    function handleClick() {
+        removePlaylistFromDatabase(pd.playlistUri);
+    }
 
-    </>
+    return (
+        <>
+            <tr>
+                <td>
+                    <img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" src={pd.playlistImageLink} alt="Spotify playlist" />
+                    </td>
+                <td>
+                    
+                    <p>{pd.playlistName}</p>
+                    <Link to={location}>
+                        <button>Rank Tracks in this Playlist</button>
+                    </Link>
+                    <button onClick={handleClick}>Remove This Playlist From Tracking</button>
+                </td>
+            </tr>
+
+
+        </>
     )
 
 }

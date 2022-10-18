@@ -18,9 +18,6 @@ function Home() {
     )
     return (
         <>
-            <div>
-                <button className='logout' onClick={() => auth.logout()}>Logout</button>
-            </div>
             <div className="header">Home Page</div>
             <div className="button-area">
                 <Link to="/playlistManager" ><button>Manage Playlists</button></Link>
