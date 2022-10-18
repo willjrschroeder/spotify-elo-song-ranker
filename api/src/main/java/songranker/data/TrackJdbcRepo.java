@@ -181,9 +181,9 @@ public class TrackJdbcRepo implements TrackRepo{
         final String sql = "select * from genre as g\n"
                 +"inner join genre_artist as ga\n"
                 +"on g.genre_id = ga.genre_id\n"
-                +"inner join track_artist as ta\n"
-                +"on ta.artist_uri = ga.artist_uri\n"
-                +"where ta.artist_uri = ?;";
+                +"inner join artist as a\n"
+                +"on a.artist_uri = ga.artist_uri\n"
+                +"where a.artist_uri = ?;";
 
 
         return template.query(sql, new GenreMapper(), artistUri);
