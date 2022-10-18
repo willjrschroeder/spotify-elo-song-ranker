@@ -24,12 +24,23 @@ public class TrackJdbcRepo implements TrackRepo{
     public List<Track> getAllTracks(int appUserId){
         final String sql = "select * from track where app_user_id = ?;";
 
+        List<String> trackUris = getTrackUrisByUserId(appUserId);
+        List<Album> trackAlbums;
+        List<Artist> trackArtists;
+        List<Track> tracks = new ArrayList<>();
 
+        for(String eachUri : trackUris){
+            trackAlbums = getAlbumsByTrackUri(eachUri);
+            trackArtists = getArtistsByTrackUri(eachUri);
+            tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), appUserId));
+        }
 
-
-
-        return null;
+        return tracks;
+        
     }
+
+
+
     @Override
     public List<Track> getTracksByPlaylistUri(String playlistUri) {
         List<String> trackUris = getTrackUrisByPlaylistUri(playlistUri);
@@ -69,6 +80,14 @@ public class TrackJdbcRepo implements TrackRepo{
 
         return template.query(sql, (resultSet, rowNum) -> {
             return resultSet.getString("track_uri");}, playlistUri);
+    }
+
+    private List<String> getTrackUrisByUserId(int appUserId) {
+        final String sql = "select track_uri from playlist_track\n"
+                +"where app_user_id = ?;";
+
+        return template.query(sql, (resultSet, rowNum) -> {
+            return resultSet.getString("track_uri");}, appUserId);
     }
 
     private List<Artist> getArtistsByTrackUri(String trackUri) {
