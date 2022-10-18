@@ -134,4 +134,8 @@ public class TrackJdbcRepo implements TrackRepo{
     public List<Genre> getTop10Genres(int appUserId) {
         return null;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ecbb418a6643ad895fddfa68b07d2f30cc809406

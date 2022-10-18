@@ -2,7 +2,7 @@ import useCalculateEloTrackScores from "./useCalculateEloTrackScores";
 
 
 function GameTrack({ displayTrack, otherTrack, updateScores }) {
-    const [ updatedWinnerTrack, updatedLoserTrack ] = useCalculateEloTrackScores(displayTrack, otherTrack);
+    const [updatedWinnerTrack, updatedLoserTrack] = useCalculateEloTrackScores(displayTrack, otherTrack);
 
 
     function handleClick() {
@@ -12,7 +12,12 @@ function GameTrack({ displayTrack, otherTrack, updateScores }) {
     return (
         <>
             <div className="flexTrackUpdate">
-                <h3>{displayTrack.title}: {displayTrack.eloScore}</h3>
+                <div>
+                    <img src={displayTrack.albums[0].albumImageLink} />
+                    <h3>{displayTrack.title}</h3>
+                    <h4>{displayTrack.artists[0].artistName}</h4>
+                </div>
+
                 <button onClick={handleClick}>Choose Track</button>
             </div>
         </>
