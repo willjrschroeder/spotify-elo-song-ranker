@@ -261,13 +261,13 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                         return ps;
                     });
                     if (rowsAffected <= 0) {
-                        return null;
+                        continue;
                     }
 
                     albums.add(eachAlbum);
                     existingAlbums.add(eachAlbum.getAlbumUri());
                 } else {
-                    return null;
+                    continue;
                 }
             }
 
@@ -300,7 +300,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                         }, keyHolder);
 
                         if (rowsAffected <= 0) {
-                            return null;
+                            continue;
                         }
 
                         eachGenre.setGenreId(keyHolder.getKey().intValue());
@@ -308,7 +308,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                         genres.add(eachGenre);
                         existingGenres.add(eachGenre.getGenreName());
                     } else {
-                        return null;
+                        continue;
                     }
                 }
 
