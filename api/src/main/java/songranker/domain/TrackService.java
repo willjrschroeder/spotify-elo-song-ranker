@@ -60,7 +60,7 @@ public class TrackService {
             return result;
         }
 
-        List<Track> tracks = repository.getTracksByAppUserId(appUserId);
+        List<Track> tracks = repository.getAllTracks(appUserId);
         result.setPayload(tracks);
         return result;
     }

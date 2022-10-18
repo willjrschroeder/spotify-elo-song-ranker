@@ -13,6 +13,9 @@ public class ArtistMapper implements RowMapper<Artist> {
     List<Genre> genres;
 
     public ArtistMapper(List<Genre> genres){this.genres = genres;}
+    public ArtistMapper(){
+
+    }
 
     @Override
     public Artist mapRow(ResultSet rs, int rowNum) throws SQLException{
