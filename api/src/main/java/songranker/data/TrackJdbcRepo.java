@@ -50,13 +50,13 @@ public class TrackJdbcRepo implements TrackRepo{
         final String sql = "select * from track as t\n"
                 +"inner join playlist as p\n"
                 +"on p.app_user_id = t.app_user_id\n"
-                +"where p.playlist_uri = ?;";
+                +"where t.track_uri = ?;";
 
         for(String eachUri : trackUris){
             trackAlbums = getAlbumsByTrackUri(eachUri);
             trackArtists = getArtistsByTrackUri(eachUri);
-            tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), playlistUri));
-        }
+            tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), eachUri));
+       }
 
         return tracks;
 

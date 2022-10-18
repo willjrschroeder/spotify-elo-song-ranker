@@ -18,7 +18,7 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
 
     // Load a collection of tracks from the API. Perform once on page load
     useEffect(() => {
-        fetch(`http://localhost:8080/api/track/${playlist.playlistUri}`, {
+        fetch(`http://localhost:8080/api/track/playlist/${playlist.playlistUri}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
