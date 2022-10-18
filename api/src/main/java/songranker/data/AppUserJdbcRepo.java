@@ -32,7 +32,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
                 "on au.app_user_id = ur.app_user_id\n"+
                 "inner join app_role as r\n"+
                 "on r.app_role_id = ur.app_role_id\n"+
-                "where r.role_name = ?;";
+                "where r.role_name = ? and au.disabled = 0;";
         return template.query(sql, new AppUserMapper(roles), "user");
     }
 

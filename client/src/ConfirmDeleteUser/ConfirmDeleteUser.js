@@ -18,10 +18,11 @@ function ConfirmDeleteUser() {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + serverAuth.user.token
-        }}).then(response => {
+        }
+    }).then(response => {
             if (response.status === 204) {
-                console.log(response.json()); // TODO: log success message
-            }
+                return response.json();
+                } else (console.log(response)) // TODO: log success message
         }).catch(error => {
             console.log(error); // TODO: log error message
         })

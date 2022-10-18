@@ -27,7 +27,7 @@ public class AppUserController {
         return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("{appUserId}")
+    @DeleteMapping("/delete/{appUserId}")
     public ResponseEntity<Object> deleteAppUserById(@PathVariable int appUserId){
         Result result = service.deleteAppUserById(appUserId);
 
