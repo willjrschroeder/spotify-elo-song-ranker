@@ -199,6 +199,24 @@ public class TrackJdbcRepo implements TrackRepo{
                 "limit 10;";
         return template.query(sql, new GenreMapper(), appUserId);
     }
+    @Override
+    public List<Track> getTop10Tracks(int appUserId){
+        final String sql = "select * from track where app_user_id = ? and track_uri = ? limit 10;";
+
+        List<String> trackUris = getTrackUrisByUserId(appUserId);
+        List<Album> trackAlbums;
+        List<Artist> trackArtists;
+        List<Track> tracks = new ArrayList<>();
+
+        for(String eachUri : trackUris){
+            trackAlbums = getAlbumsByTrackUri(eachUri);
+            trackArtists = getArtistsByTrackUri(eachUri);
+            tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), appUserId, eachUri));
+        }
+
+        return tracks;
+
+    }
 
 
 

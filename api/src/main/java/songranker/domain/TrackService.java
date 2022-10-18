@@ -90,4 +90,17 @@ public class TrackService {
         result.setPayload(genre);
         return result;
     }
+
+    public Result<List<Track>> getTop10Tracks(int appUserId) {
+        Result<List<Track>> result = new Result<List<Track>>();
+
+        if (appUserId <= 0) {
+            result.addMessage("User Id is required", ResultType.INVALID);
+            return result;
+        }
+
+        List<Track> tracks = repository.getTop10Tracks(appUserId);
+        result.setPayload(tracks);
+        return result;
+    }
 }

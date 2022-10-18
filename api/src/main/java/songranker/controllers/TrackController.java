@@ -63,5 +63,14 @@ public class TrackController {
         }
         return ErrorResponse.build(result);
     }
+    @GetMapping("/top10track/{appUserId}")
+    public ResponseEntity<Object> getTop10Tracks(@PathVariable int appUserId) {
+        Result<List<Track>> result = service.getTop10Tracks(appUserId);
+
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(result.getPayload(),HttpStatus.OK);
+        }
+        return ErrorResponse.build(result);
+    }
 }
 
