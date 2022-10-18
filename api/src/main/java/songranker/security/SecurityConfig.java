@@ -57,10 +57,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET,
     "/api/track/top10track/*").authenticated()
             .antMatchers(HttpMethod.GET,
-    "/api/user").hasAnyRole("admin")
+    "/api/user/active").hasAnyRole("admin")
             .antMatchers(HttpMethod.DELETE,
     "/api/user/delete/*").hasAnyRole("admin")
-            .antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission //TODO: turn this back on
+            .antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -71,9 +71,8 @@ function App() {
   };
 
   const logout = () => {
-    setUser(null);
-
     localStorage.removeItem(LOCAL_STORAGE_JWT_TOKEN_KEY);
+    setUser(null);
     localStorage.removeItem(LOCAL_STORAGE_SPOTIFY_TOKEN_KEY);
     setSpotifyToken(null);
   };
