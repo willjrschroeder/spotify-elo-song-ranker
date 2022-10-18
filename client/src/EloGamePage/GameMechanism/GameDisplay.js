@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import GameTrack from "./GameTrack";
-import useCalculateEloTrackScores from "./useCalculateEloTrackScores";
 
 
 function GameDisplay({ trackCollection }) {

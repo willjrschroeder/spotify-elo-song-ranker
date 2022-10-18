@@ -122,12 +122,9 @@ function ManagePlaylists() {
                     <tbody className="tbl-body">
                         {playlists.map((playlist, index) => {
                             const databasePlaylistUris = databasePlaylists.map((playlist) => (playlist.playlistUri));
-                        
-                             return (databasePlaylistUris.includes(playlist.uri)) ?  null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
-                            // <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
 
-                        })
-                        }
+                            return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
+                        })}
                     </tbody>
                 </table>
 
