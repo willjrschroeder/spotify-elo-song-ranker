@@ -154,9 +154,15 @@ public class TrackJdbcRepo implements TrackRepo{
         List<Genre> artistGenre;
         List<Artist> artists = new ArrayList<>();
 
+        List<String> written = new ArrayList<>();
+
         for(String eachUri : artistUris){
-            artistGenre = getGenresByArtistUri(eachUri);
-            artists.addAll(template.query(sql, new ArtistMapper(artistGenre), eachUri, appUserId));
+            if(!written.contains(eachUri)){
+                artistGenre = getGenresByArtistUri(eachUri);
+                artists.addAll(template.query(sql, new ArtistMapper(artistGenre), eachUri, appUserId));
+                written.add(eachUri);
+            }
+
         }
 
         return artists;

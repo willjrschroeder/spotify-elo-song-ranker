@@ -117,9 +117,9 @@ function ManagePlaylists() {
     return (<>
         <div className="header">Manage Playlists</div>
         <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
-        <div class="container-fluid w-50">
-            <div class="row">
-            <div class="col">
+        <div className="container-fluid w-50">
+            <div className="row">
+            <div className="col">
                     <table className="table">
                         <thead className="thead-dark">
                             <tr className="table-rows">
@@ -135,7 +135,7 @@ function ManagePlaylists() {
                         </tbody>
                     </table>
                 </div>
-                <div class="col">
+                <div className="col">
                     <table className="table">
                         <thead className="thead-dark">
                             <tr>
