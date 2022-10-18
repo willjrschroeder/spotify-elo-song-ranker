@@ -101,6 +101,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
         for(Integer roleId : roleIds){
             template.update(sql, appUser.getAppUserId(), roleId);
+
         }
 
 
@@ -125,6 +126,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
     }
 
+    @Override
     public List<AppRole> getRolesByUsername(String username){
         String sql = "select r.app_role_id, r.role_name\n" +
                 "from app_role as r\n"+
@@ -134,10 +136,11 @@ public class AppUserJdbcRepo implements AppUserRepo {
                 "\ton au.app_user_id = ur.app_user_id\n"+
                 "where au.username = ?;";
 
-        return template.query(sql, new AppRoleMapper(), username);
+       return template.query(sql, new AppRoleMapper(), username);
+
     }
 
-    public List<AppRole> getRolesByAppUserId(int app_user_id){
+    private List<AppRole> getRolesByAppUserId(int app_user_id){
         String sql = "select r.app_role_id, r.role_name\n" +
                 "from app_role as r\n"+
                 "inner join user_roles as ur\n"+
@@ -149,7 +152,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
         return template.query(sql, new AppRoleMapper(), app_user_id);
     }
 
-    public List<AppRole> getRoleByRoleName(String roleName){
+   public List<AppRole> getRoleByRoleName(String roleName){
         String sql = "select r.app_role_id, r.role_name\n"+
                 "from app_role as r\n"+
                 "where r.role_name = ?;";

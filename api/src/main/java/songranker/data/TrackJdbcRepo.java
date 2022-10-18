@@ -22,7 +22,7 @@ public class TrackJdbcRepo implements TrackRepo{
 
     @Override
     public List<Track> getAllTracks(int appUserId){
-        final String sql = "select * from track where app_user_id = ?;";
+        final String sql = "select * from track where app_user_id = ? and track_uri = ?;";
 
         List<String> trackUris = getTrackUrisByUserId(appUserId);
         List<Album> trackAlbums;
@@ -32,7 +32,7 @@ public class TrackJdbcRepo implements TrackRepo{
         for(String eachUri : trackUris){
             trackAlbums = getAlbumsByTrackUri(eachUri);
             trackArtists = getArtistsByTrackUri(eachUri);
-            tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), appUserId));
+            tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), appUserId, eachUri));
         }
 
         return tracks;
@@ -56,7 +56,7 @@ public class TrackJdbcRepo implements TrackRepo{
             trackAlbums = getAlbumsByTrackUri(eachUri);
             trackArtists = getArtistsByTrackUri(eachUri);
             tracks.addAll(template.query(sql, new TracksMapper(trackArtists, trackAlbums), eachUri));
-       }
+        }
 
         return tracks;
 
@@ -139,7 +139,7 @@ public class TrackJdbcRepo implements TrackRepo{
                 "inner join (\n" +
                 "\tselect *\n" +
                 "    from track \n" +
-                "    where app_user_id = 2\n" +
+                "    where app_user_id = ?\n" +
                 ") as t\n" +
                 "on t.track_uri = ta.track_uri\n" +
                 "group by a.artist_uri\n" +
