@@ -27,7 +27,6 @@ public class AppUserController {
         return ErrorResponse.build(result);
     }
 
-    @GetMapping("/all")
 
 
     @DeleteMapping("/delete/{appUserId}")

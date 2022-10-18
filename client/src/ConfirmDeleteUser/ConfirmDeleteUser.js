@@ -13,7 +13,6 @@ function ConfirmDeleteUser() {
 
     const history = useHistory();
 
-
     function deleteUser() {
         fetch(`http://localhost:8080/api/user/delete/${user.appUserId}`, {
             method: "DELETE",
@@ -23,9 +22,8 @@ function ConfirmDeleteUser() {
         }
     }).then(response => {
             if (response.status === 204) {
-                const holder = response.json();
                 history.push("/admin")
-                return holder;
+                return response.json();
                 } else (console.log(response)) // TODO: log success message
         }).catch(error => {
             console.log(error); // TODO: log error message
