@@ -28,8 +28,12 @@ function Login(props) {
         }).then(async response => {
             if (response.status === 200) {
                 const { jwt_token } = await response.json();
-                auth.login(jwt_token);
-                history.push("/spotify")
+                if(auth.login(jwt_token)) {
+                    history.push("/spotify");
+                }
+                else {
+                    showErrors("Invalid login credentials");
+                }
             } else if (response.status === 403) {
                 showErrors("Invalid login credentials.")
             }

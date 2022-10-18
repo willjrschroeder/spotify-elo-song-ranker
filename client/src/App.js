@@ -46,21 +46,25 @@ function App() {
 
   const login = (token) => {
 
-    localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_KEY, token)
-
-    const { sub, roles, display_name, id } = jwtDecode(token);
+    const { sub, roles, display_name, id, disabled } = jwtDecode(token);
 
     const user = {
       id: id,
       username: sub,
       display_name,
       roles,
+      disabled,
       token,
       hasRole(role) {
         return this.roles.some((r) => r.roleName === role);
       }
     };
 
+    if(user.disabled){
+      return false;
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_JWT_TOKEN_KEY, token)
     setUser(user);
 
     return user;
