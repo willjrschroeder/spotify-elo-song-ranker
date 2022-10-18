@@ -10,7 +10,5 @@ public interface TrackRepo {
 
     List<Track> getTracksByPlaylistUri(String playlistUri);
 
-    List<Track> getTracksByAppUserId(int appUserId);
-
     boolean updateTrackEloScore(Track updatedTrack);
 }

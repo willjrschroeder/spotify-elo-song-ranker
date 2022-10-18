@@ -62,14 +62,6 @@ public class TrackJdbcRepo implements TrackRepo{
 
     }
 
-    @Override
-    public List<Track> getTracksByAppUserId(int appUserId) {
-        final String sql = "select * from track as t \n" +
-                "where app_user_id = ?;";
-        List<Track> tracks = new ArrayList<>();
-
-        return null;
-    }
 
     @Override
     public boolean updateTrackEloScore(Track updatedTrack) {
@@ -141,17 +133,34 @@ public class TrackJdbcRepo implements TrackRepo{
 
 
     public List<Artist> getTop10Artists(int appUserId) {
-        final String sql = "select avg(t.elo_score), artist_name\n" +
+        final String sql = "select avg(t.elo_score), a.artist_uri, a.artist_name, a.spotify_url, a.artist_image_link\n" +
                 "from artist a\n" +
                 "inner join track_artist ta on ta.artist_uri = a.artist_uri\n" +
-                "inner join track t on t.track_uri = ta.track_uri\n" +
-                "group by a.artist_uri\n"+
-                "limit 10;";
-        return null;
+                "inner join (\n" +
+                "\tselect *\n" +
+                "    from track \n" +
+                "    where app_user_id = 2\n" +
+                ") as t\n" +
+                "on t.track_uri = ta.track_uri\n" +
+                "group by a.artist_uri\n" +
+                "limit 10;\n";
+        return template.query(sql, new ArtistMapper(), appUserId);
     }
 
     public List<Genre> getTop10Genres(int appUserId) {
-        return null;
+        final String sql = "select avg(t.elo_score), g.genre_id, g.genre_name\n" +
+                "from artist a\n" +
+                "inner join track_artist ta on ta.artist_uri = a.artist_uri\n" +
+                "inner join (\n" +
+                "\tselect *\n" +
+                "    from track \n" +
+                "    where app_user_id = ?\n" +
+                ") as t\n" +
+                "on t.track_uri = ta.track_uri\n" +
+                "inner join genre_artist ga on ga.artist_uri = a.artist_uri\n" +
+                "inner join genre g on g.genre_id = ga.genre_id\n" +
+                "group by g.genre_id;";
+        return template.query(sql, new GenreMapper(), appUserId);
     }
 
 
