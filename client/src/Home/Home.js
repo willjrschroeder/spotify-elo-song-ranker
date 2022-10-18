@@ -64,23 +64,7 @@ function Home() {
     return (
         <>
             <div className="header">Home Page</div>
-            <div className="button-area">
-                <Link to="/playlistManager" ><button>Manage Playlists</button></Link>
-            </div>
-            <div className="flex-summary">
-                <table className="table">
-                    <thead className="thead-dark">
-                        <tr className="table-rows">
-                            <th colSpan={2}>View Your Playlists</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {playlists.map((playlist, index) => {
-                            return <HomePagePlaylist key={index} p={playlist} index={index} />
-                        })}
-                    </tbody>
-                </table>
-            </div>
+
         </>
     )
 }

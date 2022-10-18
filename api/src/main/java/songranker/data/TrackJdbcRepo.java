@@ -133,7 +133,7 @@ public class TrackJdbcRepo implements TrackRepo{
 
 
     public List<Artist> getTop10Artists(int appUserId) {
-        final String sql = "select avg(t.elo_score), a.artist_uri, a.artist_name, a.spotify_url, a.artist_image_link\n" +
+        final String sql = "select avg(t.elo_score) as elo, a.artist_uri, a.artist_name, a.spotify_url, a.artist_image_link\n" +
                 "from artist a\n" +
                 "inner join \n" +
                 "(select *\n" +
@@ -202,6 +202,7 @@ public class TrackJdbcRepo implements TrackRepo{
                 "inner join genre_artist ga on ga.artist_uri = a.artist_uri\n" +
                 "inner join genre g on g.genre_id = ga.genre_id\n" +
                 "group by g.genre_id\n" +
+                "order by avg(t.elo_score) desc\n" +
                 "limit 10;";
         return template.query(sql, new GenreMapper(), appUserId);
     }
