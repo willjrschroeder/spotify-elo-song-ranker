@@ -149,6 +149,7 @@ constraint fk_genre_artist_genre_id
         
 	insert into user_roles (app_user_id, app_role_id) values
 		(1, 1),
+        (1, 2),
 		(2, 2),
         (2, 1),
         (3, 1);
