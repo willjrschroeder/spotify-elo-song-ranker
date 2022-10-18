@@ -8,6 +8,8 @@ import java.util.List;
 public interface AppUserRepo {
     List<AppUser> getAllUsers();
 
+    List<AppUser> getAllActiveUsers();
+
     AppUser getUserByUsername(String username);
 
     AppUser getAppUserById(int app_user_id);

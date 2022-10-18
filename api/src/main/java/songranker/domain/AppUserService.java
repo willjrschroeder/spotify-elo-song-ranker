@@ -18,7 +18,7 @@ public class AppUserService {
     public Result<List<AppUser>> getAllAppUsers() {
         Result result = new Result();
 
-        List<AppUser> users = repository.getAllUsers();
+        List<AppUser> users = repository.getAllActiveUsers();
 
         if(users == null) {
             result.addMessage("Error retrieving users from the database", ResultType.INVALID);

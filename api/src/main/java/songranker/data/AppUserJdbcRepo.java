@@ -24,7 +24,7 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
 
     @Override
-    public List<AppUser> getAllUsers(){
+    public List<AppUser> getAllActiveUsers(){
         List<AppRole> roles = getRoleByRoleName("user");
         final String sql = "select au.app_user_id, au.username, au.password_hash, au.display_name, au.disabled\n"+
                 "from app_user as au\n"+
@@ -34,6 +34,19 @@ public class AppUserJdbcRepo implements AppUserRepo {
                 "on r.app_role_id = ur.app_role_id\n"+
                 "where r.role_name = ? and au.disabled = 0;";
         return template.query(sql, new AppUserMapper(roles), "user");
+    }
+
+    @Override
+    public List<AppUser> getAllUsers(){List<AppRole> roles = getRoleByRoleName("user");
+        final String sql = "select au.app_user_id, au.username, au.password_hash, au.display_name, au.disabled\n"+
+                "from app_user as au\n"+
+                "inner join user_roles as ur\n"+
+                "on au.app_user_id = ur.app_user_id\n"+
+                "inner join app_role as r\n"+
+                "on r.app_role_id = ur.app_role_id\n"+
+                "where r.role_name = ?;";
+        return template.query(sql, new AppUserMapper(roles), "user");
+
     }
 
 
