@@ -220,14 +220,14 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                     });
 
                     if (rowsAffected <= 0) {
-                        return null;
+                        continue;
                     }
 
 
                     artists.add(eachArtist);
                     existingArtists.add(eachArtist.getArtistUri());
                 } else {
-                    return null;
+                    continue;
                 }
             }
         }
