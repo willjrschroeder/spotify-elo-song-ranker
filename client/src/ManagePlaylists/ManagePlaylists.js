@@ -35,10 +35,8 @@ function ManagePlaylists() {
                 } else (console.log(response))
             })
             .then(databasePlaylists => {
-                clearMessages();
                 setDatabasePlaylists(databasePlaylists);
             })
-            .catch(showMessage('Error connecting to Spotify server.', true));
     }
 
 
@@ -78,9 +76,6 @@ function ManagePlaylists() {
             }
             return Promise.reject(await response.json());
         })
-            .catch(errorList => {
-                showMessage('Could not connect to server.', true);
-            });
     }
 
     function removePlaylistFromDatabase(playlistUri) {
@@ -98,9 +93,6 @@ function ManagePlaylists() {
             }
             return Promise.reject(await response.json());
         })
-            .catch(errorList => {
-                showMessage('Could not connect to server.', true);
-            });
     }
 
     function showMessage(message, isErrorMessage) {

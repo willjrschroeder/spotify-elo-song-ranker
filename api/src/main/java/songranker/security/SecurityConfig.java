@@ -33,18 +33,34 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
             .antMatchers(HttpMethod.POST,
-    "/api/security/authenticate").permitAll() // allow anyone to access auth endpoint
+    "/api/security/authenticate").permitAll()
             .antMatchers(HttpMethod.POST,
-    "/api/security/register").permitAll() // allow anyone to access register endpoint
+    "/api/security/register").permitAll()
             .antMatchers(HttpMethod.POST,
-    "/api/spotify_data").authenticated() // allow only users and admins to access write SpotifyData endpoint
+    "/api/security/refresh_token").permitAll()
             .antMatchers(HttpMethod.GET,
-    "/api/track/**").authenticated() // allow only users and admins to access getTrackByPlaylist endpoint
+    "/api/playlist/*").authenticated()
+            .antMatchers(HttpMethod.POST,
+    "/api/spotify_data").authenticated()
+            .antMatchers(HttpMethod.DELETE,
+    "/api/spotify_data/delete/*/*").authenticated()
             .antMatchers(HttpMethod.GET,
-    "/api/track/playlist/**").authenticated() // allow only users and admins to access getTrackByPlaylist endpoint
+    "/api/track/*").authenticated()
             .antMatchers(HttpMethod.GET,
-    "/api/playlist/**").authenticated() // allow only users and admins to access playlist endpoints
-            //.antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission //TODO: turn this back on
+    "/api/track/playlist/*").authenticated()
+            .antMatchers(HttpMethod.PUT,
+    "/api/track").authenticated()
+            .antMatchers(HttpMethod.GET,
+    "/api/track/top10artist/*").authenticated()
+            .antMatchers(HttpMethod.GET,
+    "/api/track/top10genre/*").authenticated()
+            .antMatchers(HttpMethod.GET,
+    "/api/track/top10track/*").authenticated()
+            .antMatchers(HttpMethod.GET,
+    "/api/user").hasAnyRole("admin")
+            .antMatchers(HttpMethod.DELETE,
+    "/api/user/delete/*").hasAnyRole("admin")
+            .antMatchers("/**").denyAll() // deny all requests that reach the end of the chain w/o permission //TODO: turn this back on
             .and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

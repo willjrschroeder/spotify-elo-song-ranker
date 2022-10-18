@@ -54,6 +54,7 @@ function Admin() {
         let userArray = users.filter( u => u.username === username)
         setCurrentUser(userArray[0]);
     }
+    
 
     return(
         <>
