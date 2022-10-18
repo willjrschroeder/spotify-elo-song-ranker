@@ -17,15 +17,18 @@ public class AppUserController {
     @Autowired
     AppUserService service;
 
-    @GetMapping
-    public ResponseEntity<Object> getAllAppUsers() {
-        Result<List<AppUser>> result = service.getAllAppUsers();
+    @GetMapping("/active")
+    public ResponseEntity<Object> getAllActiveAppUsers() {
+        Result<List<AppUser>> result = service.getAllActiveAppUsers();
 
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.OK);
         }
         return ErrorResponse.build(result);
     }
+
+    @GetMapping("/all")
+
 
     @DeleteMapping("/delete/{appUserId}")
     public ResponseEntity<Object> deleteAppUserById(@PathVariable int appUserId){

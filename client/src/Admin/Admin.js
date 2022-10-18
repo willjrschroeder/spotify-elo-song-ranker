@@ -22,7 +22,7 @@ function Admin() {
       console.log(currentUser)
 
     function getAllUsers() {
-            fetch( `http://localhost:8080/api/user/`)
+            fetch( `http://localhost:8080/api/user/active`)
             .then( response => {
                 if( response.status === 200 ) {
                     return response.json();
