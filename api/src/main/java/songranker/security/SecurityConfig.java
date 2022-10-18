@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(HttpMethod.GET,
     "/api/track/playlist/*").authenticated()
             .antMatchers(HttpMethod.PUT,
-    "/api/track").authenticated()
+    "/api/track/").authenticated()
             .antMatchers(HttpMethod.GET,
     "/api/track/top10artist/*").authenticated()
             .antMatchers(HttpMethod.GET,
