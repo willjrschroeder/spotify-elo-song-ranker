@@ -86,7 +86,11 @@ public class AppUserJdbcRepo implements AppUserRepo {
 
     @Override
     public boolean deleteAppUserById(int appUserId) {
-        throw new UnsupportedOperationException();
+        final String sql = "update app_user\n"
+                +"set disabled = 1\n"
+                +"where app_user_id = ?;";
+
+        return (template.update(sql, appUserId)) > 0;
     }
 
     private void addUserRoles(AppUser appUser){
