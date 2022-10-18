@@ -73,21 +73,36 @@ function ManagePlaylists() {
         }).then(async response => {
             if (response.status === 201) {
                 getAllPlaylists();
-                return response.json(); //TODO: add success handling
+                showMessage('Playlist successfully added.', false);
             }
             return Promise.reject(await response.json());
         })
             .catch(errorList => {
-                if (errorList instanceof TypeError) {
-                    console.log("Could not connect to api.");
-                } else {
-                } //TODO: add error handling
+                showMessage('Could not connect to server.', true);
             });
+    }
 
+    function showMessage(message, isErrorMessage) {
+        clearMessages();
+
+        const messageContainer = document.getElementById("messages");
+
+        messageContainer.innerHTML = messageContainer.innerHTML + `<p>${message}</p>`;
+
+        if (isErrorMessage) {
+            messageContainer.className = "alert alert-danger w-25 m-auto mb-4";
+        } else {
+            messageContainer.className = "alert alert-success w-25 m-auto mb-4";
+        }
+    }
+
+    function clearMessages() {
+        document.getElementById("messages").innerHTML = "";
     }
 
     return (<>
         <div className="header">Manage Playlists</div>
+        <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
         <div className="flex-container">
             <div>
                 <table className="table">
