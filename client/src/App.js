@@ -138,7 +138,7 @@ function App() {
                 <Summary></Summary>
               </Route>
               <Route exact path="/admin">
-              {user.hasRole("admin") ? <Admin></Admin> : <Redirect to="/home" />}
+              {user ? (user.hasRole("admin") ? <Admin></Admin> : <Redirect to="/home"/>) : <Redirect to="/"/>}
                 
               </Route>
               <Route>
