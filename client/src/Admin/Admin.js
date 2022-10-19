@@ -85,28 +85,32 @@ function Admin() {
 
                     </form>
                     <div className="flex-user-select">
-                        {!currentUser ? <div>
-                            <h3>Select a User to View Their Data</h3>
-                        </div> : <div>
-                            <h4>Username: {currentUser.username}</h4>
-                            <h4>Display Name: {currentUser.displayName}</h4>
-                            <button>Update User</button>
-                            <div><Link to={userLocation}>Delete</Link></div>
+                        {!currentUser ?
                             <div>
-                                <h4>User Playlists</h4>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {playlists.map((p, index) => (<UserPlaylist p={p} key={index}></UserPlaylist>))}
-                                    </tbody>
-                                </table>
+                                <h3>Select a User to View Their Data</h3>
                             </div>
-                        </div>}
+                            :
+                            <div>
+                                <h4>Username: {currentUser.username}</h4>
+                                <h4>Display Name: {currentUser.displayName}</h4>
+                                <Link to={userLocation}>
+                                    <button>Delete User</button>
+                                </Link>
+                                <div>
+                                    <h4>User Playlists</h4>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {playlists.map((p, index) => (<UserPlaylist p={p} key={index}></UserPlaylist>))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>}
                     </div>
                 </div>
             </div>
