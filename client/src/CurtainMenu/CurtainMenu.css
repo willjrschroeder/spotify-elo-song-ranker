@@ -11,27 +11,31 @@
     justify-content: center;
     align-items: center;
     opacity: 50%;    
+    z-index: 1000000;
 }
 .floating-btn img {
     width: 35px; 
     height: 35px;
 }
+
 nav {
     position: fixed;
     right: 0;
     top: 0;
     background: black;
-    height: 100vh;
+    height: 20vh;
+    width: 100vw;
     transition: transform 0.4s ease-in-out;
-    opacity: 50%;
+    z-index: 2;
 }
 
 nav.active {
-    transform: translateX(0%)
+    transform: translateY(0%)
 }
 
 nav a {
-    display: block;
+    display: inline;
+    flex-direction: row;
     padding: 10px 25px;
     font-size: 25px;
 }
@@ -39,21 +43,38 @@ nav a:first-of-type{
     padding-top: 35px;
 }
 
-.close-curtain {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-
-    cursor: pointer;
-    color: #fff;
-    background: crimson;
-}
 .links {
-    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 140px;
+}
+body {
+    width: 100vw;
 }
 
-@media screen and (max-width: 900px){
+@media screen {
     nav {
-        transform: translateX(100%);
+        transform: translateY(-100%);
     }
+}
+.title {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 50px;
+    right: 50px;
+    text-align: center;
+    z-index: 10000;
+}
+.title-active {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 100000;
+    color: bisque;
+
 }
