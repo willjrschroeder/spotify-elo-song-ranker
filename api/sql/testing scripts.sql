@@ -53,3 +53,12 @@ where t.app_user_id = 1
 group by a.artist_uri
 order by elo desc
 limit 10;
+
+
+-- Master Top ten artist
+select * from artist as a
+inner join track_artist
+as ta on ta.artist_uri = a.artist_uri
+inner join track as t on t.track_uri = ta.track_uri
+where t.app_user_id = 1 and a.artist_uri = 'spotify:artist:581C5Qwl87TskfBEzuoisu'
+limit 1;

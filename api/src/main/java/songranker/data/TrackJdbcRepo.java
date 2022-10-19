@@ -138,7 +138,8 @@ public class TrackJdbcRepo implements TrackRepo{
         "inner join track_artist\n"+
         "as ta on ta.artist_uri = a.artist_uri\n"+
         "inner join track as t on t.track_uri = ta.track_uri\n"+
-        "where t.app_user_id = ? and a.artist_uri = ?;";
+        "where t.app_user_id = ? and a.artist_uri = ?\n"+
+                "limit 1;";
 
         List<String> artistUris = getTop10ArtistUrisByUserId(appUserId);
         List<Genre> artistGenre;
@@ -171,21 +172,9 @@ public class TrackJdbcRepo implements TrackRepo{
                 "order by elo desc\n"+
                 "limit 10;";
 
-        List<String> uris = template.query(sql, (resultSet, rowNum) -> {
+        return template.query(sql, (resultSet, rowNum) -> {
             return resultSet.getString("artist_uri");}, appUserId);
 
-        List<String> written = new ArrayList<>();
-
-        List<String> orderedUris = new ArrayList<>();
-
-        for(String each : uris){
-            if(!written.contains(each)){
-                orderedUris.add(each);
-                written.add(each);
-            }
-        }
-
-        return orderedUris;
     }
 
     private List<Integer> getEloByArtistUri(String eachUri) {
