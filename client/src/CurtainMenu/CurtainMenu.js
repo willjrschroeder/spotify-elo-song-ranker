@@ -40,33 +40,41 @@ function CurtainMenu() {
 
   return (
     <>
-    <div>
-    <h1 className={toggleNav ? "title-active" : "title"}>Spotify Leaderboards</h1>
-    </div>
-      
+
+
+
+
+
+      <div className="container-fluid">
+        <img src="/sortify_logo.png" className="img-fluid rounded-top float-start" alt="Sortify Logo" />
+        <h1 className={toggleNav ? "title-active " : "title"}>Spotify Leaderboards</h1>
+
+
+
+
         <button onClick={toggleNavFunc} className="floating-btn">
           <img src={Menu} />
         </button>
-      
 
-      <nav className={toggleNav ? "active" : ""}>
 
-      
-        
-        <div className="links">
-        {auth.user ? <div>
-                          <Link to="/home"><button onClick={toggleNavFunc}>Home</button></Link>
-                          <Link to="/playlistManager"><button onClick={toggleNavFunc}>Manage Playlists</button></Link>
-                          <Link to="/summary"><button onClick={toggleNavFunc}>Summary</button></Link>
-                          {auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button>Manage Users</button></Link> : <div></div>) : <div></div>}
-                          <Link to="/"><button onClick={doLogout}>Logout</button></Link>
-                      </div> : <div><Link to="/login"><button onClick={doLogin}>Login</button></Link></div>}
-          
-          
-        </div>
-        
+        <nav className={toggleNav ? "active" : ""}>
 
-      </nav>
+
+          <div className="links">
+            {auth.user ? <div>
+              <Link to="/home"><button onClick={toggleNavFunc}>Home</button></Link>
+              <Link to="/playlistManager"><button onClick={toggleNavFunc}>Manage Playlists</button></Link>
+              <Link to="/summary"><button onClick={toggleNavFunc}>Summary</button></Link>
+              {auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button>Manage Users</button></Link> : <div></div>) : <div></div>}
+              <Link to="/"><button onClick={doLogout}>Logout</button></Link>
+            </div> : <div><Link to="/login"><button onClick={doLogin}>Login</button></Link></div>}
+
+
+          </div>
+
+
+        </nav>
+      </div>
     </>
   );
 }

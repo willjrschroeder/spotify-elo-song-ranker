@@ -37,7 +37,7 @@ function ViewByPlaylist() {
 
     return (
         <>
-            <div className="container mb-5">
+            <div className="container mb-5 mt-5">
                 <img src={playlist.playlistImageLink} className="img-fluid rounded-top img-thumbnail" alt="Playlist from Spotify" />
                 <h3 className="mt-4">
                     {playlist.playlistName}
@@ -47,7 +47,7 @@ function ViewByPlaylist() {
             <div className="container mt-5">
                 <div>
                     <table className="table table-dark table-striped table-sm">
-                        <thead className="table-dark">
+                        <thead>
                             <tr>
                                 <th className="col-1"></th>
                                 <th className="text-center col-6" >Title</th>
