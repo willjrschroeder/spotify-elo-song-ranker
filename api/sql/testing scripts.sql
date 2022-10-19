@@ -62,3 +62,9 @@ as ta on ta.artist_uri = a.artist_uri
 inner join track as t on t.track_uri = ta.track_uri
 where t.app_user_id = 1 and a.artist_uri = 'spotify:artist:581C5Qwl87TskfBEzuoisu'
 limit 1;
+
+-- Top 10 Track Uris
+select track_uri, elo_score, title from track
+where app_user_id = 1
+order by elo_score desc
+limit 10;

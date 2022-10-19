@@ -230,9 +230,9 @@ public class TrackJdbcRepo implements TrackRepo{
     }
     @Override
     public List<Track> getTop10Tracks(int appUserId){
-        final String sql = "select * from track where app_user_id = ? and track_uri = ? limit 10;";
+        final String sql = "select * from track where app_user_id = ? and track_uri = ?;";
 
-        List<String> trackUris = getTrackUrisByUserId(appUserId);
+        List<String> trackUris = getTop10TrackUrisByUserId(appUserId);
         List<Album> trackAlbums;
         List<Artist> trackArtists;
         List<Track> tracks = new ArrayList<>();
@@ -245,6 +245,16 @@ public class TrackJdbcRepo implements TrackRepo{
 
         return tracks;
 
+    }
+
+    private List<String> getTop10TrackUrisByUserId(int appUserId) {
+        final String sql = "select track_uri from track\n" +
+                "where app_user_id = ?\n" +
+                "order by elo_score desc\n" +
+                "limit 10;";
+
+        return template.query(sql, (resultSet, rowNum) -> {
+            return resultSet.getString("track_uri");}, appUserId);
     }
 
 
