@@ -3,7 +3,8 @@ html, body {
     background-image: linear-gradient(to bottom, #4C3F91, #9145B6 70%, #B958A5 90%);
     margin:0;
     padding:auto;
-    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 
 }
 h1 {
@@ -22,119 +23,20 @@ h1 {
     font-weight: bolder;
 }
 .label {
-    height: 400px;
-    width: 400px;
-    transform: rotate(-5deg);
+    position:absolute;
+    height: 60vh;
+    width: 60vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 25vh;
+    margin-left: 20%;
+    margin-right: 20%;
     border-radius: 50%;
     color:white;
-    padding: 50px;
-    align-items: center;
-    position:absolute;
-    top: 70px;
-    left: 90px;
-    background-size: 400px;
     font-family:monospace;
-    font-size: 5ch;
-    position: absolute;
-}
-
-.balloon {
-    height: 400px;
-    width: 400px;
-    transform: rotate(-5deg);
-    border-radius: 50%;
-    padding: 50px;
-    background-color: #1B1F3B;
-    color:#B14AED;
-    align-items: center;
-    position:absolute;
-    top: 40px;
-    left: 90px;
-    background-size: 400px;
-    font-family:monospace;
-    font-size: 4.5ch;
-    position: absolute;
-}
-
-.balloon:after {
-    position: inherit;
-    content: "";
-    height: 400px;
-    width: 280px;
-    background-color: #9145B6;
-    border-radius: 50%;
-    top: 0px;
-    left: 60px;
-    z-index: 1;
-}
-.balloon:before {
-    position: absolute;
-    content: "";
-    height: 400px;
-    width: 160px;
-    background-color: #1B1F3B ;
-    border-radius: 50%;
-    top: 0;
-    left: 120px;
-    z-index: 2;
-}
-
-.bottom {
-    transform: rotate(-5deg);
-    height: 40px;
-    width: 180px;
-    background-color: #1B1F3B;
-    position: relative;
-    top: 15px;
-    left: 218px;
-
-}
-.basket {
-    transform: rotate(-5deg);
-    height: 100px;
-    width: 140px;
-    background-color: #202546;
-    position: relative;
-    top: 119px;
-    left: 253px;
-}
-.basket::before{
-    position:absolute;
-    content: "";
-    background-color: #4C3F91;
-    height: 14px;
-    width: 160px;
-    border-radius: 14px;
-    left:-10px;
-}
-.rope {
-    transform: rotate(-5deg);
-    background-color: #1B1F3B;
-    height: 110px;
-    width: 6px;
-    position: relative;
-    top: -90px;
-    left: 311px;
-}
-.rope::before {
-    position:absolute;
-    content: "";
-    background-color: #1B1F3B;
-    height: 110px;
-    width: 6px;
-    border-radius: 14px;
-    transform: rotate(-8deg);
-    left:-76px;
-}
-.rope::after {
-    position:absolute;
-    content: "";
-    background-color: #1B1F3B;
-    height: 110px;
-    width: 6px;
-    border-radius: 14px;
-    transform: rotate(8deg);
-    left:76px;
+    font-size: 12ch;
 }
 
 .login {

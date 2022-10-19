@@ -8,13 +8,11 @@ function Home() {
 
     return (
         <>
-            <div className='flex-container'>
-                <div className="balloon" ></div>
-            </div>
-            {/* <div className='bottom'></div>
-    <div className='basket'></div>
-    <div className='rope'></div> */}
-            <div className='label'>Spotify Rankings</div>
+
+            <div className='label'>
+                <div>Rank your songs from Spotify here!</div>
+                
+                </div>
 
             {auth.user && (
                 <div className="flex-container">
@@ -22,7 +20,6 @@ function Home() {
                     <button className='login' onClick={() => auth.logout()}>logout</button>
                 </div>
             )}
-            <div className='flex-container'>About</div>
         </>
     );
 }

@@ -30,8 +30,16 @@
 }
 .flex-home{
   display:flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   row-gap: 60px;
+  background-color: 777;
+  border-radius: 10px;
+  border: 10px #9145B6;
+  box-shadow: 5px 2px#000000;
+  border-style:ridge;
+  margin: auto;
+  margin-top: 2%;
+  height: 80vh;
+  width: 70vw;
 }
