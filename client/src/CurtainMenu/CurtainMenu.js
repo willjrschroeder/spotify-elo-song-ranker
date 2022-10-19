@@ -40,7 +40,9 @@ function CurtainMenu() {
 
   return (
     <>
+    <div>
     <h1 className={toggleNav ? "title-active" : "title"}>Spotify Leaderboards</h1>
+    </div>
       
         <button onClick={toggleNavFunc} className="floating-btn">
           <img src={Menu} />

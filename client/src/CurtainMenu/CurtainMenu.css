@@ -59,17 +59,17 @@ body {
     }
 }
 .title {
-    position: absolute;
+    position: relative;
     margin-left: auto;
     margin-right: auto;
-    left: 50px;
-    right: 50px;
+    left: 0px;
+    right: 0px;
     text-align: center;
     z-index: 10000;
     color: rgb(10,10,10);
 }
 .title-active {
-    position: absolute;
+    position: relative;
     margin-left: auto;
     margin-right: auto;
     left: 0;
