@@ -23,7 +23,7 @@ function Admin() {
 
     function getAllUsers() {
         fetch(`http://localhost:8080/api/user/active`, {
-            method: "POST",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + auth.user.token
@@ -44,9 +44,9 @@ function Admin() {
         },
         []
     )
-    function getPlaylistsByUser() {
-        fetch(`http://localhost:8080/api/user/${auth.user.id}`, {
-            method: "POST",
+    function getPlaylistsByUser(id) {
+        fetch(`http://localhost:8080/api/playlist/${id}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + auth.user.token
@@ -54,17 +54,19 @@ function Admin() {
         })
             .then(response => {
                 if (response.status === 200) {
+                
                     return response.json();
                 } else (console.log(response))
             })
-            .then(users => {
-                setUsers(users);
+            .then(playlists => {
+                setPlaylists(playlists);
             });
     }
     function handleChange(event) {
         let username = event.target.value;
         let userArray = users.filter(u => u.username === username)
         setCurrentUser(userArray[0]);
+        getPlaylistsByUser(userArray[0].appUserId);
     }
 
 
