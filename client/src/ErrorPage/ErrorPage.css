@@ -7,11 +7,16 @@
     padding-left: 25%;
     row-gap: 10%;
     align-items: baseline;
-    background-image: url("ErrorPage2.0.png");
+    
     height: 101vh;
     width: 100vw;
     position: absolute;
     margin-top: -7.6vh;
+    background-image: url("ErrorPage2.0.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 .message {
     font-size: 6.9ch;
