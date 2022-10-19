@@ -51,7 +51,8 @@ public class TrackJdbcRepo implements TrackRepo{
         final String sql = "select * from track as t\n"
                 +"inner join playlist as p\n"
                 +"on p.app_user_id = t.app_user_id\n"
-                +"where t.track_uri = ?;";
+                +"where t.track_uri = ?\n" +
+                "limit 1;";
 
         for(String eachUri : trackUris){
             trackAlbums = getAlbumsByTrackUri(eachUri);
@@ -77,8 +78,11 @@ public class TrackJdbcRepo implements TrackRepo{
 
     private List<String> getTrackUrisByPlaylistUri(String playlistUri) {
 
-        final String sql = "select track_uri from playlist_track\n"
-                +"where playlist_uri = ?;";
+        final String sql = "select t.track_uri from track as t\n" +
+                "inner join playlist_track as pt\n" +
+                "on pt.track_uri = t.track_uri\n" +
+                "where pt.playlist_uri = ?\n" +
+                "order by elo_score desc;";
 
         return template.query(sql, (resultSet, rowNum) -> {
             return resultSet.getString("track_uri");}, playlistUri);

@@ -40,7 +40,9 @@ function CurtainMenu() {
 
   return (
     <>
+    <div>
     <h1 className={toggleNav ? "title-active" : "title"}>Spotify Leaderboards</h1>
+    </div>
       
         <button onClick={toggleNavFunc} className="floating-btn">
           <img src={Menu} />
@@ -56,11 +58,11 @@ function CurtainMenu() {
                           <Link to="/home"><button onClick={toggleNavFunc}>Home</button></Link>
                           <Link to="/playlistManager"><button onClick={toggleNavFunc}>Manage Playlists</button></Link>
                           <Link to="/summary"><button onClick={toggleNavFunc}>Summary</button></Link>
+                          {auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button>Manage Users</button></Link> : <div></div>) : <div></div>}
                           <Link to="/"><button onClick={doLogout}>Logout</button></Link>
-                          
-                      </div> : <Link to="/login"><button onClick={doLogin}>Login</button></Link>}
+                      </div> : <div><Link to="/login"><button onClick={doLogin}>Login</button></Link></div>}
           
-          <div>{auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button>Manage Users</button></Link> : <div></div>) : <div></div>}</div>
+          
         </div>
         
 
