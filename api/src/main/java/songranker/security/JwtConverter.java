@@ -29,7 +29,7 @@ public class JwtConverter {
                 .setIssuer("spotify elo ranker")
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date( new Date().getTime() + 3600000 ))
+                .setExpiration(new Date( new Date().getTime() + 86400000 ))
                 .signWith(key)
                 .compact();
         return token;

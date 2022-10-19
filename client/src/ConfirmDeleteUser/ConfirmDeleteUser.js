@@ -19,24 +19,43 @@ function ConfirmDeleteUser() {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + serverAuth.user.token
-        }
-    }).then(response => {
+            }
+        }).then(response => {
             if (response.status === 204) {
-                history.push("/admin")
-                return response.json();
-                } else (console.log(response)) // TODO: log success message
+                showMessage("User successfully deleted.", false);
+            } else (showMessage("Error deleting user from the database.", true))
         }).catch(error => {
-            console.log(error); // TODO: log error message
+            showMessage("Error connecting to the server.", true);
         })
     }
 
-    return(
+    function showMessage(message, isErrorMessage) {
+        clearMessages();
+
+        const messageContainer = document.getElementById("messages");
+
+        messageContainer.innerHTML = messageContainer.innerHTML + `<p>${message}</p>`;
+
+        if (isErrorMessage) {
+            messageContainer.className = "alert alert-danger w-25 m-auto mb-4";
+        } else {
+            messageContainer.className = "alert alert-success w-25 m-auto mb-4";
+        }
+    }
+
+    function clearMessages() {
+        document.getElementById("messages").innerHTML = "";
+        document.getElementById("messages").className = "";
+    }
+
+    return (
         <>
             <div className="flex-deleteUser">
+                <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
                 <div className="confirmDeleteUser">Are you sure you want to delete user: {user.username + ": " + user.displayName}? This action cannot be undone</div>
                 <div>
                     <button onClick={deleteUser}>Delete</button>
-                    <Link to="/admin">Cancel</Link>
+                    <Link to="/admin">Return To Manage Users</Link>
                 </div>
 
             </div>

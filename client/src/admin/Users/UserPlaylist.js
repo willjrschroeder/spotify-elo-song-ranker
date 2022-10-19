@@ -1,15 +1,10 @@
 function UserPlaylist({p}) {
 
-
-    function deletePlaylist() {
-        
-    }
-
     return(
         <>
             <tr>
-                <td>{p.name}</td>
-                <button onClick={deletePlaylist}>Delete</button>
+            <td><img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" src={p.playlistImageLink} alt="img"></img></td>
+                <td>{p.playlistName}</td>
             </tr>
         </>
     )
