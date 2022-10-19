@@ -4,6 +4,7 @@ import AuthContext from "../context/AuthContext";
 import Track from "./Track.js";
 
 
+
 function ViewByPlaylist() {
 
     const location = useLocation();
@@ -42,12 +43,11 @@ function ViewByPlaylist() {
                 <img src={playlist.playlistImageLink} className="img-fluid rounded-top" alt="Playlist from Spotify" />
             </div>
             <div>
-                <table className="table table-striped">
+                <table className="table table-striped table-sm">
                     <thead className="table-dark">
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Title</th>
+                            <th className="col-1"></th>
+                            <th className="text-center col-6" >Title</th>
                             <th>Spotify Popularity Score</th>
                             <th>Artist(s)</th>
                             <th>Elo Score</th>
@@ -55,7 +55,7 @@ function ViewByPlaylist() {
                     </thead>
                     <tbody>
                         {currentTracks.map((t, index) =>
-                            <Track track = {t} key={index}></Track>
+                            <Track track={t} key={index}></Track>
                         )}
                     </tbody>
                 </table>
@@ -63,6 +63,7 @@ function ViewByPlaylist() {
 
 
         </div>
+
 
     )
 

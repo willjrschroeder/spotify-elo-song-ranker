@@ -20,6 +20,11 @@ import Summary from './Summary/Summary';
 import Curtain from './CurtainMenu/CurtainMenu';
 import Admin from './Admin/Admin';
 import ViewByPlaylist from './ViewByPlaylist/ViewByPlaylist';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCirclePlay)
+
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
