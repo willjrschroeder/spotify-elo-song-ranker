@@ -7,7 +7,7 @@ function HomePagePlaylist(props) {
 
     const location = {
         pathname: "/playlistRankings",
-        state: props.hp
+        state: props.p
     }
     const authServer = useContext(AuthContext);
 

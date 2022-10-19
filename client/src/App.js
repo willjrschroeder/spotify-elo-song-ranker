@@ -19,6 +19,7 @@ import ConfirmDeleteUser from './ConfirmDeleteUser/ConfirmDeleteUser';
 import Summary from './Summary/Summary';
 import Curtain from './CurtainMenu/CurtainMenu';
 import Admin from './Admin/Admin';
+import ViewByPlaylist from './ViewByPlaylist/ViewByPlaylist';
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
 const LOCAL_STORAGE_SPOTIFY_TOKEN_KEY = "spotifyToken";
@@ -139,6 +140,9 @@ function App() {
               </Route>
               <Route exact path="/summary">
               {user ? <Summary></Summary> : <Redirect to="/"/>}
+              </Route>
+              <Route exact path="/playlistRankings">
+              {user ? <ViewByPlaylist /> : <Redirect to="/"/>}
               </Route>
               <Route exact path="/admin">
               {user ? (user.hasRole("admin") ? <Admin></Admin> : <Redirect to="/home"/>) : <Redirect to="/"/>}
