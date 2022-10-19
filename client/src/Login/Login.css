@@ -1,26 +1,38 @@
 html, body {
     padding-top: 10px;
     height: 100%;
+    transform: rotate();
+    background-image: linear-gradient(to bottom right, #EADFB1,  #C0A890 70%, #b99f89 90%);
+    background-position:left;
+    background-repeat: no-repeat;
+    background-size: 57%;
 }
+.backing {
+    
+}
+.headphones{
+
+}
+
 .flex-login {
     height: 440px;
-    width: 440px;
+    width: 600px;
     font-size: 2ch;
-    align-items: center;
+    align-items:left;
     flex-direction: column;
     justify-content: center;
     display:flex;
     color: #1B1F3B;
     font-weight: bolder;
     font-family: monospace;
-    background-image: radial-gradient(#FFED99, #F6B8B8, #AC66CC);
-    margin-left: auto;
-    margin-top: 12%;
+    background-color: #C8DBE2;
+    opacity: .8;
+    margin-left: 12%;
+    margin-top: 7%;
     margin-right: auto;
     margin-bottom: auto;
     padding: 40px;
-    border-radius: 50%;
-    
+    border-radius: 2%;
 }
 .loginButton { 
     height: auto;
@@ -41,4 +53,7 @@ html, body {
     margin-bottom: auto;
     padding: 40px;
     border-radius: .5%;
+}
+button {
+    opacity: 1;
 }

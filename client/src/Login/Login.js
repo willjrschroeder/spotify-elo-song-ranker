@@ -57,7 +57,10 @@ function Login(props) {
 
     return (
         <>
+        <div className="headphones"></div>
+        <div className="backing"></div>
             <div className="flex-login">
+           
                 <h2>Login</h2>
                 <div className="messages" id="messages"></div>
                 <form onSubmit={loginHandler}>
@@ -85,6 +88,7 @@ function Login(props) {
                         </Link>
                     </div>
                 </form>
+                
             </div>
         </>
     )
