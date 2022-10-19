@@ -75,6 +75,7 @@ body {
     font-family: monospace;
 }
 .title-active {
+    font-family: monospace;
     position: relative;
     margin-left: auto;
     margin-right: auto;
