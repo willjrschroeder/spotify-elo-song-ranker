@@ -1,10 +1,11 @@
 
 html, body {
-    background-image: linear-gradient(to bottom, #4C3F91, #9145B6 70%, #B958A5 90%);
+    background-image: linear-gradient(to right, #c1ac97,  #b99f89 90%);
     margin:0;
     padding:auto;
     height: 100vh;
     overflow: hidden;
+    color: #54392b;
 
 }
 h1 {
