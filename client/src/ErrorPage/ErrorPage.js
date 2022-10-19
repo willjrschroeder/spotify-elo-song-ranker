@@ -4,10 +4,10 @@ import "./ErrorPage.css"
 function ErrorPage() {
     return(
         <>
-            <div>
-                <h2 className="header">404</h2>
+            <div className="error">
+                <div className="message">404: Page not found...</div>
                 <div>
-                    <Link to="/home">Return to home</Link>
+                    <Link to="/home" className="return"><button>Return to home</button></Link>
                 </div>
             </div>
         </>
