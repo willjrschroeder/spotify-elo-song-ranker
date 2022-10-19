@@ -1,9 +1,8 @@
 html, body {
-    background-image: linear-gradient(to bottom right, #EADFB1,  #C0A890 70%, #b99f89 90%);
+    
     margin:0;
     padding:auto;
     height: 100vh;
-    overflow: hidden;
     color: #54392b;
 
 }

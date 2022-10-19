@@ -12,4 +12,15 @@
 table {
     border: 1px solid black;
     table-layout: fixed;
+    overflow-y: scroll;
+}
+.container-fluid {
+    width: 80vw;
+}
+.smaller {
+    width: 80%;
+}
+.larger {
+    width: 120%;
+    margin-left: -20%;
 }

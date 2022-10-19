@@ -118,13 +118,13 @@ function ManagePlaylists() {
     return (<>
         <div className="header">Manage Playlists</div>
         <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
-        <div className="container-fluid w-50">
+        <div className="container-fluid">
             <div className="row">
             <div className="col">
-                    <table className="table">
+                    <table className="table smaller">
                         <thead className="thead-dark">
                             <tr className="table-rows">
-                                <th colSpan={2}>Spotify Playlists</th>
+                                <th colSpan={3}>Spotify Playlists</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -137,10 +137,10 @@ function ManagePlaylists() {
                     </table>
                 </div>
                 <div className="col">
-                    <table className="table">
+                    <table className="table larger">
                         <thead className="thead-dark">
                             <tr>
-                                <th colSpan={2}>Currently Tracked Playlists</th>
+                                <th colSpan={4}>Currently Tracked Playlists</th>
                             </tr>
                         </thead>
                         <tbody>

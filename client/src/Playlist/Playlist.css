@@ -43,3 +43,8 @@ img {
 td {
   vertical-align:middle;
 }
+img.playlist {
+  height: 60px;
+  width: 60px;
+  object-fit: cover;
+}
