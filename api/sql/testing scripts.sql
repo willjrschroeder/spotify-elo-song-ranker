@@ -42,3 +42,14 @@ as ta on ta.artist_uri = a.artist_uri
 inner join track as t on t.track_uri = ta.track_uri
 where a.artist_uri = 'spotify:artist:0fA0VVWsXO9YnASrzqfmYu';
 
+
+-- Top 10 Artist Uris
+select avg(t.elo_score) as elo, a.artist_uri, a.artist_name
+from artist as a
+inner join track_artist
+as ta on ta.artist_uri = a.artist_uri
+inner join track as t on t.track_uri = ta.track_uri
+where t.app_user_id = 1
+group by a.artist_uri
+order by elo desc
+limit 10;
