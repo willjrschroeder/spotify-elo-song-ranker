@@ -1,7 +1,6 @@
 package songranker.models;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Artist {
     private String artistUri;
@@ -9,27 +8,25 @@ public class Artist {
     private String spotifyUrl;
     private String artistImageLink;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Artist artist = (Artist) o;
-        return Objects.equals(artistUri, artist.artistUri) && Objects.equals(artistName, artist.artistName) && Objects.equals(spotifyUrl, artist.spotifyUrl) && Objects.equals(artistImageLink, artist.artistImageLink) && Objects.equals(genres, artist.genres);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(artistUri, artistName, spotifyUrl, artistImageLink, genres);
-    }
+    private List<Integer> eloScore;
 
     private List<Genre> genres; // List of Genre models associated with the Artist
 
-    public Artist(String artist_uri, String artist_name, String spotify_url, String artist_image_link, List<Genre> genres) {
+    public Artist(String artist_uri, String artist_name, String spotify_url, String artist_image_link, List<Integer> eloScore, List<Genre> genres) {
         this.artistUri = artist_uri;
         this.artistName = artist_name;
         this.spotifyUrl = spotify_url;
         this.artistImageLink = artist_image_link;
+        this.eloScore = eloScore;
         this.genres = genres;
+    }
+
+    public List<Integer> getEloScore() {
+        return eloScore;
+    }
+
+    public void setEloScore(List<Integer> eloScore) {
+        this.eloScore = eloScore;
     }
 
     public List<Genre> getGenres() {

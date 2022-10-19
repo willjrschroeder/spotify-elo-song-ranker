@@ -12,7 +12,14 @@ public class ArtistMapper implements RowMapper<Artist> {
 
     List<Genre> genres;
 
+    List<Integer> eloScore;
+
     public ArtistMapper(List<Genre> genres){this.genres = genres;}
+
+    public ArtistMapper(List<Integer> eloScore, List<Genre> genres){
+        this.eloScore = eloScore;
+        this.genres = genres;
+    }
     public ArtistMapper(){
 
     }
@@ -24,6 +31,6 @@ public class ArtistMapper implements RowMapper<Artist> {
         String spotify_url = rs.getString("spotify_url");
         String artist_image_link = rs.getString("artist_image_link");
 
-        return new Artist(artist_uri, artist_name, spotify_url, artist_image_link, genres);
+        return new Artist(artist_uri, artist_name, spotify_url, artist_image_link, eloScore, genres);
     }
 }

@@ -133,25 +133,18 @@ public class TrackJdbcRepo implements TrackRepo{
 
 
     public List<Artist> getTop10Artists(int appUserId) {
-        final String sql = "select avg(t.elo_score) as elo, a.artist_uri, a.artist_name, a.spotify_url, a.artist_image_link\n" +
-                "from artist a\n" +
-                "inner join \n" +
-                "(select *\n" +
-                "from track_artist\n" +
-                "where artist_uri = ?\n" +
-                ")\n" +
-                "as ta on ta.artist_uri = a.artist_uri\n" +
-                "inner join (\n" +
-                "\tselect *\n" +
-                "    from track \n" +
-                "    where app_user_id = ?\n" +
-                ") as t\n" +
-                "on t.track_uri = ta.track_uri\n" +
-                "group by a.artist_uri\n" +
-                "limit 10;";
+        final String sql = "select avg(t.elo_score) as elo, a.artist_uri, a.artist_name, a.spotify_url, a.artist_image_link\n"+
+        "from artist as a\n"+
+        "inner join track_artist\n"+
+        "as ta on ta.artist_uri = a.artist_uri\n"+
+        "inner join track as t on t.track_uri = ta.track_uri\n"+
+        "group by a.artist_uri\n"+
+        "order by elo desc\n"+
+        "limit 10;";
 
         List<String> artistUris = getArtistUrisByUserId(appUserId);
         List<Genre> artistGenre;
+        List<Integer> artistElos;
         List<Artist> artists = new ArrayList<>();
 
         List<String> written = new ArrayList<>();
@@ -159,7 +152,8 @@ public class TrackJdbcRepo implements TrackRepo{
         for(String eachUri : artistUris){
             if(!written.contains(eachUri)){
                 artistGenre = getGenresByArtistUri(eachUri);
-                artists.addAll(template.query(sql, new ArtistMapper(artistGenre), eachUri, appUserId));
+                artistElos = getEloByArtistUri(eachUri);
+                artists.addAll(template.query(sql, new ArtistMapper(artistElos,artistGenre), eachUri, appUserId));
                 written.add(eachUri);
             }
 
@@ -167,6 +161,19 @@ public class TrackJdbcRepo implements TrackRepo{
 
         return artists;
     }
+
+    private List<Integer> getEloByArtistUri(String eachUri) {
+        final String sql = "select avg(t.elo_score) as elo\n" +
+                "from artist a\n" +
+                "inner join track_artist\n" +
+                "as ta on ta.artist_uri = a.artist_uri\n" +
+                "inner join track as t on t.track_uri = ta.track_uri\n" +
+                "where a.artist_uri = ?;";
+
+        return template.query(sql, (resultSet, rowNum) -> {
+            return resultSet.getInt("elo");}, eachUri);
+    }
+
     private List<String> getArtistUrisByUserId(int appUserId) {
         final String sql = "select ta.artist_uri \n" +
                 "from track_artist ta\n" +
