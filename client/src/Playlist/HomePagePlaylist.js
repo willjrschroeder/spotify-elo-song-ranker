@@ -1,10 +1,14 @@
 import "./Playlist.css";
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 function HomePagePlaylist(props) {
 
-
+    const location = {
+        pathname: "/playlistRankings",
+        state: props.hp
+    }
     const authServer = useContext(AuthContext);
 
 
@@ -12,10 +16,10 @@ function HomePagePlaylist(props) {
         <tr>
             <td><img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" src={props.p.playlistImageLink} alt="img"></img></td>
             <td>
-                <p>Playlist Title:</p>
-                <p>{props.p.name}</p>
-                <button>View Song Rankings</button>
+                <p>{props.p.playlistName}</p>
+                
             </td>
+            <td><Link to={location}><button>View Track Rankings</button></Link></td>
         </tr>
 
 
