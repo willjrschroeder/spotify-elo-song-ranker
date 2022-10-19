@@ -68,3 +68,17 @@ select track_uri, elo_score, title from track
 where app_user_id = 1
 order by elo_score desc
 limit 10;
+
+-- Track Uris by Playlist uri
+select t.track_uri from track as t
+inner join playlist_track as pt
+on pt.track_uri = t.track_uri
+where pt.playlist_uri = "spotify:playlist:38cfqZXcGK4KPtDrGUNMkI"
+order by elo_score desc;
+
+-- Tracks by Playlist Uri
+select * from track as t
+inner join playlist as p
+on p.app_user_id = t.app_user_id
+where t.track_uri = 'spotify:track:3OM6qQmdFV6uy61GIqpRtf'
+limit 1;
