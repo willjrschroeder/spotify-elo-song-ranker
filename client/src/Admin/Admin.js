@@ -82,22 +82,23 @@ function Admin() {
             <div className="manage-user">
                 <h1 className="manage-header">Manage Users</h1>
                 <div className="flex-users">
+                    
+                    <div className="flex-user-select">
                     <div className="flex-select">
-                        <span className="bolded">Select a User:</span>
+                        
                         <form onChange={handleChange}>
-                            <input list="users"></input>
-                            <datalist id="users">
+                            <label for="users"><span className="bolded">Select a User:</span></label>
+                            <select name="users"id="users">
                                 {users.map((u, index) => (<User key={index} u={u}></User>))}
-                            </datalist>
+                            </select>
                         </form>
                     </div>
-                    <div className="flex-user-select">
                         {!currentUser ?
-                            <div>
+                            <div className="selected">
                                 <h4>Select a User to View Their Data</h4>
                             </div>
                             :
-                            <div>
+                            <div className="selected">
                                 <h4><span className="bolded">Username:</span> {currentUser.username}</h4>
                                 <h4><span className="bolded">Display Name: </span>{currentUser.displayName}</h4>
                                 <Link to={userLocation}>

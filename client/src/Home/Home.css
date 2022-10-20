@@ -1,4 +1,3 @@
-
 :root {
     --accent-color: #B958A5;
     --accent-color-400: #9145B6;
@@ -33,7 +32,7 @@
   align-items: center;
   flex-direction: column;
   row-gap: 60px;
-  background-color: 777;
+  background-color:antiquewhite;
   border-radius: 10px;
   border: 10px #4B2B20;
   box-shadow: 5px 10px#9D746E;

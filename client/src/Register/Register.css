@@ -2,7 +2,7 @@ html, body {
     padding-top: 10px;
     height: 100%;
     transform: rotate();
-    background-image: linear-gradient(to bottom right, #EADFB1,  #C0A890 70%, #b99f89 90%);
+    /* background-image: linear-gradient(to bottom right, #EADFB1,  #C0A890 70%, #b99f89 90%); */
     background-position:left;
     background-repeat: no-repeat;
     background-position: cover;

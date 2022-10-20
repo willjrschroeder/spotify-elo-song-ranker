@@ -36,7 +36,7 @@ function ConfirmationPage() {
                 {userData ?
                     <div>
                         <h2>Welcome, {auth.user.display_name}</h2>
-                        <img src={userData.images[0].url} alt="User profile pulled down from the linked Spotify account"></img>
+                        <img className='elo-image' src={userData.images[0].url} alt="User profile pulled down from the linked Spotify account"></img>
                         <h3>Your Spotify Account, {userData.display_name}, successfully linked</h3>
                         <Link to="/home"><button className='homeButton'>Home</button></Link>
                     </div>
