@@ -45,8 +45,8 @@ function Home() {
         <>
         <div className="flex-home table-background">
             <div className="header">Your Playlists</div>
-            <table className="table table-dark table-striped w-50">
-                <thead className="table-dark">
+            <table className="table w-50">
+                <thead>
                     <tr>
                         <th></th>
                         <th>Title</th>
