@@ -51,7 +51,6 @@ function ManagePlaylists() {
                 return spotifyApi.getUserPlaylists(data.body.id);
             })
             .then(function (data) {
-                console.log(data.body.items);
                 setPlaylists(data.body.items);
             });
     }
@@ -75,7 +74,6 @@ function ManagePlaylists() {
                 getAllPlaylists();
                 showMessage('Playlist successfully added.', false);
             }
-            return Promise.reject(await response.json());
         })
     }
 
@@ -92,7 +90,6 @@ function ManagePlaylists() {
                 getAllPlaylists();
                 showMessage('Playlist successfully deleted.', false);
             }
-            return Promise.reject(await response.json());
         })
     }
 
