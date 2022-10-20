@@ -11,7 +11,24 @@ body {
 
 
 }
-
+.spotify-desc{
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    margin-left: 12%;
+    margin-bottom: -25%;
+    color:aliceblue;
+    font-size: 5ch;
+}
+.sortify-desc{
+    display: flex;
+    margin-top: 20%;
+    align-self: baseline;
+    margin-left: 12%;
+    margin-bottom: -20%;
+    color:aliceblue;
+    font-size: 5ch;
+}
 table {
     border-collapse: collapse;
     font-size: 1.4ch;
@@ -42,14 +59,13 @@ h1 {
 
 .label {
     position: absolute;
-    height: 10vh;
+    height: 20vh;
     width: 100vw;
     justify-content: center;
 
     display: flex;
     margin: 0 auto;
     margin-top: 15vh;
-    margin-left: 18%;
     color: white;
     font-family: monospace;
     font-size: 8ch;
@@ -60,7 +76,18 @@ h1 {
 
 .land-register {
     margin-top: 20%;
-    margin-left: 50%;
+    margin-left: -15%;
+    color: antiquewhite;
+    font-size: 5ch;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+
+}
+.land-login {
+    margin-top: 25%;
+    margin-bottom: -5%;
+    margin-left: 12%;
     color: antiquewhite;
     font-size: 5ch;
     display: flex;

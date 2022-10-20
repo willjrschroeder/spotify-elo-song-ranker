@@ -76,25 +76,25 @@ function Register() {
         <div className="messages" id="messages"></div>
         <form onSubmit={addUser}>
             <FormInput
-                InputType={"text"}
+                inputType={"text"}
                 indentifier={"username"}
                 labelText={"Username"}
                 currVal={username}
                 onChangeHandler={(event) => setUsername(event.target.value)} />
             <FormInput
-                InputType={"password"}
+                inputType={"password"}
                 indentifier={"password"}
                 labelText={"Password"}
                 currVal={password}
                 onChangeHandler={(event) => setPassword(event.target.value)} />
             <FormInput
-                InputType={"password"}
+                inputType={"password"}
                 indentifier={"confirmPassword"}
                 labelText={"Confirm Password"}
                 currVal={confirmPassword}
                 onChangeHandler={(event) => setConfirmPassword(event.target.value)} />
             <FormInput
-                InputType={"text"}
+                inputType={"text"}
                 indentifier={"displayName"}
                 labelText={"Display Name"}
                 currVal={displayName}

@@ -134,7 +134,6 @@ function Summary() {
                         <thead >
                             <tr>
                                 <th>Name</th>
-                                <th>Genre(s)</th>
                             </tr>
                         </thead>
                         <tbody>

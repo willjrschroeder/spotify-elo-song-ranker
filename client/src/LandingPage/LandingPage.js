@@ -10,9 +10,10 @@ function Home() {
     return (
         <>
 
-            <div className='label'>
-                <div>Rank your songs from Spotify</div>
-                </div>
+            
+                <div className='spotify-desc'>Millions of Songs Free on Spotify</div>
+                <div className='land-login'><Link to="/login"><button className='register-btn'>Login</button></Link></div>
+                <div className='sortify-desc'>Millions of Songs Ranked by Sortify</div>
                 <div className='land-register'><Link to="/register"><button className='register-btn'>Register</button></Link></div>
 
             {auth.user && (
