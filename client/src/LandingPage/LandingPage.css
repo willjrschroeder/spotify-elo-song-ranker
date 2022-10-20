@@ -5,6 +5,7 @@ html, body {
     padding:auto;
     height: 100vh;
     color: #54392b;
+    overflow-x: hidden;
 
 }
 table {
@@ -35,22 +36,35 @@ h1 {
 }
 .label {
     position:absolute;
-    height: 60vh;
-    width: 60vw;
-    display: flex;
+    height: 10vh;
+    width: 100vw;
     justify-content: center;
-    align-items: center;
+
+    display: flex;
     margin: 0 auto;
-    margin-top: 25vh;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-top: 15vh;
+    margin-left: 18%;
     color:white;
     font-family:monospace;
-    font-size: 12ch;
+    font-size: 8ch;
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(219, 205, 205));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.land-register {
+    margin-top: 20%;
+    margin-left: 50%;
+    color: antiquewhite;
+    font-size: 5ch;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+
+}
+.register-btn{
+    font-size: 1ch;
+}
+
 
 .login {
     color: #B14AED;
