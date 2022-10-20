@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
 import GameTrack from "./GameMechanism/GameTrack";
+import "./GameMechanism/GameTrack.css";
 
 function EloGamePage() { //TODO: Don't let this be triggered if there are less than 2 tracks in the playlist
 
@@ -132,9 +133,11 @@ if (track1 == null || track2 == null) return null; // wait to display tracks unt
 
 return (
     <>
+    <h4 className="elo-header">Which song do you like more?</h4>
+    <div className="elo-page">
         <GameTrack displayTrack={track1} otherTrack={track2} updateScores={updateScores} />
         <GameTrack displayTrack={track2} otherTrack={track1} updateScores={updateScores} />
-
+    </div>
     </>
 )
 }

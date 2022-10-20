@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/AuthContext";
 import GameTrack from "./GameTrack";
+import "./GameTrack.css";
 
 
 function GameDisplay({ trackCollection }) {
@@ -110,8 +111,10 @@ function GameDisplay({ trackCollection }) {
 
     return (
         <>
+        <div className="elo-page">
             <GameTrack displayTrack={track1} otherTrack={track2} updateScores={updateScores} />
             <GameTrack displayTrack={track2} otherTrack={track1} updateScores={updateScores} />
+        </div>
         </>
     );
 }
