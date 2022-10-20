@@ -2,6 +2,11 @@ body{
     height: 100vh;
     width: 100vw;
 }
+.page-header {
+    margin-top: 5%;
+    margin-bottom: -5%;
+    color: aliceblue;
+}
 
 .elo-page {
     display: flex;
@@ -14,6 +19,10 @@ body{
 .flexTrackUpdate {
     width: 30vw;
     height: 40 vh;
+}
+.spacing {
+    margin-top: 2%;
+    color: aliceblue;
 }
 .elo-card{
     margin-top: 2%;

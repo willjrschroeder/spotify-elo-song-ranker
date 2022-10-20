@@ -77,14 +77,14 @@ function Login(props) {
                         onChangeHandler={(event) => setPassword(event.target.value)} />
 
                     <div className="loginButton">
-                        <button>Log In</button>
+                        <button className="link-btn">Log In</button>
                         <Link to="/">
-                            <button>Cancel</button>
+                            <button className="link-btn">Cancel</button>
                         </Link>
                     </div>
                     <div>
                         <Link to="/register">
-                            <button>Register</button>
+                            <button className="link-btn">Register</button>
                         </Link>
                     </div>
                 </form>

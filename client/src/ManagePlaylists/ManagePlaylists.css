@@ -32,6 +32,8 @@ body{
     width: 80vw;
 }
 .manager {
+    margin-top: 2%;
     width: 75vw;
+    height: 100vh;
 
 }

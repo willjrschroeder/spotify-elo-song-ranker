@@ -100,9 +100,9 @@ function Register() {
                 currVal={displayName}
                 onChangeHandler={(event) => setDisplayName(event.target.value)} />
             <div className="flex-buttons">
-                <button>Submit</button>
-                <Link to = "/login"><button>Return to Login</button></Link>
-                <Link to = "/"><button>Cancel</button></Link>
+                <button className="link-btn">Submit</button>
+                <Link to = "/login"><button className="link-btn">Return to Login</button></Link>
+                <Link to = "/"><button className="link-btn">Cancel</button></Link>
             </div>
         </form>
     </div>

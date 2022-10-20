@@ -2,7 +2,7 @@
     display: flex;
     position: relative;
     z-index: 10000000;
-    margin-left: -6%;
+    margin-left: -8%;
     
 
 }
@@ -80,7 +80,7 @@ nav a:first-of-type{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:12.7vh;
+    margin-top:12vh;
     height: 30%;
     width: 100%;
 }

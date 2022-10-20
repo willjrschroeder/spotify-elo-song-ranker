@@ -21,7 +21,7 @@ html, body {
     column-gap: 10px;
 }
 .flex-register {
-    height: 440px;
+    height: 600px;
     width: 600px;
     font-size: 2ch;
     align-items:left;
