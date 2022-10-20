@@ -26,7 +26,6 @@ function Home() {
                 } else (console.log(response))
             })
             .then(playlists => {
-                console.log(playlists);
                 setPlaylists(playlists);
             });
     }
@@ -35,7 +34,7 @@ function Home() {
         loadPlaylistsbyUser();
     }, [])
 
-    return (
+    return ( //TODO: add conditional render for if there are no playlists added yet
         <>
         <div className="flex-home">
             <div className="header">Home Page</div>

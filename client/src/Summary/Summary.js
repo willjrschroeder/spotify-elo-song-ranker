@@ -30,7 +30,6 @@ function Summary() {
                 } else (console.log(response))
             })
             .then(tracks => {
-                console.log(tracks);
                 setTracks(tracks);
             });
     }
@@ -50,7 +49,6 @@ function Summary() {
                 } else (console.log(response))
             })
             .then(artists => {
-                console.log(artists);
                 setArtists(artists);
             });
 
@@ -70,7 +68,6 @@ function Summary() {
                 } else (console.log(response))
             })
             .then(genres => {
-                console.log(genres);
                 setGenres(genres);
             });
 
@@ -84,7 +81,7 @@ function Summary() {
         },
         []
     )
-    return (
+    return ( //TODO: add conditional render if there are no playlists
         <>
             <h1>Summary</h1>
             <div className="flex-summary">
