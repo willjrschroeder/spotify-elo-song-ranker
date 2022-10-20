@@ -80,7 +80,7 @@ function Admin() {
     return (
         <>
             <div className="manage-user">
-                <h1 className="manage-header">Manage Users</h1>
+                <h1 className="page-header mt-4">Manage Users</h1>
                 <div className="flex-users">
                     
                     <div className="flex-user-select">

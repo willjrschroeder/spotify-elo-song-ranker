@@ -85,9 +85,9 @@ function Summary() {
         <>
             
             <div className="flex-summary">
-            <h1>Summary</h1>
+            <h1 className="page-header">Summary</h1>
             <div className="playlist-rows">
-                <div className="">
+                <div>
                     <h3 className="mb-3">Top Tracks</h3>
                     <table className="table">
                         <thead>

@@ -133,7 +133,7 @@ if (track1 == null || track2 == null) return null; // wait to display tracks unt
 
 return (
     <>
-    <h4 className="elo-header">Which song do you like more?</h4>
+    <h4 className="page-header">Which song do you like more?</h4>
     <div className="elo-page">
         <GameTrack displayTrack={track1} otherTrack={track2} updateScores={updateScores} />
         <GameTrack displayTrack={track2} otherTrack={track1} updateScores={updateScores} />
