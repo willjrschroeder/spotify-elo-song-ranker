@@ -9,11 +9,7 @@
     margin:0 auto;
     column-gap: 50px;
 }
-table {
-    border: 1px solid black;
-    table-layout: fixed;
-    overflow-y: scroll;
-}
+
 .container-fluid {
     width: 80vw;
 }

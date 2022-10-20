@@ -122,8 +122,8 @@ function ManagePlaylists() {
             <div className="row">
             <div className="col">
                     <table className="table smaller">
-                        <thead className="thead-dark">
-                            <tr className="table-rows">
+                        <thead>
+                            <tr>
                                 <th colSpan={3}>Spotify Playlists</th>
                             </tr>
                         </thead>
@@ -138,7 +138,7 @@ function ManagePlaylists() {
                 </div>
                 <div className="col">
                     <table className="table larger">
-                        <thead className="thead-dark">
+                        <thead>
                             <tr>
                                 <th colSpan={4}>Currently Tracked Playlists</th>
                             </tr>

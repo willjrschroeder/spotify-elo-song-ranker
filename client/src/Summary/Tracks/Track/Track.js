@@ -1,6 +1,8 @@
-function Track(props) {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-    let artists = props.artists.map(a => a.artistName);
+function Track({ track }) {
+
+    let artists = track.artists.map(a => a.artistName);
 
     function isEmptyOrUndefined(array) {
         if (array.length == 0 || array === undefined) {
@@ -13,12 +15,28 @@ function Track(props) {
     return(
         <>
         <tr>
-            <td>{props.title}</td>
-            <td>{props.pop}</td>
+            <td>
+                <div className='container text-center align-items-center'>
+                    <FontAwesomeIcon icon="play-circle" size="2x" > </FontAwesomeIcon>
+                </div>
+            </td>
+
+            <td style={{textAlign: 'left'}}>
+                <div className="d-flex align-items-center">
+                    <div classname="container">
+                        <img className="rounded-top track" src={track.albums[0].albumImageLink} />
+                    </div>
+                    <div className='container'>
+                        <a href={track.spotifyUrl} target="blank">{track.title}</a>
+                    </div>
+                </div>
+            </td>
+
+            <td>{track.popularityNumber}</td>
             <td>{isEmptyOrUndefined ? artists.join(", ") : "No "}</td>
-            <td>{props.elo}</td>
-        </tr> 
-        </>
+            <td>{track.eloScore}</td>
+        </tr>
+    </>
     )
 }
 export default Track;
