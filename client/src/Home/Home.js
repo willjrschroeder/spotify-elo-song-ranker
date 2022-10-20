@@ -39,7 +39,7 @@ function Home() {
         <>
         <div className="flex-home">
             <div className="header">Home Page</div>
-            <table className="table table-striped w-50">
+            <table className="table table-dark table-striped w-50">
                 <thead className="table-dark">
                     <tr>
                         <th></th>
