@@ -12,7 +12,7 @@
         align-items: center;
         flex-direction: column;
         row-gap: 60px;
-        background-color: antiquewhite;
+        background: url("admin1.webp");
         border-radius: 10px;
         border: 10px #4B2B20;
         box-shadow: 5px 10px#9D746E;
@@ -51,11 +51,11 @@
     width: 20vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: flex-start;
-    border-radius: 10px;
-    border: 10px #4B2B20;
-    box-shadow: 5px 10px#9D746E;
+    background-color: #E7E5DF;
+    border-radius: 5px;
+    border: 5px #000000;
+    box-shadow: 3px 3px#9D746E;
     border-style:ridge;
     text-align: left;
 }
