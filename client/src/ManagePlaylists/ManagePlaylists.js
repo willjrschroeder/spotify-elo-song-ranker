@@ -117,7 +117,7 @@ function ManagePlaylists() {
             
             <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
             <div className="manage"> 
-            <div className="title">Manage Playlists</div>
+            <h1>Manage Playlists</h1>
                 <div className="container-fluid manager ">
                     <div className="row">
                         <div className="col-6">
