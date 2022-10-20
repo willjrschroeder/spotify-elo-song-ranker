@@ -37,33 +37,36 @@ function ViewByPlaylist() {
 
     return (
         <>
-            <div className="container mb-5 mt-5">
+            <div className="container-fluid w-100 playlist-image pb-5 pt-5 mb-5 mt-5">
                 <img src={playlist.playlistImageLink} className="img-fluid rounded-top img-thumbnail" alt="Playlist from Spotify" />
                 <h3 className="mt-4">
                     {playlist.playlistName}
                 </h3>
             </div>
 
-            <div className="container mt-5">
-                <div>
-                    <table className="table table-dark table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th className="col-1"></th>
-                                <th className="text-center col-6" >Title</th>
-                                <th>Spotify Popularity Score</th>
-                                <th>Artist(s)</th>
-                                <th>Elo Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentTracks.map((t, index) =>
-                                <Track track={t} key={index}></Track>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
+            <div className="container">
 
+            </div>
+
+            <div className="container pt-5 mt-5">
+
+                <h1 className="mb-5">Your Rankings</h1>
+                <table className="table table-background table-striped table-sm">
+                    <thead>
+                        <tr>
+                            <th className="col-1"></th>
+                            <th className="text-center col-6" >Title</th>
+                            <th>Spotify Popularity Score</th>
+                            <th>Artist(s)</th>
+                            <th>Elo Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {currentTracks.map((t, index) =>
+                            <Track track={t} key={index}></Track>
+                        )}
+                    </tbody>
+                </table>
 
             </div>
         </>

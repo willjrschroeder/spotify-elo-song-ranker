@@ -15,7 +15,6 @@ const useGetSpotifyData = ((playlistId, userId) => {
     // Retrieve data from the API
     // state is then passed to the builder helper methods tp create the spotifyData object
     // repeats this process when a new playlistId is passed in
-    //TODO: add a tracker so that if a new playlist ID is passed in before the method completes, the second request is cancelled
     useEffect(() => {
         if (!spotifyAuth.spotifyAccessToken) return; // return if the access token is not yet set
 
@@ -108,7 +107,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
             trackDuration: track.duration_ms,
             popularityNumber: track.popularity,
             spotifyUrl: track.external_urls.spotify,
-            thirtySecondPreviewUrl: track.preview_url,
+            previewUrl: track.preview_url,
             albums: [{
                 albumUri: track.album.uri,
                 albumName: track.album.name,

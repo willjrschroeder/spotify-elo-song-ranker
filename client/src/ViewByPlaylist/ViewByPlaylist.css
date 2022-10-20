@@ -1,3 +1,28 @@
+.playlist-image {
+    background-color: #feb300;
+    box-shadow:
+      0 0 60px 30px  #ac7a4b,  /* inner white */
+      0 0 100px 60px #c1976b, /* middle magenta */
+      0 0 140px 90px #e1b382;
+}
+
+.table-background {
+    box-shadow:
+      0 0 60px 30px  #ac7a4b,  /* inner white */
+      0 0 100px 60px #c1976b, /* middle magenta */
+      0 0 140px 90px #e1b382;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td, 
+.table-striped>tbody>tr:nth-child(even)>th {
+   background-color: #cea395;
+ }
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #e1b382;
+ }
+
 img.track {
     height: 60px;
     width: 60px;
