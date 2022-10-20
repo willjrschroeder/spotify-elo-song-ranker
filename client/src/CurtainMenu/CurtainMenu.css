@@ -1,3 +1,7 @@
+img.logo {
+    z-index: 10000;
+}
+
 .floating-btn {
     position: absolute;
     top: 15px;
@@ -27,6 +31,18 @@ nav {
     width: 100vw;
     transition: transform 0.3s ease-in-out;
     transition-timing-function: cubic-bezier(0,1,1,1);
+    z-index: 2;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+div.nav-background {
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: rgb(193, 192, 192);
+    height: 20vh;
+    width: 100vw;
     z-index: 2;
     overflow-y: hidden;
     overflow-x: auto;
@@ -71,11 +87,15 @@ body {
     right: 0px;
     text-align: center;
     z-index: 10000;
-    color: rgb(10,10,10);
-    font-family: monospace;
+    color: #3a4660;
+    font-weight: 1000;
+    font-family: 'Franklin Gothic Medium';
+    letter-spacing: .05em;
 }
 .title-active {
-    font-family: monospace;
+    font-family: 'Franklin Gothic Medium';
+    font-weight: 1000;
+    letter-spacing: .05em;
     position: relative;
     margin-left: auto;
     margin-right: auto;
