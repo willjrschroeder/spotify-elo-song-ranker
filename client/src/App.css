@@ -4,8 +4,8 @@
 
 .table-background {
   box-shadow:
-    0 0 60px 30px  #ac7a4b,  /* inner white */
-    0 0 100px 60px #c1976b, /* middle magenta */
+    0 0 60px 30px  #ac7a4b,
+    0 0 100px 60px #c1976b,
     0 0 140px 90px #e1b382;
 }
 
