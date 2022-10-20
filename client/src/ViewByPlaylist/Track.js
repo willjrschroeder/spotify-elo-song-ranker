@@ -22,7 +22,7 @@ function Track({ track }) {
                     </div>
                 </td>
 
-                <td>
+                <td style={{textAlign: 'left'}}>
                     <div className="d-flex align-items-center">
                         <div classname="container">
                             <img className="rounded-top track" src={track.albums[0].albumImageLink} />

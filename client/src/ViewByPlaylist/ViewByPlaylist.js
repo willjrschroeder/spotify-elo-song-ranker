@@ -51,11 +51,12 @@ function ViewByPlaylist() {
             <div className="container pt-5 mt-5">
 
                 <h1 className="mb-5">Your Rankings</h1>
-                <table className="table table-background table-striped table-sm">
+                <table className="table table-background table-sm">
                     <thead>
                         <tr>
-                            <th className="col-1"></th>
-                            <th className="text-center col-6" >Title</th>
+                            
+                            <th className="col-1"><div style={{minHeight: 3 + 'em'}}></div></th>
+                            <th className="text-center col-4" >Title</th>
                             <th>Spotify Popularity Score</th>
                             <th>Artist(s)</th>
                             <th>Elo Score</th>
