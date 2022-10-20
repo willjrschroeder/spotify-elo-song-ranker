@@ -3,7 +3,7 @@
     position: relative;
     z-index: 10000000;
     margin-left: -6%;
-
+    
 
 }
 
@@ -31,7 +31,7 @@ nav {
     position: fixed;
     right: 0;
     top: 0;
-    background: black;
+    background: rgb(193, 192, 192);
     height: 20vh;
     width: 100vw;
     transition: transform 0.3s ease-in-out;
@@ -39,13 +39,15 @@ nav {
     z-index: 2;
     overflow-y: hidden;
     overflow-x: auto;
+    
+    border-bottom: 2px solid black;
 }
 
 div.nav-background {
     position: fixed;
     right: 0;
     top: 0;
-    background: rgb(193, 192, 192);
+    background: inherit;
     height: 20vh;
     width: 100vw;
     z-index: 2;
