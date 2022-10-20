@@ -24,3 +24,6 @@
     font-weight: bold;
 
 }
+p {
+    width: fit-content;
+}

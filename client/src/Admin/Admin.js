@@ -89,6 +89,7 @@ function Admin() {
                         <form onChange={handleChange}>
                             <label for="users"><span className="bolded">Select a User:</span></label>
                             <select name="users"id="users">
+                            <option value="none" selected disabled hidden>Select an Option</option>
                                 {users.map((u, index) => (<User key={index} u={u}></User>))}
                             </select>
                         </form>

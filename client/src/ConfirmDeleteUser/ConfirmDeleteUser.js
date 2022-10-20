@@ -37,9 +37,9 @@ function ConfirmDeleteUser() {
         messageContainer.innerHTML = messageContainer.innerHTML + `<p>${message}</p>`;
 
         if (isErrorMessage) {
-            messageContainer.className = "alert alert-danger w-25 m-auto mb-4";
+            messageContainer.className = "alert alert-danger  m-auto mb-4";
         } else {
-            messageContainer.className = "alert alert-success w-25 m-auto mb-4";
+            messageContainer.className = "alert alert-success m-auto mb-4";
         }
     }
 
@@ -51,7 +51,7 @@ function ConfirmDeleteUser() {
     return (
         <>
             <div className="flex-deleteUser">
-                <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
+                <div id="messages" role="alert" ></div>
                 <div className="confirmDeleteUser">Are you sure you want to <span className="delete-user">DELETE USER: {user.username + ": " + user.displayName}?</span>  This action cannot be undone</div>
                 <div>
                     <button className="link-btn" onClick={deleteUser}>Delete</button>
