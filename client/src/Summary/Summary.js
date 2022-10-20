@@ -83,9 +83,11 @@ function Summary() {
     )
     return ( //TODO: add conditional render if there are no playlists
         <>
-            <h1>Summary</h1>
+            
             <div className="flex-summary">
-                <div className="col-6">
+            <h1>Summary</h1>
+            <div className="playlist-rows">
+                <div className="">
                     <h3 className="mb-3">Top Tracks</h3>
                     <table className="table">
                         <thead>
@@ -134,6 +136,7 @@ function Summary() {
                             )}
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
         </>

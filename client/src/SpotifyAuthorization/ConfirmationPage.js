@@ -1,6 +1,7 @@
 import { React, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-node';
+import AuthContext from '../context/AuthContext';
 import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import "./ConfirmationPage.css";
 
@@ -10,6 +11,7 @@ const spotifyApi = new SpotifyWebApi({
 
 function ConfirmationPage() {
     const spotifyAuth = useContext(SpotifyAuthContext); // get access to the spotify token stored in Context
+    const auth = useContext(AuthContext);
 
     const [userData, setUserData] = useState();
 
@@ -33,9 +35,9 @@ function ConfirmationPage() {
             <div>
                 {userData ?
                     <div>
-                        <h2>Welcome, {userData.display_name}</h2>
+                        <h2>Welcome, {auth.user.display_name}</h2>
                         <img src={userData.images[0].url} alt="User profile pulled down from the linked Spotify account"></img>
-                        <h3>Your Spotify Account was successfully linked</h3>
+                        <h3>Your Spotify Account, {userData.display_name}, successfully linked</h3>
                         <Link to="/home"><button className='homeButton'>Home</button></Link>
                     </div>
                     :

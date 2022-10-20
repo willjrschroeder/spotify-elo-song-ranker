@@ -21,6 +21,7 @@ button {
   padding: 0.6rem 1rem;
   border: 0;
   flex: 1;
+  font-size: small;
   background-color: var(--accent-color);
   color: var(--dash-color);
   border-radius: 100vh;
@@ -28,9 +29,7 @@ button {
   transition: 350ms ease;
 }
 
-button:last-child {
-  margin-left: 0.5rem;
-}
+
 
 button:hover {
   background-color: var(--accent-color-400);

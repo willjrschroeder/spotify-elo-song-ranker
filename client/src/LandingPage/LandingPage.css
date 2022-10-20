@@ -9,7 +9,7 @@ html, body {
 }
 table {
     border-collapse: collapse;
-    
+    font-size: 1.4ch;
     border-top-left-radius: 1em;
     border-top-right-radius: 1em;
     border-bottom-left-radius: .2em;

@@ -1,17 +1,28 @@
 h1 {
     text-align: center;
+    font-size: 12ch;
+    font-family: monospace;
 }
 .flex-summary {
 
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         column-gap: 60px;
-        width: 65%;
+        width: 80vw;
         justify-content: center;
         margin: 0 auto;
-        margin-top: 50px;
-        
-      
+        padding: 25px;
+        margin-top: 4%;
+        border-radius: 10px;
+        border: 10px #4B2B20;
+        box-shadow: 5px 10px#9D746E;
+        border-style:ridge;
+             
+}
+.playlist-rows {
+    display: flex;
+    column-gap: 10px;
+    margin-top: 50px;
 }
 td {
     text-align: left;

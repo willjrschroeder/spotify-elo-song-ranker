@@ -79,11 +79,11 @@ function Admin() {
 
     return (
         <>
-            <div>
-                <h2 className="manage-header">Manage Users</h2>
+            <div className="manage-user">
+                <h1 className="manage-header">Manage Users</h1>
                 <div className="flex-users">
                     <div className="flex-select">
-                        <div>Select a User:</div>
+                        <span className="bolded">Select a User:</span>
                         <form onChange={handleChange}>
                             <input list="users"></input>
                             <datalist id="users">
@@ -94,12 +94,12 @@ function Admin() {
                     <div className="flex-user-select">
                         {!currentUser ?
                             <div>
-                                <h3>Select a User to View Their Data</h3>
+                                <h4>Select a User to View Their Data</h4>
                             </div>
                             :
                             <div>
-                                <h4>Username: {currentUser.username}</h4>
-                                <h4>Display Name: {currentUser.displayName}</h4>
+                                <h4><span className="bolded">Username:</span> {currentUser.username}</h4>
+                                <h4><span className="bolded">Display Name: </span>{currentUser.displayName}</h4>
                                 <Link to={userLocation}>
                                     <button>Delete User</button>
                                 </Link>

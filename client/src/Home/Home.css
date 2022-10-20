@@ -39,7 +39,21 @@
   box-shadow: 5px 10px#9D746E;
   border-style:ridge;
   margin: auto;
-  margin-top: 2%;
+  margin-top: 4%;
   height: 80vh;
   width: 70vw;
+}
+.title {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  z-index: 10000;
+  color: #3a4660;
+  font-size: 12ch;
+  font-weight: 1000;
+  font-family: monospace;
+  letter-spacing: .05em;
 }

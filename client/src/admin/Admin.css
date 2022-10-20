@@ -6,6 +6,23 @@
 .home {
     margin-left: 20px;
 }
+.manage-user {
+
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+        row-gap: 60px;
+        background-color: 777;
+        border-radius: 10px;
+        border: 10px #4B2B20;
+        box-shadow: 5px 10px#9D746E;
+        border-style:ridge;
+        margin: auto;
+        margin-top: 4%;
+        height: 100vh;
+        width: 80vw;
+    
+}
 
 .second {
     font-size: 2ch;
@@ -13,7 +30,30 @@
 }
 .flex-users {
     margin-top: 100px;
+    min-width: 60vw;
+
     display: flex;
     flex-direction: row;
+    column-gap: 10%;
     justify-content: space-around;
+}
+.flex-select{
+    width: 20vw;
+    border-radius: 10px;
+    border: 10px #4B2B20;
+    box-shadow: 5px 10px#9D746E;
+    border-style:ridge;
+}
+.flex-user-select{
+    width: 20vw;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    border: 10px #4B2B20;
+    box-shadow: 5px 10px#9D746E;
+    border-style:ridge;
+}
+.bolded {
+    font-weight:900;
+    font-size:x-large;
 }

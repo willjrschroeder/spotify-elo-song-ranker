@@ -1,28 +1,42 @@
-.body {
-    background-image: -moz-linear-gradient(to bottom right, #454ADE, #B14AED);
+html, body {
+    padding-top: 10px;
+    height: 100%;
+    transform: rotate();
+    background-image: linear-gradient(to bottom right, #EADFB1,  #C0A890 70%, #b99f89 90%);
+    background-position:left;
+    background-repeat: no-repeat;
+    background-position: cover;
+    overflow-y: hidden;
+
 }
-.flex-register {
+.backing {
     
-    height: 540px;
-    width: 540px;
+}
+.headphones{
+
+}
+
+.flex-register {
+    height: 440px;
+    width: 600px;
     font-size: 2ch;
-    align-items: center;
+    align-items:left;
     flex-direction: column;
     justify-content: center;
     display:flex;
     color: #1B1F3B;
     font-weight: bolder;
     font-family: monospace;
-    background-image: radial-gradient(#FFED99, #F6B8B8, #AC66CC);
-    margin-left: auto;
-    margin-top: 150px;
+    background-color: #C8DBE2;
+    opacity: .8;
+    margin-left: 12%;
+    margin-top: 7%;
     margin-right: auto;
     margin-bottom: auto;
     padding: 40px;
-    border-radius: 50%;
-    
+    border-radius: 2%;
 }
-.flex-buttons {
+.loginButton { 
     height: auto;
     width: auto;
     font-size: 2ch;
@@ -33,6 +47,7 @@
     color: #1B1F3B;
     font-weight: bolder;
     font-family: monospace;
+
     
     margin-left: auto;
     margin-top: auto;
@@ -40,5 +55,5 @@
     margin-bottom: auto;
     padding: 40px;
     border-radius: .5%;
-    
 }
+

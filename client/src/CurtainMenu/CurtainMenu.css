@@ -88,16 +88,4 @@ body {
         transform: translateY(-100%);
     }
 }
-.title {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0px;
-    right: 0px;
-    text-align: center;
-    z-index: 10000;
-    color: #3a4660;
-    font-weight: 1000;
-    font-family: 'Franklin Gothic Medium';
-    letter-spacing: .05em;
-}
+

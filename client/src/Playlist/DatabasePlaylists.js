@@ -23,10 +23,8 @@ function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
                 <td><p className="name">{pd.playlistName}</p></td>
                 <td>
                     <Link to={location}>
-                        <button className="mb-3">Rank Tracks in this Playlist</button>
-                    </Link>
-
-                    
+                        <button className="">Rank Tracks in this Playlist</button>
+                    </Link>                    
                 </td>
 
                 <td><button onClick={handleClick}>Remove This Playlist From Tracking</button></td>

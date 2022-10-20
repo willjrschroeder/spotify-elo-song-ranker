@@ -33,6 +33,13 @@ function Home() {
     useEffect(() => {
         loadPlaylistsbyUser();
     }, [])
+    function isEmpty() {
+        if (playlists.length < 1 || playlists === undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     return ( //TODO: add conditional render for if there are no playlists added yet
         <>
@@ -47,7 +54,10 @@ function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                {playlists.map( (p,index) => (<HomePagePlaylist key = {index} p = {p}/>))}
+                {!isEmpty ? playlists.map( (p,index) => (<HomePagePlaylist key = {index} p = {p}/>)) : 
+                    <tr className="message empty">
+                        <td colSpan={3}>Go to Manage Playlists to view tracks here</td>
+                    </tr>}
                 </tbody>
             </table>
         </div>
