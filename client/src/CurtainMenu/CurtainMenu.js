@@ -61,10 +61,9 @@ function CurtainMenu() {
             <Link to="/home"><button className="link-btn" onClick={toggleNavFunc}>Home</button></Link>
             <Link to="/playlistManager"><button className="link-btn" onClick={toggleNavFunc}>Manage Playlists</button></Link>
             <Link to="/summary"><button className="link-btn" onClick={toggleNavFunc}>Summary</button></Link>
-            {auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button className="link-btn" onClick={toggleNavFunc}>Manage Users</button></Link> : <div></div>) : <div></div>}
+            
             <Link to="/"><button className="link-btn" onClick={doLogout}>Logout</button></Link></div> : <Link to="/login"><button className="link-btn" onClick={doLogin}>Login</button></Link>}
-
-
+            <div>{auth.user ? (auth.user.hasRole("admin") ? <Link to="/admin"><button className="link-btn" onClick={toggleNavFunc}>Manage Users</button></Link> : <div></div>) : <div></div>}</div>
         </div>
 
 
