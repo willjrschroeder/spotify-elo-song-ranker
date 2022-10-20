@@ -91,11 +91,11 @@ function Summary() {
         <>
             
             <div className="flex-summary">
-            <h1 className="page-header">Summary</h1>
+            <h1 className="summary-head">Summary</h1>
             {isEmpty() ? <div>Go to Manage Playlists to view all your tracks here</div> : <div></div> }
             <div className="playlist-rows">
                 <div>
-                    <h3 className="mb-3">Top 10 Tracks</h3>
+                    <h3 className="mb-3 head">Top Tracks</h3>
                     <table className="table">
                         <thead>
                             <tr>
@@ -114,7 +114,7 @@ function Summary() {
                     </table>
                 </div>
                 <div className="col-3">
-                <h3 className="mb-3">Top 10 Genres</h3>
+                <h3 className="mb-3">Top Genres</h3>
                     <table className="table ">
                         <thead>
                             <tr>
@@ -129,7 +129,7 @@ function Summary() {
                     </table>
                 </div>
                 <div className="col-3">
-                    <h3 className="mb-3">Top 10 Artists</h3>
+                    <h3 className="mb-3">Top Artists</h3>
                     <table className="table">
                         <thead >
                             <tr>

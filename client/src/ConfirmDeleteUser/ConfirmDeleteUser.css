@@ -1,7 +1,8 @@
 .flex-deleteUser {
     width: 600px;
     border-radius: 10px;
-    border: 10px #4B2B20;
+    border: 10px black;
+    color: aliceblue;
     box-shadow: 5px 10px#9D746E;
     border-style:ridge;
     justify-content: center;

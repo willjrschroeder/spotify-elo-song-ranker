@@ -3,9 +3,14 @@ h1 {
     font-size: 12ch;
     font-family: monospace;
 }
-.page-header {
-
+.summary-head {
+    color: aliceblue;
+    font-family: 'Special Elite';
 }
+.head {
+    color: aliceblue;
+}
+
 .flex-summary {
 
         display: flex;
@@ -15,7 +20,8 @@ h1 {
         column-gap: 60px;
         width: 80vw;
         justify-content: center;
-        background-color: antiquewhite;
+        background: url(drums-transformed.webp);
+        background-size: cover;
         margin: 0 auto;
         padding: 25px;
         margin-top: 4%;

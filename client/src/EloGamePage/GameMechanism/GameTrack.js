@@ -16,8 +16,11 @@ function GameTrack({ displayTrack, otherTrack, updateScores }) {
             
                 <div className="elo-card">
                 <button className="elo-button" onClick={handleClick}><img className="elo-image" src={displayTrack.albums[0].albumImageLink} alt="Song's album"/></button>
+                    <div className="spacing">
                     <h3>{displayTrack.title}</h3>
                     <h4>{displayTrack.artists[0].artistName}</h4>
+                    </div>
+                    
                 </div>
             </div>
         </>
