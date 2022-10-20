@@ -81,11 +81,18 @@ function Summary() {
         },
         []
     )
+    function isEmpty() {
+        if (tracks === undefined || tracks.length < 1) {
+            return true;
+        }
+        return false;
+    }
     return ( //TODO: add conditional render if there are no playlists
         <>
             
             <div className="flex-summary">
             <h1 className="page-header">Summary</h1>
+            {isEmpty() ? <div>Go to Manage Playlists to view all your tracks here</div> : <div></div> }
             <div className="playlist-rows">
                 <div>
                     <h3 className="mb-3">Top Tracks</h3>
