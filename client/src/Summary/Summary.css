@@ -3,10 +3,15 @@ h1 {
     font-size: 12ch;
     font-family: monospace;
 }
+.page-header {
+
+}
 .flex-summary {
 
         display: flex;
         flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
         column-gap: 60px;
         width: 80vw;
         justify-content: center;
