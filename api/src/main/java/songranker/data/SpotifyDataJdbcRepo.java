@@ -57,6 +57,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
             createTrack(spotifyData);
             createGenre(spotifyData);
 
+
             addPlaylistTrack(spotifyData);
             addGenreArtist(spotifyData);
 
@@ -179,7 +180,7 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                 }
 
                 associateTrackWithArtist(eachTrack.getTrack_uri(), eachTrack.getArtists().get(0).getArtistUri());
-                associateAlbumWithArtist(eachTrack.getTrack_uri(), eachTrack.getAlbums().get(0).getAlbumUri());
+                associateAlbumWithTrack(eachTrack.getTrack_uri(), eachTrack.getAlbums().get(0).getAlbumUri());
 
                 tracks.add(eachTrack);
                 existingTracks.add(eachTrack.getTrack_uri());
@@ -192,10 +193,15 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
 
     }
 
-    private void associateAlbumWithArtist(String track_uri, String albumUri) {
-        final String sql = "insert into track_album (track_uri, album_uri) values (?,?);";
 
-        template.update(sql, track_uri, albumUri);
+    private void associateAlbumWithTrack(String track_uri, String albumUri) {
+        try {
+            final String sql = "insert into track_album (track_uri, album_uri) values (?,?);";
+
+            template.update(sql, track_uri, albumUri);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
 
     }
 
@@ -273,13 +279,11 @@ public class SpotifyDataJdbcRepo implements SpotifyDataRepo {
                         return ps;
                     });
                     if (rowsAffected <= 0) {
-                        return null;
+                        System.err.println("something failed with albums"+ eachAlbum.getAlbumUri());
                     }
 
                     albums.add(eachAlbum);
                     existingAlbums.add(eachAlbum.getAlbumUri());
-                } else {
-                    return null;
                 }
             }
 
