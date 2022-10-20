@@ -28,7 +28,7 @@
 }
 
 .link-btn{
-    font-size: 2ch;
+    font-size: 1.5ch;
 
 }
 
@@ -80,7 +80,7 @@ nav a:first-of-type{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:11vh;
+    margin-top:12.7vh;
     height: 30%;
     width: 100%;
 }
