@@ -1,13 +1,17 @@
-
-html, body {
+html,
+body {
     background-image: linear-gradient(to bottom right, rgb(173, 164, 164), black);
-    margin:0;
-    padding:auto;
+    margin: 0;
+    padding: auto;
     height: 100vh;
-    color: #54392b;
     overflow-x: hidden;
+    color: #3a4660;
+    font-size: 1.1rem;
+    font-family: monospace;
+
 
 }
+
 table {
     border-collapse: collapse;
     font-size: 1.4ch;
@@ -17,15 +21,16 @@ table {
     border-bottom-right-radius: .2em;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     overflow: hidden;
-  }
+}
 
 h1 {
-    margin:0;
+    margin: 0;
 }
+
 .flex-container {
     height: 400px;
     width: 400px;
-    display:flex;
+    display: flex;
     flex: 1;
     color: #1B1F3B;
     flex-direction: row;
@@ -34,8 +39,9 @@ h1 {
     font-size: 3ch;
     font-weight: bolder;
 }
+
 .label {
-    position:absolute;
+    position: absolute;
     height: 10vh;
     width: 100vw;
     justify-content: center;
@@ -44,13 +50,14 @@ h1 {
     margin: 0 auto;
     margin-top: 15vh;
     margin-left: 18%;
-    color:white;
-    font-family:monospace;
+    color: white;
+    font-family: monospace;
     font-size: 8ch;
     background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(219, 205, 205));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
+
 .land-register {
     margin-top: 20%;
     margin-left: 50%;
@@ -61,37 +68,43 @@ h1 {
     text-decoration: none;
 
 }
-.register-btn{
+
+.register-btn {
     font-size: 1ch;
 }
 
 
 .login {
     color: #B14AED;
-    font-family:monospace;
+    font-family: monospace;
     text-decoration: none;
     font-size: 3ch;
     font-weight: 600;
     transition-duration: .3s;
-    position:absolute;
+    position: absolute;
     top: 40px;
     right: 90px;
 }
+
 .login:hover {
-    color:#E1BBC9 ;
+    color: #E1BBC9;
 }
+
 body::-webkit-scrollbar {
     width: 2em;
 }
+
 ::-webkit-scrollbar-track {
     background: #333333;
     border-radius: 100vh;
     margin-block: .5em;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #999999;
     border-radius: 100vh;
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #555555;
 }
