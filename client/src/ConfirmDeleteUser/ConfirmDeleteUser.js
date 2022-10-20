@@ -52,10 +52,10 @@ function ConfirmDeleteUser() {
         <>
             <div className="flex-deleteUser">
                 <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
-                <div className="confirmDeleteUser">Are you sure you want to delete user: {user.username + ": " + user.displayName}? This action cannot be undone</div>
+                <div className="confirmDeleteUser">Are you sure you want to <span className="delete-user">DELETE USER: {user.username + ": " + user.displayName}?</span>  This action cannot be undone</div>
                 <div>
                     <button onClick={deleteUser}>Delete</button>
-                    <Link to="/admin">Return To Manage Users</Link>
+                    <Link to="/admin"><button>Return To Manage Users</button></Link>
                 </div>
 
             </div>

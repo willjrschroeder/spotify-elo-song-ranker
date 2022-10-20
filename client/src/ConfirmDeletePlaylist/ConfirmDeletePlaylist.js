@@ -14,7 +14,7 @@ function ConfirmDeletePlaylist() {
                 <div className="confirmDeleteUser">Are you sure you want to delete playlist: playlist1? This action cannot be undone</div>
                 <div>
                     <button onClick={deletePlaylist}>Delete</button>
-                    <Link to="/playlistManager">Cancel</Link>
+                    <Link to="/playlistManager"><button>Cancel</button></Link>
                 </div>
 
             </div>

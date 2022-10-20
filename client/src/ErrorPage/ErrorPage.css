@@ -8,10 +8,10 @@
     row-gap: 10%;
     align-items: baseline;
     
-    height: 101vh;
+    height: 120vh;
     width: 100vw;
     position: absolute;
-    margin-top: -7.6vh;
+    margin-top: -16.6vh;
     background-image: url("ErrorPage2.0.png");
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -19,6 +19,7 @@
   background-size: cover;
 }
 .message {
+    margin-top: -10.5vh;
     font-size: 6.9ch;
     margin-left: -22%;
 }
