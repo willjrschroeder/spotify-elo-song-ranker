@@ -7,36 +7,36 @@ function Track({ track }) {
     function isEmptyOrUndefined(array) {
         if (array.length == 0 || array === undefined) {
             return false;
-          } else {
+        } else {
             return true;
-          }
+        }
     }
 
-    return(
+    return (
         <>
-        <tr>
-            <td>
-                <div className='container text-center align-items-center'>
-                    <FontAwesomeIcon icon="play-circle" size="2x" > </FontAwesomeIcon>
-                </div>
-            </td>
-
-            <td style={{textAlign: 'left'}}>
-                <div className="d-flex align-items-center">
-                    <div classname="container">
-                        <img className="rounded-top track" src={track.albums[0].albumImageLink} />
+            <tr>
+                <td>
+                    <div className='container text-center align-items-center'>
+                        <a href={track.spotifyUrl} target="blank"><FontAwesomeIcon icon="fa-brands fa-spotify" size='2x'> </FontAwesomeIcon></a>
                     </div>
-                    <div className='container'>
-                        <a href={track.spotifyUrl} target="blank">{track.title}</a>
-                    </div>
-                </div>
-            </td>
+                </td>
 
-            <td>{track.popularityNumber}</td>
-            <td>{isEmptyOrUndefined ? artists.join(", ") : "No "}</td>
-            <td>{track.eloScore}</td>
-        </tr>
-    </>
+                <td style={{ textAlign: 'left' }}>
+                    <div className="d-flex align-items-center">
+                        <div classname="container">
+                            <img className="rounded-top track" src={track.albums[0].albumImageLink} />
+                        </div>
+                        <div className='container'>
+                            {track.title}
+                        </div>
+                    </div>
+                </td>
+
+                <td>{track.popularityNumber}</td>
+                <td>{isEmptyOrUndefined ? artists.join(", ") : "No "}</td>
+                <td>{track.eloScore}</td>
+            </tr>
+        </>
     )
 }
 export default Track;
