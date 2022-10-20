@@ -4,8 +4,8 @@
 
 .table-background {
   box-shadow:
-    0 0 60px 30px  #ac7a4b,  /* inner white */
-    0 0 100px 60px #c1976b, /* middle magenta */
+    0 0 60px 30px  #ac7a4b,
+    0 0 100px 60px #c1976b,
     0 0 140px 90px #e1b382;
 }
 
@@ -17,29 +17,29 @@
 }
 
 .table>thead>tr>th {
- background-color: #9d7467;
+ background-color: #2C2928;
  text-align: center;
  font-weight: 800;
  font-size: larger;
- color: #334262;
+ color: #BDBBBB;
 }
 
 .table>tbody>tr:nth-child(even)>td, 
 .table>tbody>tr:nth-child(even)>th {
- background-color: #cea395;
+ background-color: #363636;
  text-align: center;
  font-weight: 800;
  font-size: larger;
- color: #415277;
+ color: #BDBBBB;
 }
 
 .table>tbody>tr:nth-child(odd)>td, 
 .table>tbody>tr:nth-child(odd)>th {
- background-color: #e1b382;
+ background-color: #3e3f40;
  text-align: center;
  font-weight: 800;
  font-size: larger;
- color: #415277;
+ color: #BDBBBB;
 }
 
 a {

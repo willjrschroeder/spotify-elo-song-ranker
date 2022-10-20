@@ -44,9 +44,9 @@ function Home() {
     return ( //TODO: add conditional render for if there are no playlists added yet
         <>
         <div className="flex-home table-background">
-            <div className="header">Home Page</div>
-            <table className="table table-dark table-striped w-50">
-                <thead className="table-dark">
+            <div className="header">Your Playlists</div>
+            <table className="table w-50">
+                <thead>
                     <tr>
                         <th></th>
                         <th>Title</th>
