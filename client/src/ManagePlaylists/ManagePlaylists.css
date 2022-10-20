@@ -13,10 +13,3 @@
 .container-fluid {
     width: 80vw;
 }
-.smaller {
-    width: 80%;
-}
-.larger {
-    width: 120%;
-    margin-left: -20%;
-}

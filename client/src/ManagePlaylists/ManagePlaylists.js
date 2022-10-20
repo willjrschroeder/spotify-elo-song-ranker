@@ -115,44 +115,45 @@ function ManagePlaylists() {
         document.getElementById("messages").className = "";
     }
 
-    return (<>
-        <div className="header">Manage Playlists</div>
-        <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
-        <div className="container-fluid">
-            <div className="row">
-            <div className="col">
-                    <table className="table smaller">
-                        <thead>
-                            <tr>
-                                <th colSpan={3}>Spotify Playlists</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {playlists.map((playlist, index) => {
-                                const databasePlaylistUris = databasePlaylists.map((playlist) => (playlist.playlistUri));
+    return (
+        <>
+            <div className="header">Manage Playlists</div>
+            <div id="messages" role="alert" style={{ minHeight: '40px' }}></div>
+            <div className="container-fluid w-75">
+                <div className="row">
+                    <div className="col-6">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th colSpan={3}><div style={{minHeight: 3 + 'em'}}>Playlists in Your Spotify Catalog</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {playlists.map((playlist, index) => {
+                                    const databasePlaylistUris = databasePlaylists.map((playlist) => (playlist.playlistUri));
 
-                                return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
-                            })}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="col">
-                    <table className="table larger">
-                        <thead>
-                            <tr>
-                                <th colSpan={4}>Currently Tracked Playlists</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {databasePlaylists.map((databasePlaylist, index) => (
-                                <DatabasePlaylist key={index} pd={databasePlaylist} removePlaylistFromDatabase={removePlaylistFromDatabase}/>
-                            ))}
-                        </tbody>
-                    </table>
+                                    return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div className="col-6">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th colSpan={4} className="col-1"><div style={{minHeight: 3 + 'em'}}>Currently Tracked Playlists</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {databasePlaylists.map((databasePlaylist, index) => (
+                                    <DatabasePlaylist key={index} pd={databasePlaylist} removePlaylistFromDatabase={removePlaylistFromDatabase} />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    </>
+        </>
     )
 }
 

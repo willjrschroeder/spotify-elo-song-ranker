@@ -17,19 +17,19 @@ function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
     return (
         <>
             <tr>
-                <td>
-                    <img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|} playlist" src={pd.playlistImageLink} alt="Spotify playlist" />
-                    </td>
-                    <td><p className="name">{pd.playlistName}</p></td>
-                <td>
-                    
-                    
-                    <Link to={location}>
-                        <button>Rank Tracks in this Playlist</button>
-                    </Link>
-                    
+                <td className="col-4">
+                    <img className="img-fluid rounded playlist" src={pd.playlistImageLink} alt="Spotify playlist" />
                 </td>
-                <td><button onClick={handleClick}>Remove This Playlist From Tracking</button></td>
+                <td><p className="name">{pd.playlistName}</p></td>
+                <td>
+
+                    <Link to={location}>
+                        <button className="mb-3">Rank Tracks in this Playlist</button>
+                        <button onClick={handleClick}>Remove This Playlist From Tracking</button>
+                    </Link>
+
+                </td>
+                <td></td>
             </tr>
 
 

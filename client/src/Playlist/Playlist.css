@@ -36,15 +36,13 @@ button:hover {
   background-color: var(--accent-color-400);
   cursor: pointer;
 }
-img {
-  width: 100px;
-  height: 100px;
-}
+
 td {
   vertical-align:middle;
 }
+
 img.playlist {
-  height: 60px;
-  width: 60px;
+  height: 200px;
+  width: 200px;
   object-fit: cover;
 }

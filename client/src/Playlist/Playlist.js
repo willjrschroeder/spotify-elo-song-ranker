@@ -16,7 +16,7 @@ function Playlist(props) {
 
     return (<>
         <tr>
-            <td><img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|} playlist" src={props.p.images[0].url} alt="img"></img></td>
+            <td><img className="img-fluid rounded playlist" src={props.p.images[0].url} alt="Spotify playlist"></img></td>
             <td>
                 <p className="name">{props.p.name}</p></td>
             <td>
