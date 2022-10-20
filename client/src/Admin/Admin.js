@@ -41,6 +41,7 @@ function Admin() {
     useEffect(
         () => {
             getAllUsers();
+            console.log(users);
         },
         []
     )
@@ -60,16 +61,20 @@ function Admin() {
             })
             .then(playlists => {
                 setPlaylists(playlists);
+                console.log(playlists);
             });
     }
     function handleChange(event) {
         let username = event.target.value;
-        if (users[0].username === username) {
-            let userArray = users.filter(u => u.username === username);
-            setCurrentUser(userArray[0]);
-            getPlaylistsByUser(userArray[0].appUserId);
+        for (let x = 0; x < users.length; x++) {
+            if (users[x].username === username) {
+                setCurrentUser(users[x]);
+                getPlaylistsByUser(users[x].appUserId);
+            }
         }
+        console.log(playlists);
     }
+
 
 
     return (
@@ -77,13 +82,15 @@ function Admin() {
             <div>
                 <h2 className="manage-header">Manage Users</h2>
                 <div className="flex-users">
-                    <form onChange={handleChange}>
-                        <input list="users"></input>
-                        <datalist id="users">
-                            {users.map((u, index) => (<User key={index} u={u}></User>))}
-                        </datalist>
-
-                    </form>
+                    <div className="flex-select">
+                        <div>Select a User:</div>
+                        <form onChange={handleChange}>
+                            <input list="users"></input>
+                            <datalist id="users">
+                                {users.map((u, index) => (<User key={index} u={u}></User>))}
+                            </datalist>
+                        </form>
+                    </div>
                     <div className="flex-user-select">
                         {!currentUser ?
                             <div>
@@ -98,11 +105,10 @@ function Admin() {
                                 </Link>
                                 <div>
                                     <h4>User Playlists</h4>
-                                    <table>
+                                    <table className="table">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th></th>
+                                                <th colSpan={3}><div style={{minHeight: 3 + 'em'}}>Playlists in Your Spotify Catalog</div></th>
                                             </tr>
                                         </thead>
                                         <tbody>

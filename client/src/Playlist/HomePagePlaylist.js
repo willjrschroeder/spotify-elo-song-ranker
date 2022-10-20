@@ -14,7 +14,7 @@ function HomePagePlaylist(props) {
 
     return (<>
         <tr>
-            <td><img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|} playlist" src={props.p.playlistImageLink} alt="img"></img></td>
+            <td><img className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|} track" src={props.p.playlistImageLink} alt="img"></img></td>
             <td>
                 <p>{props.p.playlistName}</p>
                 

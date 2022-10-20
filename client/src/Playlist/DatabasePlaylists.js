@@ -18,7 +18,7 @@ function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
         <>
             <tr>
                 <td className="col-4">
-                    <img className="img-fluid rounded playlist" src={pd.playlistImageLink} alt="Spotify playlist" />
+                    <img className="img-fluid rounded track" src={pd.playlistImageLink} alt="Spotify playlist" />
                 </td>
                 <td><p className="name">{pd.playlistName}</p></td>
                 <td>
@@ -26,9 +26,10 @@ function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
                         <button className="mb-3">Rank Tracks in this Playlist</button>
                     </Link>
 
-                    <button onClick={handleClick}>Remove This Playlist From Tracking</button>
+                    
                 </td>
-                <td></td>
+
+                <td><button onClick={handleClick}>Remove This Playlist From Tracking</button></td>
             </tr>
 
 

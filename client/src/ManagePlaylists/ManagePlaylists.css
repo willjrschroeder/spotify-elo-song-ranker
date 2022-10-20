@@ -13,3 +13,6 @@
 .container-fluid {
     width: 80vw;
 }
+body{
+    overflow-y: scroll;
+}

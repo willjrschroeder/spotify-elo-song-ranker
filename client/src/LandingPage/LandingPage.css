@@ -1,3 +1,4 @@
+
 html, body {
     background-image: linear-gradient(to bottom right, #EADFB1,  #C0A890 70%, #b99f89 90%);
     margin:0;
@@ -6,6 +7,16 @@ html, body {
     color: #54392b;
 
 }
+table {
+    border-collapse: collapse;
+    
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: .2em;
+    border-bottom-right-radius: .2em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+  }
 
 h1 {
     margin:0;
@@ -54,4 +65,19 @@ h1 {
 }
 .login:hover {
     color:#E1BBC9 ;
+}
+body::-webkit-scrollbar {
+    width: 2em;
+}
+::-webkit-scrollbar-track {
+    background: #333333;
+    border-radius: 100vh;
+    margin-block: .5em;
+}
+::-webkit-scrollbar-thumb {
+    background: #999999;
+    border-radius: 100vh;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555555;
 }
