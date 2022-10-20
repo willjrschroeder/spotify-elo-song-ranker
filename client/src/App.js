@@ -21,9 +21,9 @@ import Curtain from './CurtainMenu/CurtainMenu';
 import Admin from './Admin/Admin';
 import ViewByPlaylist from './ViewByPlaylist/ViewByPlaylist';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
-library.add(faCirclePlay)
+library.add(fab);
 
 
 const LOCAL_STORAGE_JWT_TOKEN_KEY = "loginToken";
