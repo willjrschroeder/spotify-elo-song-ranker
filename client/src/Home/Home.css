@@ -32,7 +32,8 @@
   align-items: center;
   flex-direction: column;
   row-gap: 60px;
-  background: url("headphones-transformed.webp") ;
+  background: url("headphones-transformed.webp");
+  background-size: cover;
   border-radius: 10px;
   border: 10px #4B2B20;
   border-style:ridge;
