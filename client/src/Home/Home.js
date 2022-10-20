@@ -34,7 +34,7 @@ function Home() {
         loadPlaylistsbyUser();
     }, [])
     function isEmpty() {
-        if (playlists.length < 1 || playlists === undefined) {
+        if (playlists === undefined || playlists.length < 1) {
             return true;
         } else {
             return false;
