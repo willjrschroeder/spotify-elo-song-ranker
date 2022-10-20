@@ -13,7 +13,7 @@ function Home() {
             <div className='label'>
                 <div>Rank your songs from Spotify</div>
                 </div>
-                <div className='land-register'><Link><button className='register-btn'>Register</button></Link></div>
+                <div className='land-register'><Link to="/register"><button className='register-btn'>Register</button></Link></div>
 
             {auth.user && (
                 <div className="flex-container">

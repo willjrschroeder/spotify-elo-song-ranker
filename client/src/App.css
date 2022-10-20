@@ -12,7 +12,8 @@
 .table {
   border: none;
   border-spacing: 0;
-  border-collapse: collapse; 
+  border-collapse: collapse;
+  opacity: 1;
 }
 
 .table>thead>tr>th {

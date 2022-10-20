@@ -32,10 +32,11 @@
   align-items: center;
   flex-direction: column;
   row-gap: 60px;
-  background-color:antiquewhite;
+  background: url("headphones-transformed.webp");
+  opacity: .6;
   border-radius: 10px;
   border: 10px #4B2B20;
-  box-shadow: 5px 10px#9D746E;
+
   border-style:ridge;
   margin: auto;
   margin-top: 4%;
