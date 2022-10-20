@@ -18,7 +18,7 @@ function Track({ track }) {
             <tr>
                 <td>
                     <div className='container text-center align-items-center'>
-                        <FontAwesomeIcon icon="play-circle" size="2x" > </FontAwesomeIcon>
+                    <a href={track.spotifyUrl} target="blank"><FontAwesomeIcon icon="fa-brands fa-spotify" size='2x'> </FontAwesomeIcon></a>
                     </div>
                 </td>
 
@@ -28,7 +28,7 @@ function Track({ track }) {
                             <img className="rounded-top track" src={track.albums[0].albumImageLink} />
                         </div>
                         <div className='container'>
-                            <a href={track.spotifyUrl} target="blank">{track.title}</a>
+                            {track.title}
                         </div>
                     </div>
                 </td>

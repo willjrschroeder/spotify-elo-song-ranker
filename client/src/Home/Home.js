@@ -54,7 +54,7 @@ function Home() {
                     </tr>
                 </thead>
                 <tbody>
-                {!isEmpty ? playlists.map( (p,index) => (<HomePagePlaylist key = {index} p = {p}/>)) : 
+                {!isEmpty() ? playlists.map( (p,index) => (<HomePagePlaylist key = {index} p = {p}/>)) : 
                     <tr className="message empty">
                         <td colSpan={3}>Go to Manage Playlists to view tracks here</td>
                     </tr>}
