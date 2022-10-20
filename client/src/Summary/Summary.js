@@ -95,7 +95,7 @@ function Summary() {
             {isEmpty() ? <div>Go to Manage Playlists to view all your tracks here</div> : <div></div> }
             <div className="playlist-rows">
                 <div>
-                    <h3 className="mb-3">Top Tracks</h3>
+                    <h3 className="mb-3">Top 10 Tracks</h3>
                     <table className="table">
                         <thead>
                             <tr>
@@ -114,7 +114,7 @@ function Summary() {
                     </table>
                 </div>
                 <div className="col-3">
-                <h3 className="mb-3">Top Genres</h3>
+                <h3 className="mb-3">Top 10 Genres</h3>
                     <table className="table ">
                         <thead>
                             <tr>
@@ -129,7 +129,7 @@ function Summary() {
                     </table>
                 </div>
                 <div className="col-3">
-                    <h3 className="mb-3">Top Artists</h3>
+                    <h3 className="mb-3">Top 10 Artists</h3>
                     <table className="table">
                         <thead >
                             <tr>
