@@ -20,15 +20,15 @@ body{
     display:flex;
     align-items: center;
     flex-direction: column;
-    background-color:antiquewhite;
+    background-image: url("sax.jpg");
+    background-size: cover;
     row-gap: 60px;
-    background-color: 777;
     border-radius: 10px;
     border: 10px #4B2B20;
     border-style:ridge;
     margin: auto;
     margin-top: 2%;
-    height: 100vh;
+    min-height: 80vh;
     width: 80vw;
 }
 .manager {
