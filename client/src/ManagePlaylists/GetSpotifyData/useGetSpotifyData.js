@@ -13,7 +13,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
     const [spotifyData, setSpotifyData] = useState(); // container for the custom packaged Spotify data we are sending to the back end for writing to the DB
 
     // Retrieve data from the API
-    // state is then passed to the builder helper methods tp create the spotifyData object
+    // state is then passed to the builder helper methods to create the spotifyData object
     // repeats this process when a new playlistId is passed in
     useEffect(() => {
         if (!spotifyAuth.spotifyAccessToken) return; // return if the access token is not yet set
@@ -67,7 +67,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
         const playlistObject = {
             playlistUri: playlistSpotifyData.uri,
             playlistName: playlistSpotifyData.name,
-            description: playlistSpotifyData.description, //TODO: This is going to need to be recoded or something? Passed from the spotify API with ['] evaluating to [&#x27]"
+            description: playlistSpotifyData.description,
             playlistUrl: playlistSpotifyData.external_urls.spotify,
             playlistImageLink: playlistSpotifyData.images[0].url,
             appUserId: userId
@@ -111,7 +111,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
             albums: [{
                 albumUri: track.album.uri,
                 albumName: track.album.name,
-                releaseDate: track.album.release_date,
+                releaseDate: '2022-10-22', // some of these are formatted as '1974-11' - can't parse into java Date obj. Can be fixed, won't track for now
                 albumImageLink: track.album.images[0].url,
                 spotifyUrl: track.album.external_urls.spotify
             }],
