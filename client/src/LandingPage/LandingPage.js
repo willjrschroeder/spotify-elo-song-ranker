@@ -1,6 +1,7 @@
 import './LandingPage.css';
 import React, { useContext } from 'react';
 import AuthContext from "../context/AuthContext";
+import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -10,7 +11,8 @@ function Home() {
         <>
 
             <div className='label'>
-                <div>Rank your songs from Spotify here!</div>
+                <div>Rank your songs from Spotify</div>
+                <div>Get Started now: <Link to="/register"><button>Register</button></Link></div>
                 
                 </div>
 

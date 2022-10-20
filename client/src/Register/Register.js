@@ -102,6 +102,7 @@ function Register() {
             <div className="flex-buttons">
                 <button>Submit</button>
                 <Link to = "/login"><button>Return to Login</button></Link>
+                <Link to = "/"><button>Cancel</button></Link>
             </div>
         </form>
     </div>

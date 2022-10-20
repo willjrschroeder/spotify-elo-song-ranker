@@ -15,7 +15,11 @@ html, body {
 .headphones{
 
 }
-
+.flex-buttons {
+    display: flex;
+    margin-top: 3%;
+    column-gap: 10px;
+}
 .flex-register {
     height: 440px;
     width: 600px;

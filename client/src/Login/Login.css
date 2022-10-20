@@ -42,7 +42,7 @@ html, body {
     font-size: 2ch;
     align-items: center;
     flex-direction: row;
-    justify-content: space-around;
+    column-gap: 20px;
     display:flex;
     color: #1B1F3B;
     font-weight: bolder;
