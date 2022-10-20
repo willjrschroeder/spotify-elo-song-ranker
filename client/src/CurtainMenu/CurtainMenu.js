@@ -42,8 +42,7 @@ function CurtainMenu() {
     <div className="container-fluid">
 
 
-      <img src="/sortify_logo.png" className="img-fluid rounded-top logo" alt="Sortify Logo" />
-      <h1 className={toggleNav ? "title-active " : "title"}>Spotify Leaderboards</h1>
+      <img src="/sortify_logo.png" className="img-fluid logo" alt="Sortify Logo" />
 
 
       <button onClick={toggleNavFunc} className="floating-btn">

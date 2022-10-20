@@ -1,5 +1,10 @@
-img.logo {
-    z-index: 10000;
+.logo {
+    display: flex;
+    position: relative;
+    z-index: 10000000;
+    margin-left: -6%;
+
+
 }
 
 .floating-btn {
