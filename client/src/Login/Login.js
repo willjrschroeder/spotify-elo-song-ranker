@@ -65,13 +65,13 @@ function Login(props) {
                 <div className="messages" id="messages"></div>
                 <form onSubmit={loginHandler}>
                     <FormInput
-                        InputType={"text"}
+                        inputType={"text"}
                         indentifier={"username"}
                         labelText={"Username"}
                         onChangeHandler={(event) => setUsername(event.target.value)} />
 
                     <FormInput
-                        InputType={"password"}
+                        inputType={"password"}
                         indentifier={"password"}
                         labelText={"Password"}
                         onChangeHandler={(event) => setPassword(event.target.value)} />

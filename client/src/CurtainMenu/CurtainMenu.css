@@ -27,6 +27,11 @@
     height: 35px;
 }
 
+.link-btn{
+    font-size: 2ch;
+
+}
+
 nav {
     position: absolute;
     right: 0;
@@ -75,7 +80,7 @@ nav a:first-of-type{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:13vh;
+    margin-top:11vh;
     height: 30%;
     width: 100%;
 }
