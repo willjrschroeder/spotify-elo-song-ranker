@@ -82,3 +82,15 @@ inner join playlist as p
 on p.app_user_id = t.app_user_id
 where t.track_uri = 'spotify:track:3OM6qQmdFV6uy61GIqpRtf'
 limit 1;
+
+-- Top Ten Genres
+select avg(t.elo_score), g.genre_id, g.genre_name
+from artist a
+inner join track_artist ta on ta.artist_uri = a.artist_uri
+inner join (select * from track where app_user_id = 1) as t
+on t.track_uri = ta.track_uri
+inner join genre_artist ga on ga.artist_uri = a.artist_uri
+inner join genre g on g.genre_id = ga.genre_id
+group by g.genre_id
+order by avg(t.elo_score) desc
+limit 10;
