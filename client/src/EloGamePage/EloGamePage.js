@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import GameDisplay from "./GameMechanism/GameDisplay";
 import GameTrack from "./GameMechanism/GameTrack";
@@ -134,9 +134,12 @@ if (track1 == null || track2 == null) return null; // wait to display tracks unt
 return (
     <>
     <h4 className="page-header">Which song do you like more?</h4>
-    <div className="elo-page">
+    <div className="elo-page mb-5">
         <GameTrack displayTrack={track1} otherTrack={track2} updateScores={updateScores} />
         <GameTrack displayTrack={track2} otherTrack={track1} updateScores={updateScores} />
+    </div>
+    <div className="mt-5">
+        <Link to='/home'><button>Done Playing? Return Home</button></Link>
     </div>
     </>
 )
