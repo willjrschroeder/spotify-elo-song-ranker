@@ -90,7 +90,7 @@ function Summary() {
     return ( //TODO: add conditional render if there are no playlists
         <>
             
-            <div className="flex-summary">
+            <div className="flex-summary table-background">
             <h1 className="summary-head">Summary</h1>
             {isEmpty() ? <div>Go to Manage Playlists to view all your tracks here</div> : <div></div> }
             <div className="playlist-rows">
