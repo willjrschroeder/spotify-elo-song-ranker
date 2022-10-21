@@ -114,7 +114,7 @@ function Summary() {
                     </table>
                 </div>
                 <div className="col-3">
-                <h3 className="mb-3">Top Genres</h3>
+                <h3 className="mb-3 summary-head">Top Genres</h3>
                     <table className="table ">
                         <thead>
                             <tr>
@@ -129,7 +129,7 @@ function Summary() {
                     </table>
                 </div>
                 <div className="col-3">
-                    <h3 className="mb-3">Top Artists</h3>
+                    <h3 className="mb-3 summary-head">Top Artists</h3>
                     <table className="table">
                         <thead >
                             <tr>

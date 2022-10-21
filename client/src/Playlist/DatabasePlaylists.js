@@ -1,7 +1,6 @@
 import "./Playlist.css";
 import { Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
-import { useContext } from "react";
+import './Playlist.css'
 
 function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
 
@@ -18,7 +17,7 @@ function DatabasePlaylist({ pd, removePlaylistFromDatabase }) {
         <>
             <tr>
                 <td className="col-4">
-                    <img className="img-fluid rounded track" src={pd.playlistImageLink} alt="Spotify playlist" />
+                    <img className="img-fluid rounded playlist" src={pd.playlistImageLink} alt="Spotify playlist" />
                 </td>
                 <td><p className="name">{pd.playlistName}</p></td>
                 <td>
