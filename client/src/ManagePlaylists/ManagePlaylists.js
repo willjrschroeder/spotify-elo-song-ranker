@@ -5,7 +5,7 @@ import SpotifyAuthContext from '../context/SpotifyAuthContext';
 import { useEffect, useState, useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import DatabasePlaylist from "../Playlist/DatabasePlaylists";
-
+import getSpotifyData from "./GetSpotifyData/getSpotifyData";
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -59,6 +59,13 @@ function ManagePlaylists() {
         loadAllPlaylists();
         getAllPlaylists();
     }, []);
+
+    async function transferPlaylistToTracking(playlistId) {
+        const data = await getSpotifyData(playlistId, serverAuth.user.id, spotifyAuth.spotifyAccessToken);
+
+        addPlaylistToDatabase(data);
+
+    }
 
     function addPlaylistToDatabase(playlistPackage) {
         fetch("http://localhost:8080/api/spotify_data", {
@@ -131,7 +138,7 @@ function ManagePlaylists() {
                                     {playlists.map((playlist, index) => {
                                         const databasePlaylistUris = databasePlaylists.map((playlist) => (playlist.playlistUri));
 
-                                        return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={addPlaylistToDatabase} p={playlist} index={index} />
+                                        return (databasePlaylistUris.includes(playlist.uri)) ? null : <Playlist key={index} addPlaylist={transferPlaylistToTracking} p={playlist} index={index} />
                                     })}
                                 </tbody>
                             </table>

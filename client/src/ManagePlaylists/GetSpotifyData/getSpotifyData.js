@@ -1,55 +1,50 @@
-import { useContext, useEffect, useState } from 'react';
 import SpotifyWebApi from 'spotify-web-api-node';
-import SpotifyAuthContext from '../../context/SpotifyAuthContext';
 
 const spotifyApi = new SpotifyWebApi({
     clientId: 'b055b73f53474f3e931fd58a080ca3cf'
 });
 
-const useGetSpotifyData = ((playlistId, userId) => {
-    const spotifyAuth = useContext(SpotifyAuthContext); // get access to the spotify token stored in Context
-    spotifyApi.setAccessToken(spotifyAuth.spotifyAccessToken); // allow the api helper to use the current token
+const getSpotifyData = ((playlistId, userId, spotifyAccessToken) => {
 
-    const [spotifyData, setSpotifyData] = useState(); // container for the custom packaged Spotify data we are sending to the back end for writing to the DB
+    spotifyApi.setAccessToken(spotifyAccessToken); // allow the api helper to use the current token
+
+    let spotifyData; // container for the custom packaged Spotify data we are sending to the back end for writing to the DB
 
     // Retrieve data from the API
     // state is then passed to the builder helper methods to create the spotifyData object
     // repeats this process when a new playlistId is passed in
-    useEffect(() => {
-        if (!spotifyAuth.spotifyAccessToken) return; // return if the access token is not yet set
+    //useEffect(() => {
 
-        const requestData = async () => {
-             // gets playlist data and tracks data for the passsed playlistId
-            const data = await spotifyApi.getPlaylist(playlistId)
-            let playlistSpotifyData = data.body; // raw playlist data
-            let tracksArraySpotifyData = data.body.tracks.items; //raw [tracks] data. Returns from the API with partially hydrated artist data
-            let fullyHydratedArtistArray = [];
-            // gets fully hydrated artist data for each track
-            for (const trackWithHeaders of tracksArraySpotifyData) { // loop through each track in the array
-                let artistsOnCurrentTrack = []; // array to store all of the artists who have credits on the current track
-                const track = trackWithHeaders.track;
+    const requestData = async () => {
+        // gets playlist data and tracks data for the passsed playlistId
+        const data = await spotifyApi.getPlaylist(playlistId)
+        let playlistSpotifyData = data.body; // raw playlist data
+        let tracksArraySpotifyData = data.body.tracks.items; //raw [tracks] data. Returns from the API with partially hydrated artist data
+        let fullyHydratedArtistArray = [];
+        // gets fully hydrated artist data for each track
+        for (const trackWithHeaders of tracksArraySpotifyData) { // loop through each track in the array
+            let artistsOnCurrentTrack = []; // array to store all of the artists who have credits on the current track
+            const track = trackWithHeaders.track;
 
-                for (const artist of track.artists) { // loop through each artist on the track
-                    const artistData = await spotifyApi.getArtist(artist.id) // get the artist data from the Spotify API
+            for (const artist of track.artists) { // loop through each artist on the track
+                const artistData = await spotifyApi.getArtist(artist.id) // get the artist data from the Spotify API
 
-                    const packagedArtistData = buildArtistObject(artistData.body); // gets a packaged artist object, removing extraneous Spotify data
-                    artistsOnCurrentTrack.push(packagedArtistData) // adds each artist to an array of artists on the track                    
-                }
-
-                // add the array of artists on the current track to the array of artists tied to all of the tracks on the playlist
-                fullyHydratedArtistArray = [...fullyHydratedArtistArray, artistsOnCurrentTrack];  // a 2D array of artists. Order corresponds to tracks in the playlist
-                artistsOnCurrentTrack = [];
+                const packagedArtistData = buildArtistObject(artistData.body); // gets a packaged artist object, removing extraneous Spotify data
+                artistsOnCurrentTrack.push(packagedArtistData) // adds each artist to an array of artists on the track                    
             }
 
-            // calls helper method to create the spotifyData object
-            // needs to be performed AFTER state variables are set with API data
-            const playlistSummaryData = buildSpotifyDataObject(playlistSpotifyData, tracksArraySpotifyData, fullyHydratedArtistArray);
-            setSpotifyData(playlistSummaryData);
+            // add the array of artists on the current track to the array of artists tied to all of the tracks on the playlist
+            fullyHydratedArtistArray = [...fullyHydratedArtistArray, artistsOnCurrentTrack];  // a 2D array of artists. Order corresponds to tracks in the playlist
+            artistsOnCurrentTrack = [];
         }
 
-        requestData();
+        // calls helper method to create the spotifyData object
+        // needs to be performed AFTER state variables are set with API data
+        return buildSpotifyDataObject(playlistSpotifyData, tracksArraySpotifyData, fullyHydratedArtistArray);
+    }
 
-    }, [playlistId]);
+    spotifyData = requestData();
+
 
     //helper method to build the spotify data object containing 'playlist' and 'track' properties. This is the object that is returned from the hook
     function buildSpotifyDataObject(playlistSpotifyData, tracksArraySpotifyData, fullyHydratedArtistArray) {
@@ -126,7 +121,7 @@ const useGetSpotifyData = ((playlistId, userId) => {
             artistUri: artistSpotifyData.uri,
             artistName: artistSpotifyData.name,
             spotifyUrl: artistSpotifyData.external_urls.spotify,
-            artistImageLink: (artistSpotifyData.images.length === 0 ? null: artistSpotifyData.images[0].url),
+            artistImageLink: (artistSpotifyData.images.length === 0 ? null : artistSpotifyData.images[0].url),
             genres: artistSpotifyData.genres // string array of genres
         }
 
@@ -136,4 +131,4 @@ const useGetSpotifyData = ((playlistId, userId) => {
     return spotifyData;
 });
 
-export default useGetSpotifyData;
+export default getSpotifyData;
