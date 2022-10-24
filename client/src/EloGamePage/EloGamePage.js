@@ -44,7 +44,7 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
         if (!winner || !loser) return; // don't execute the block if a track is still null
 
         async function putScores(winner, loser) {
-            await Promise.all( // trigger both puts at once
+            await Promise.all( [// trigger both puts at once
                 fetch(`http://localhost:8080/api/track/`, {
                     method: "PUT",
                     headers: {
@@ -62,7 +62,7 @@ function EloGamePage() { //TODO: Don't let this be triggered if there are less t
                     },
                     body: JSON.stringify(loser)
                 })
-            );
+            ]);
         }
 
         putScores(winner, loser);
