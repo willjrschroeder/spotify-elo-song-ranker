@@ -20,23 +20,41 @@ const getSpotifyData = ((playlistId, userId, spotifyAccessToken) => {
         const data = await spotifyApi.getPlaylist(playlistId)
         let playlistSpotifyData = data.body; // raw playlist data
         let tracksArraySpotifyData = data.body.tracks.items; //raw [tracks] data. Returns from the API with partially hydrated artist data
-        let fullyHydratedArtistArray = [];
-        // gets fully hydrated artist data for each track
-        for (const trackWithHeaders of tracksArraySpotifyData) { // loop through each track in the array
-            let artistsOnCurrentTrack = []; // array to store all of the artists who have credits on the current track
-            const track = trackWithHeaders.track;
 
-            for (const artist of track.artists) { // loop through each artist on the track
-                const artistData = await spotifyApi.getArtist(artist.id) // get the artist data from the Spotify API
+        let artistFetches = []; // this stores all of the fetches that the Promise.all will be making. Preserves order
+        for (let j = 0; j < tracksArraySpotifyData.length; j++) {
+            const track = tracksArraySpotifyData[j].track;// gets rid of header junk
+            let currentArtists = [];
 
-                const packagedArtistData = buildArtistObject(artistData.body); // gets a packaged artist object, removing extraneous Spotify data
-                artistsOnCurrentTrack.push(packagedArtistData) // adds each artist to an array of artists on the track                    
+            for (let i = 0; i < track.artists.length; i++) { // loops through all the artists on the track
+                const artist = track.artists[i];
+
+                const artistFetch = spotifyApi.getArtist(artist.id); // fetch for the current artist
+                currentArtists.push(artistFetch); // adds the current fetch to the array of artists on the track
             }
 
-            // add the array of artists on the current track to the array of artists tied to all of the tracks on the playlist
-            fullyHydratedArtistArray = [...fullyHydratedArtistArray, artistsOnCurrentTrack];  // a 2D array of artists. Order corresponds to tracks in the playlist
-            artistsOnCurrentTrack = [];
+            artistFetches = [...artistFetches, currentArtists]; // adds artist array to the array tied to track order
+            currentArtists = [];
         }
+
+        let fullyHydratedArtistArray = []; //array to store the packaged artist objects
+
+        await Promise.all(artistFetches.map(innerPromiseArray => { // call promise.all on the 2D array of fetches
+            return Promise.all(innerPromiseArray)
+        }))
+            .then(async (artistData) => {
+
+                for (const artists of artistData) {
+                    let artistsOnCurrentTrack = [];
+                    for (const artist of artists) {
+                        const artistObject = buildArtistObject(artist.body); // packages JSON return into artist objects
+                        artistsOnCurrentTrack.push(artistObject)
+                    }
+                    fullyHydratedArtistArray = [...fullyHydratedArtistArray, artistsOnCurrentTrack]; // builds the 2D array of artists for each track
+                    artistsOnCurrentTrack = [];
+
+                }
+            });
 
         // calls helper method to create the spotifyData object
         // needs to be performed AFTER state variables are set with API data
