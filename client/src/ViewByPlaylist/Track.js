@@ -1,11 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './ViewByPlaylist.css';
 
-function Track({ track }) {
+function Track({ track, playTrack, currentlyPlayingTrack }) {
 
     const [isPlaying, setIsPlaying] = useState(false);
     const audioPlayer = useRef();
+
+    useEffect( () => {
+        if(currentlyPlayingTrack === track) {
+            setIsPlaying(true);
+        } else {
+            setIsPlaying(false);
+        }
+    }, [currentlyPlayingTrack]);
 
     let artists = track.artists.map(a => a.artistName);
 
@@ -17,14 +25,11 @@ function Track({ track }) {
         }
     }
 
-    function togglePlaying() {
-        if(!isPlaying) {
-            audioPlayer.current.play();
-        } else {
-            audioPlayer.current.pause();
-        }
 
-        setIsPlaying(previous => !previous);
+
+
+    function togglePlaying() {
+        playTrack(track, isPlaying);
     }
 
     return (
@@ -36,13 +41,7 @@ function Track({ track }) {
 
                 <td>
                 <button onClick={togglePlaying}>
-                    {isPlaying ? <FontAwesomeIcon icon="fa-circle-stop" size='2x' />: <FontAwesomeIcon icon="fa-circle-play" size='2x' />}
-                    
-                    <audio ref={audioPlayer}>
-                        <source src={track.previewUrl} />
-
-                         
-                    </audio>
+                    {isPlaying ? <FontAwesomeIcon icon="fa-circle-stop" size='2x' />: <FontAwesomeIcon icon="fa-circle-play" size='2x' />}                   
                     </button>
                 </td>
 

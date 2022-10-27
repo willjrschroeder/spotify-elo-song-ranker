@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import Track from "./Track.js";
@@ -11,6 +11,8 @@ function ViewByPlaylist() {
     const playlist = location.state;
     const serverAuth = useContext(AuthContext);
     const [currentTracks, setCurrentTracks] = useState([]);
+    const [currentlyPlayingTrack, setCurrentlyPlayingTrack] = useState(null);
+    const audioPlayer = useRef();
 
 
 
@@ -35,6 +37,19 @@ function ViewByPlaylist() {
 
     }, [playlist]);
 
+    function playTrack(track, isPlaying) {
+
+        audioPlayer.current.src = track.previewUrl;
+
+        if (!isPlaying) {
+            audioPlayer.current.play();
+            setCurrentlyPlayingTrack(track)
+        } else {
+            audioPlayer.current.pause();
+            setCurrentlyPlayingTrack(null)
+        }
+    }
+
     return (
         <>
 
@@ -47,7 +62,9 @@ function ViewByPlaylist() {
             </div>
 
             <div className="container">
-
+                <audio ref={audioPlayer}>
+                    <source src='' />
+                </audio>
             </div>
 
             <div className="container pt-5 mt-5">
@@ -68,7 +85,7 @@ function ViewByPlaylist() {
                     </thead>
                     <tbody>
                         {currentTracks.map((t, index) =>
-                            <Track track={t} key={index}></Track>
+                            <Track track={t} key={index} playTrack={playTrack} currentlyPlayingTrack={currentlyPlayingTrack}></Track>
                         )}
                     </tbody>
                 </table>
