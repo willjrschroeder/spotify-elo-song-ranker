@@ -37,6 +37,8 @@ function ViewByPlaylist() {
 
     return (
         <>
+
+
             <div className="container-fluid w-100 playlist-image pb-5 pt-5 mb-5 mt-5">
                 <img src={playlist.playlistImageLink} className="img-fluid rounded-top img-thumbnail" alt="Playlist from Spotify" />
                 <h3 className="mt-4">
@@ -54,8 +56,8 @@ function ViewByPlaylist() {
                 <table className="table table-background table-sm">
                     <thead>
                         <tr>
-                            
-                            <th className="col-1"><div style={{minHeight: 3 + 'em'}}></div></th>
+
+                            <th className="col-1"><div style={{ minHeight: 3 + 'em' }}></div></th>
                             <th></th>
                             <th></th>
                             <th className="text-center col-4" >Title</th>
