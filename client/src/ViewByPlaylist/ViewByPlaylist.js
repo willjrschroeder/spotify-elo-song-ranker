@@ -56,8 +56,10 @@ function ViewByPlaylist() {
                         <tr>
                             
                             <th className="col-1"><div style={{minHeight: 3 + 'em'}}></div></th>
+                            <th></th>
+                            <th></th>
                             <th className="text-center col-4" >Title</th>
-                            <th>Spotify Popularity Score</th>
+                            <th className="">Spotify Popularity Score</th>
                             <th>Artist(s)</th>
                             <th>Elo Score</th>
                         </tr>

@@ -17,20 +17,19 @@ function Track({ track }) {
         <>
             <tr>
                 <td>
-                    <div className='container text-center align-items-center'>
                     <a href={track.spotifyUrl} target="blank"><FontAwesomeIcon icon="fa-brands fa-spotify" size='2x'> </FontAwesomeIcon></a>
-                    </div>
                 </td>
 
-                <td style={{textAlign: 'left'}}>
-                    <div className="d-flex align-items-center">
-                        <div className="container">
-                            <img className="rounded-top track" src={track.albums[0].albumImageLink} />
-                        </div>
-                        <div className='container'>
-                            {track.title}
-                        </div>
-                    </div>
+                <td>
+                    <FontAwesomeIcon icon="fa-circle-play" size='2x'> </FontAwesomeIcon>
+                </td>
+
+                <td>
+                    <img className="rounded-top track" src={track.albums[0].albumImageLink} />
+                </td>
+
+                <td style={{ textAlign: 'left'}}>
+                    {track.title}
                 </td>
 
                 <td>{track.popularityNumber}</td>
