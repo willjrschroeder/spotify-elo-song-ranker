@@ -75,12 +75,12 @@ function ViewByPlaylist() {
                         <img src={currentlyPlayingTrack.albums[0].albumImageLink} id="track-display-image" alt="Song from Spotify" />
                     </div>
                     <p className="track-display-text">
-                        {currentlyPlayingTrack.title.substring(0, 14)
-                            + (currentlyPlayingTrack.title.length > 14 ? '...' : '')}
+                        {currentlyPlayingTrack.title.substring(0, 19)
+                            + (currentlyPlayingTrack.title.length > 19 ? '...' : '')}
                     </p>
                     <p className="track-display-text">
-                        {currentlyPlayingTrack.artists[0].artistName.substring(0, 14)
-                            + (currentlyPlayingTrack.artists[0].artistName.length > 14 ? '...' : '')}
+                        {currentlyPlayingTrack.artists[0].artistName.substring(0, 19)
+                            + (currentlyPlayingTrack.artists[0].artistName.length > 19 ? '...' : '')}
                     </p>
                 </div>
                 : null}
