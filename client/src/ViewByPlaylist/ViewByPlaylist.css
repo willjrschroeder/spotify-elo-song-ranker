@@ -16,3 +16,61 @@ img {
     height: 400px;
     width: 400px;
 }
+
+#current-track-display {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 4rem;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    padding-top: 0.5rem;
+    background-color:burlywood;
+    border-radius: 1rem;
+}
+
+#track-img-container {
+    clear: right;
+    position: relative;
+    height: 11rem;
+    width: 13rem;
+    background-image: url('turntable.webp');
+    background-position: center;
+    background-size: cover;
+}
+
+#track-display-image {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+    position: absolute;
+    top:0;
+    right:0;
+    top:0;
+    bottom:0;
+    display: block;
+    margin: auto;
+    margin-right: 4rem;
+    animation: rotation 15s infinite linear;
+}
+
+.track-display-text {
+    max-width: 10rem;
+    margin: 0rem;
+}
+
+.display-button{
+    all: initial;
+    float: right;
+    font-weight: 900;
+    
+}
+
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }

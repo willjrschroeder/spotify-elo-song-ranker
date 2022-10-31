@@ -50,10 +50,13 @@ function ViewByPlaylist() {
         }
     }
 
+    function stopTrack() {
+        audioPlayer.current.pause();
+        setCurrentlyPlayingTrack(null);
+    }
+
     return (
         <>
-
-
             <div className="container-fluid w-100 playlist-image pb-5 pt-5 mb-5 mt-5">
                 <img src={playlist.playlistImageLink} className="img-fluid rounded-top img-thumbnail" alt="Playlist from Spotify" />
                 <h3 className="mt-4">
@@ -61,8 +64,29 @@ function ViewByPlaylist() {
                 </h3>
             </div>
 
+            {currentlyPlayingTrack ?
+                <div id="current-track-display">
+                    <button className="display-button" onClick={stopTrack}>
+                        <p>
+                            X
+                        </p>
+                    </button>
+                    <div id="track-img-container">
+                        <img src={currentlyPlayingTrack.albums[0].albumImageLink} id="track-display-image" alt="Song from Spotify" />
+                    </div>
+                    <p className="track-display-text">
+                        {currentlyPlayingTrack.title.substring(0, 14)
+                            + (currentlyPlayingTrack.title.length > 14 ? '...' : '')}
+                    </p>
+                    <p className="track-display-text">
+                        {currentlyPlayingTrack.artists[0].artistName.substring(0, 14)
+                            + (currentlyPlayingTrack.artists[0].artistName.length > 14 ? '...' : '')}
+                    </p>
+                </div>
+                : null}
+
             <div className="container">
-                <audio ref={audioPlayer}>
+                <audio ref={audioPlayer} onEnded={stopTrack}>
                     <source src='' />
                 </audio>
             </div>
